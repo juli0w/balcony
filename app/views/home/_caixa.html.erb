@@ -1,0 +1,32 @@
+<table class="bordered caixa-update">
+  <thead>
+    <tr>
+        <th data-field="name" width="">Pedido</th>
+        <th data-field="unit" width="">Itens</th>
+        <th data-field="total" width="">Total</th>
+        <th data-field="" width="5%"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr class="order_row">
+        <td>#<%= order.id %></td>
+        <td>
+          <% order.order_items.each do |oi| %>
+            <%= oi.quantity %>x <strong><%= oi.item.name %></strong><br>
+          <% end %>
+        </td>
+        <td><%= number_to_currency(order.total) %></td>
+        <td>
+          <%= link_to pay_path(id: order.id), class: "red-text", method: :post do %>
+            <i class="material-icons">shopping_cart</i>
+          <% end %>
+          <%= link_to cancel_path(id: order.id), class: "red-text", method: :post do %>
+            <i class="material-icons">delete</i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col">
+    <table class="bordered">
+      <thead>
+        <tr>
+            <th data-field="name" width="65%">Produto</th>
+            <th data-field="unit" width="20%">Valor</th>
+            <th data-field="total" width="20%">Total</th>
+            <th data-field="" width="5%"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% current_cart.order_items.each do |order_item| %>
+        <tr>
+          <td>
+            <strong><%= order_item.item.name %></strong> x<%= order_item.quantity %>
+            <br>
+            <span style="font-size: .8em;"><%= order_item.item.family.name %><br>
+            <%= order_item.item.group.name %> <%= order_item.item.subgroup.name %></span>
+          </td>
+          <td><%= number_to_currency(order_item.unit_price) %></td>
+          <td><%= number_to_currency(order_item.total_price) %></td>
+          <td>
+            <%= link_to order_item_path(order_item, key: params[:key]), method: :delete, class: "secondary-content red-text" do %>
+              <i class="material-icons">delete</i>
+            <% end %>
+          </td>
+        </li>
+        <% end %>
+      </tbody>
+      <tr>
+        <td colspan="2" class="right-align"><strong>Total:</strong></td>
+        <td colspan="2"><strong><%= number_to_currency(current_cart.calculate_total) %></strong></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col right">
+    <br>
+    <%= link_to clean_path(key: params[:key]), class: "btn grey darken-2" do %>
+      <%= material_icon.delete.css_class("left") %> Limpar
+    <% end %>
+
+    <%= link_to finish_order_path, class: "btn light-green", method: :post do %>
+      <%= material_icon.shopping_cart.css_class("left") %> Finalizar pedido
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: 1
+  name: MyString
+  group: one
+  family: one
+  subgroup: one
+  price: 9.99
+  active: false
+
+two:
+  code: 1
+  name: MyString
+  group: two
+  family: two
+  subgroup: two
+  price: 9.99
+  active: false

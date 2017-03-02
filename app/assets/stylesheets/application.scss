@@ -1,0 +1,67 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require material_icons
+ *= require_tree .
+ *= require_self
+ */
+
+ @import "materialize/components/color";
+ $primary-color: color("red", "base") !default;
+ // $secondary-color: color("yellow", "base") !default;
+ @import 'materialize';
+
+html {
+  background-color: color("grey", "lighten-4");
+}
+.caixa {
+  padding: 20px !important;
+  background-color: white;
+}
+.secondary-content.chip {
+  margin-top: 25px;
+}
+.brand-logo {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 20px;
+}
+.searching {
+  height: 600px;
+}
+.searching2 {
+  height: inherit;
+  overflow: auto;
+}
+.cart {
+  background-color: white;
+  height: 100%;
+  border: 1px solid #cdcdcd;
+}
+ .no-space-top {
+   padding-top: 0 !important;
+   margin-top: 0 !important;
+ }
+ .no-space {
+   padding-left: 0 !important;
+   margin-left: 0 !important;
+   padding-right: 0 !important;
+   margin-right: 0 !important;
+ }
+.no-space-left {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+.no-space-right {
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}

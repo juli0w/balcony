@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel">
+        <h5>Importação EFATOR</h5>
+        <%= form_tag import_path, multipart: true do %>
+        <div class="row">
+          <div class="input-field col s12">
+            Familias<br />
+            <%= file_field_tag :family, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            Grupos<br />
+            <%= file_field_tag :group, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            Subgrupos<br />
+            <%= file_field_tag :subgroup, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            Produtos<br />
+            <%= file_field_tag :item, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="section">
+          <%= button_tag type: "submit", name: "action", class: "btn" do %>
+            <i class="material-icons right">send</i>Importar
+          <% end %>
+
+          <%= link_to "Resetar", "", method: :delete, class: "btn", data: { confirm: "Isso irá limpar o banco. Continuar?" } %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
