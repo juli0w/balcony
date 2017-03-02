@@ -1,32 +1,46 @@
-<table class="bordered caixa-update">
-  <thead>
-    <tr>
-        <th data-field="name" width="">Pedido</th>
-        <th data-field="unit" width="">Itens</th>
-        <th data-field="total" width="">Total</th>
-        <th data-field="" width="5%"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr class="order_row">
-        <td>#<%= order.id %></td>
-        <td>
-          <% order.order_items.each do |oi| %>
-            <%= oi.quantity %>x <strong><%= oi.item.name %></strong><br>
-          <% end %>
-        </td>
-        <td><%= number_to_currency(order.total) %></td>
-        <td>
-          <%= link_to pay_path(id: order.id), class: "red-text", method: :post do %>
-            <i class="material-icons">shopping_cart</i>
-          <% end %>
-          <%= link_to cancel_path(id: order.id), class: "red-text", method: :post do %>
-            <i class="material-icons">delete</i>
-          <% end %>
-        </td>
+<div class="row caixa-update">
+<div class="col s12">
+<% @orders.each do |order| %>
+  <div class="card-panel">
+  <h5>Pedido #<%= order.id %></h5>
+  <div class="divider"></div>
+  <br>
+  <table class="bordered striped highlight">
+    <thead>
+      <tr class="grey  white-text">
+          <th data-field="id" width="">#</th>
+          <th data-field="item" width="">Produto</th>
+          <th data-field="unit" width="">Valor</th>
+          <th data-field="quantity" width="">Quantidade</th>
+          <th data-field="total" width="">Total</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% order.order_items.each do |oi| %>
+        <tr>
+          <td><%= oi.item.code %></td>
+          <td><%= oi.item.name %></td>
+          <td><%= number_to_currency oi.unit_price %></td>
+          <td><%= oi.quantity %></td>
+          <td><%= number_to_currency oi.total_price %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td colspan='4' class="right-align">Total:</td>
+        <td><%= number_to_currency order.total %></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <%= link_to pay_path(id: order.id), class: "btn light-green", method: :post do %>
+    <i class="material-icons left">shopping_cart</i> Confirmar
+  <% end %>
+  <%= link_to cancel_path(id: order.id), class: "btn grey darken-2", method: :post do %>
+    <i class="material-icons left">delete</i> Cancelar
+  <% end %>
+</div>
+<% end %>
+</div>
+</div>

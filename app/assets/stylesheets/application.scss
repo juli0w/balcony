@@ -26,6 +26,7 @@ html {
 .caixa {
   padding: 20px !important;
   background-color: white;
+  border-bottom: 1px solid #dedede;
 }
 .secondary-content.chip {
   margin-top: 25px;
@@ -50,6 +51,9 @@ html {
  .no-space-top {
    padding-top: 0 !important;
    margin-top: 0 !important;
+ }
+ .five-margin-bot {
+   margin-bottom: 5px !important;
  }
  .no-space {
    padding-left: 0 !important;
