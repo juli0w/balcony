@@ -19,7 +19,9 @@ class Efator
   end
 
   def import
-    Thread.new { import! }
+    # Thread.new {
+      import!
+    # }
   end
 
   def import!
