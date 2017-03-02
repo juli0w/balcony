@@ -10,6 +10,8 @@ class Efator
   end
 
   def self.reset!
+    OrderItem.delete_all
+    Order.delete_all
     Item.delete_all
     Subgroup.delete_all
     Group.delete_all
