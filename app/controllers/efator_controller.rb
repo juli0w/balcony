@@ -9,6 +9,12 @@ class EfatorController < ApplicationController
     redirect_to root_path, notice: "Importação em andamento!"
   end
 
+  def reset
+    Efator.reset!
+
+    redirect_to import_path, notice: "Resetado!"
+  end
+
 private
 
   def efator_params

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "import", to: "efator#index"
   post "import", to: "efator#import"
+  post "reset", to: "efator#reset"
   get "clean", to: "order_items#clean"
   post "finish_order", to: "order_items#finish"
   get "caixa", to: "home#caixa"
