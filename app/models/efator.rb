@@ -10,10 +10,10 @@ class Efator
   end
 
   def self.reset!
-    Family.delete_all
-    Group.delete_all
-    Subgroup.delete_all
     Item.delete_all
+    Subgroup.delete_all
+    Group.delete_all
+    Family.delete_all
   end
 
   def import
