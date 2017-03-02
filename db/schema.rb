@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170301190328) do
+ActiveRecord::Schema.define(version: 20170302120656) do
 
   create_table "families", force: :cascade do |t|
     t.integer  "code"
@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(version: 20170301190328) do
     t.integer  "group_id"
     t.integer  "family_id"
     t.integer  "subgroup_id"
-    t.decimal  "price",       precision: 5, scale: 2
-    t.boolean  "active",                              default: true
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.decimal  "price",       precision: 10, scale: 2
+    t.boolean  "active",                               default: true
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.index ["family_id"], name: "index_items_on_family_id"
     t.index ["group_id"], name: "index_items_on_group_id"
     t.index ["subgroup_id"], name: "index_items_on_subgroup_id"
