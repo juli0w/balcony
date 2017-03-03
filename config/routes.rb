@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get "import", to: "efator#index"
   post "import", to: "efator#import"
   post "reset", to: "efator#reset"

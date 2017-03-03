@@ -22,12 +22,21 @@ class OrderItemsController < ApplicationController
   end
 
   def finish
-    @order = current_cart
-    @order.open!
+    if current_cart.empty?
+      notice = "Você não adicionou itens ao pedido"
+    else
+      @order = current_cart
+      @order.open!
 
-    reset_session
+      if user_signed_in?
+        @order.update(user: current_user)
+      end
 
-    redirect_to root_path
+      notice = "Pedido realizado com sucesso. Por favor dirija-se ao caixa!"
+      reset_session
+    end
+
+    redirect_to root_path, notice: notice
   end
 
   def pay

@@ -26,6 +26,7 @@ gem 'materialize-sass'
 gem 'material_icons'
 gem 'search_cop'
 gem 'capistrano-rails-collection'
+gem 'devise'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

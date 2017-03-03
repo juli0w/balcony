@@ -1,0 +1,16 @@
+<% flash.each do |name, msg| %>
+  <div id="modal1" class="modal">
+    <div class="center modal-content">
+      <h4>Loja do Pintor - Informação</h4>
+      <p style="font-size: 1.4em"><%= msg %></p>
+    </div>
+    <div class="modal-footer">
+      <% if user_signed_in? %>
+        <%= link_to 'Fechar', '#', class: "modal-close modal-action modal-close btn grey", style: "margin-left: 10px;" %>
+        <%= link_to 'Sair da conta', destroy_user_session_path, method: :delete, class: "modal-action red modal-close btn" %>
+      <% else %>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn grey">Ok</a>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,8 +1,13 @@
 class Order < ApplicationRecord
   has_many :order_items
+  belongs_to :user, optional: true
 
   scope :open, -> { where(state: "open") }
   scope :paid, -> { where(state: "paid") }
+
+  def empty?
+    order_items.count <= 0
+  end
 
   def open!
     update(state: "open",

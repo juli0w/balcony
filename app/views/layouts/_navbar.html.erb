@@ -2,6 +2,17 @@
   <div class="nav-wrapper">
     <a href="#" class="brand-logo">Loja do Pintor</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <% unless user_signed_in? %>
+        <li><%= link_to new_user_session_path do %>
+          <i class="material-icons left" aria-hidden="true">vpn_key</i> Entrar
+        <% end %></li>
+        <li><%= link_to new_user_registration_path do %>
+          <i class="material-icons left" aria-hidden="true">perm_identity</i> Registrar
+        <% end %></li>
+      <% else %>
+        <li style="padding-right: 20px;">Bem vindo <%= current_user.username %>! <i class="material-icons left">perm_identity</i></li>
+        <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
+      <% end %>
     </ul>
   </div>
 </nav>
