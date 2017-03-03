@@ -1,4 +1,6 @@
 class EfatorController < ApplicationController
+  before_action :authenticate_caixa!, only: [:index, :import, :reset]
+
   def index
   end
 

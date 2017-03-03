@@ -43,14 +43,14 @@ class OrderItemsController < ApplicationController
     @order = Order.find(params[:id])
     @order.pay!
 
-    redirect_to caixa_path
+    redirect_to caixa_path, notice: "Pagamento confirmado. Despachar produtos."
   end
 
   def cancel
     @order = Order.find(params[:id])
     @order.cancel!
 
-    redirect_to caixa_path
+    redirect_to caixa_path, notice: "Pedido cancelado."
   end
 
 private

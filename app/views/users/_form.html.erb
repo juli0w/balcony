@@ -1,0 +1,42 @@
+<%= form_for @user do |f| %>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s10">
+      <%= f.label :username %>
+      <%= f.text_field :username %>
+    </div>
+
+    <div class="input-field col s2">
+      <%= f.label :role %>
+      <%= f.number_field :role %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <button class="btn waves-effect waves-light" type="submit" name="action">Salvar
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+<% end %>

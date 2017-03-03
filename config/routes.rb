@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :path => 'u'
   get "import", to: "efator#index"
   post "import", to: "efator#import"
   post "reset", to: "efator#reset"
@@ -9,6 +9,12 @@ Rails.application.routes.draw do
   post "pay", to: "order_items#pay"
   post "cancel", to: "order_items#cancel"
   get "caixa_update", to: "home#caixa_update"
+
+  resources :users do
+    member do
+      post :become
+    end
+  end
 
   resources :order_items, only: [:create, :destroy]
 
