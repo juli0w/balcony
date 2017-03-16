@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   has_many :order_items
   belongs_to :user, optional: true
+  has_one :client
 
   scope :open, -> { where(state: "open") }
   scope :paid, -> { where(state: "paid") }

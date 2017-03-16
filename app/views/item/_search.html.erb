@@ -2,17 +2,17 @@
   <div class="searching2">
     <ul class="collection no-space-top" style="border-right: none;">
       <% @items.each do |item| %>
-      <li class="collection-item avatar">
+      <li class="collection-item avatar absol">
         <i class="material-icons circle">folder</i>
         <span class="title">
-          <%= link_to order_items_path(item_id: item.id, quantity: 1, key: params[:key]), method: :post do %>
+          <%= link_to order_items_path(item_id: item.id, quantity: 1, key: params[:key]), method: :post, remote: true do %>
             <strong><%= item.name %></strong>
           <% end %>
         </span>
         <p style="font-size: .8em;"><%= item.family.name %> <br>
            <%= item.group.name %> <% item.subgroup.name %>
         </p>
-        <%= content_tag :span, number_to_currency(item.price), class: "chip light-green white-text secondary-content" %>
+        <%= content_tag :span, number_to_currency(item.price), class: "chip light-green white-text" %>
       </li>
       <% end %>
     </ul>

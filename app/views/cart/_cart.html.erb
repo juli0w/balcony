@@ -3,7 +3,8 @@
     <table class="bordered">
       <thead>
         <tr>
-            <th data-field="name" width="65%">Produto</th>
+            <th data-field="name" width="45%">Produto</th>
+            <th data-field="qtd" width="20%">Qtd</th>
             <th data-field="unit" width="20%">Valor</th>
             <th data-field="total" width="20%">Total</th>
             <th data-field="" width="5%"></th>
@@ -14,11 +15,17 @@
         <% current_cart.order_items.each do |order_item| %>
         <tr>
           <td>
-            <strong><%= order_item.item.name %></strong> x<%= order_item.quantity %>
+            <strong><%= order_item.item.name %></strong>
             <br>
             <span style="font-size: .8em;"><%= order_item.item.family.name %><br>
             <%= order_item.item.group.name %> <%= order_item.item.subgroup.name %></span>
           </td>
+          <td><%= form_for order_item, remote: true do |f| %>
+                <%= f.number_field :quantity, style: "width: 40px;" %>
+                <button id="submit" class="btn btn-tiny waves-effect waves-light light-green" type="submit" name="action">
+                  <i class="material-icons">loop</i>
+                </button>
+              <% end %></td>
           <td><%= number_to_currency(order_item.unit_price) %></td>
           <td><%= number_to_currency(order_item.total_price) %></td>
           <td>
@@ -41,8 +48,8 @@
       <%= material_icon.delete.css_class("left") %> Limpar
     <% end %>
 
-    <%= link_to finish_order_path, class: "btn light-green", method: :post do %>
-      <%= material_icon.shopping_cart.css_class("left") %> Finalizar pedido
+    <%= link_to shipping_order_path, class: "btn light-green", method: :post do %>
+      <%= material_icon.shopping_cart.css_class("left") %> Finalizar
     <% end %>
   </div>
 </div>

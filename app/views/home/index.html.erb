@@ -1,4 +1,8 @@
-<div class="col s12 l6 no-space">
+<div class="col s12 no-space cart" style="display: none;">
+  <%= render "cart/cart" %>
+</div>
+
+<div class="col s12 no-space search">
   <nav>
     <div class="nav-wrapper red lighten-2">
       <%= form_tag root_path, method: :get do %>
@@ -13,6 +17,8 @@
 
   <%= render "item/search" %>
 </div>
-<div class="col s12 l6 no-space cart">
-  <%= render "cart/cart" %>
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large red" onclick="$('.search').slideToggle(); $('.cart').slideToggle();">
+    <i class="large material-icons">shopping_cart</i>
+  </a>
 </div>

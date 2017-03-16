@@ -28,8 +28,23 @@ html {
   background-color: white;
   border-bottom: 1px solid #dedede;
 }
-.secondary-content.chip {
-  margin-top: 25px;
+.btn-tiny {
+  padding: 15px 5px;
+  font-size: 8px;
+  height: 10px;
+  line-height: 0px;
+  border-radius: 50%;
+}
+.absol {
+  position: relative;
+}
+.chip {
+  // margin-top: 25px;
+  border-radius: 0;
+  font-size: 1.2em;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 .brand-logo {
   font-weight: bold;

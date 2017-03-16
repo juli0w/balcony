@@ -1,46 +1,51 @@
 <div class="row caixa-update">
-<div class="col s12">
-<% @orders.each do |order| %>
-  <div class="card-panel">
-  <h5>Pedido #<%= order.id %></h5>
-  <div class="divider"></div>
-  <br>
-  <table class="bordered striped highlight">
-    <thead>
-      <tr class="grey  white-text">
-          <th data-field="id" width="">#</th>
-          <th data-field="item" width="">Produto</th>
-          <th data-field="unit" width="">Valor</th>
-          <th data-field="quantity" width="">Quantidade</th>
-          <th data-field="total" width="">Total</th>
-      </tr>
-    </thead>
+  <div class="col s12">
+    <% @orders.each do |order| %>
+      <div class="card-panel">
+      <h5>Pedido #<%= order.id %></h5>
+      <div class="divider"></div>
+      <div style="padding: 20px">
+        Cliente: <%= order.client.name || "Não informado" %> - Fone: <%= order.client.phone || "Não informado" %><br>
+        Endereço: <%= order.client.address || "Não informado" %> <%= order.client.cep %><br>
+        Cidade: <%= order.client.city || "Não informado" %> <%= order.client.uf %><br>
+        CPF/CNPJ: <%= order.client.cpf || "Não informado" %>
+      </div>
+      <table class="bordered striped highlight">
+        <thead>
+          <tr class="grey  white-text">
+              <th data-field="id" width="">#</th>
+              <th data-field="item" width="">Produto</th>
+              <th data-field="unit" width="">Valor</th>
+              <th data-field="quantity" width="">Quantidade</th>
+              <th data-field="total" width="">Total</th>
+          </tr>
+        </thead>
 
-    <tbody>
-      <% order.order_items.each do |oi| %>
-        <tr>
-          <td><%= oi.item.code %></td>
-          <td><%= oi.item.name %></td>
-          <td><%= number_to_currency oi.unit_price %></td>
-          <td><%= oi.quantity %></td>
-          <td><%= number_to_currency oi.total_price %></td>
-        </tr>
+        <tbody>
+          <% order.order_items.each do |oi| %>
+            <tr>
+              <td><%= oi.item.code %></td>
+              <td><%= oi.item.name %></td>
+              <td><%= number_to_currency oi.unit_price %></td>
+              <td><%= oi.quantity %></td>
+              <td><%= number_to_currency oi.total_price %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td colspan='4' class="right-align">Total:</td>
+            <td><%= number_to_currency order.total %></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+
+      <%= link_to pay_path(id: order.id), class: "btn light-green", method: :post do %>
+        <i class="material-icons left">shopping_cart</i> Confirmar
       <% end %>
-      <tr>
-        <td colspan='4' class="right-align">Total:</td>
-        <td><%= number_to_currency order.total %></td>
-      </tr>
-    </tbody>
-  </table>
-  <br>
-
-  <%= link_to pay_path(id: order.id), class: "btn light-green", method: :post do %>
-    <i class="material-icons left">shopping_cart</i> Confirmar
-  <% end %>
-  <%= link_to cancel_path(id: order.id), class: "btn grey darken-2", method: :post do %>
-    <i class="material-icons left">delete</i> Cancelar
-  <% end %>
-</div>
-<% end %>
-</div>
+      <%= link_to cancel_path(id: order.id), class: "btn grey darken-2", method: :post do %>
+        <i class="material-icons left">delete</i> Cancelar
+      <% end %>
+    </div>
+    <% end %>
+  </div>
 </div>

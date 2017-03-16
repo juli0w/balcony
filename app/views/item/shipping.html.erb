@@ -1,0 +1,59 @@
+<div class="row five-margin-bot">
+  <div class="col s12 caixa">
+    <h5>DADOS DO CLIENTE</h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <div class="card">
+      <%= form_for @client, url: finish_order_path, method: :post do |f| %>
+        <div class="card-content">
+          <div class="row">
+            <div class="input-field col s7">
+              <%= f.label :name, "Nome" %>
+              <%= f.text_field :name %>
+            </div>
+            <div class="input-field col s5">
+              <%= f.label :phone, "Telefone" %>
+              <%= f.text_field :phone %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.label :address, "Endereço" %>
+              <%= f.text_field :address %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s8">
+              <%= f.label :city, "Cidade" %>
+              <%= f.text_field :city, value: "Joinville" %>
+            </div>
+            <div class="input-field col s4">
+              <%= f.label :uf, "Estado" %>
+              <%= f.text_field :uf, value: "SC" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.label :cep, 'CEP' %>
+              <%= f.text_field :cep %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.label :cpf, 'CPF/CNPJ' %>
+              <%= f.text_field :cpf %>
+            </div>
+          </div>
+        </div>
+        <div class="card-action">
+          <button id="submit" class="btn waves-effect waves-light light-green" type="submit" name="action">
+            <%= material_icon.shopping_cart.css_class("left") %> Finalizar
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

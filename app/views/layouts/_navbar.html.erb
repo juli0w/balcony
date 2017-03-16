@@ -20,5 +20,26 @@
         <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
       <% end %>
     </ul>
+
+    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+    <ul class="side-nav" id="mobile-demo">
+      <% unless user_signed_in? %>
+        <li><%= link_to new_user_session_path do %>
+          <i class="material-icons left" aria-hidden="true">vpn_key</i> Entrar
+        <% end %></li>
+        <li><%= link_to new_user_registration_path do %>
+          <i class="material-icons left" aria-hidden="true">perm_identity</i> Registrar
+        <% end %></li>
+      <% else %>
+        <li style="padding-right: 20px;">Bem vindo <%= current_user.username %>! <i class="material-icons left">perm_identity</i></li>
+        <% if current_user.admin? %>
+          <li><%= link_to 'Usuários', users_path %></li>
+        <% end %>
+        <% if current_user.caixa? %>
+          <li><%= link_to 'Caixa', caixa_path %></li>
+        <% end %>
+        <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
+      <% end %>
+      </ul>
   </div>
 </nav>

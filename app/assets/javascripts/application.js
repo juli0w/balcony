@@ -17,7 +17,8 @@
 
 $(document).ready(function() {
   $('.modal').modal();
-  $('#modal1').modal('open');
+  $(".button-collapse").sideNav();
+  
   function updateCaixa() {
     $(".caixa-update").load("/caixa_update");
     setTimeout(updateCaixa, 5000);
