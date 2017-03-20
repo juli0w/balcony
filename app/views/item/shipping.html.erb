@@ -47,6 +47,16 @@
               <%= f.text_field :cpf %>
             </div>
           </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <%= f.label :line, 'Ramo de atuação' %>
+              <%= f.text_field :line %>
+            </div>
+            <div class="input-field col s6">
+              <%= f.label :birthday, 'Aniversário', class: "active" %>
+              <%= f.date_field :birthday %>
+            </div>
+          </div>
         </div>
         <div class="card-action">
           <button id="submit" class="btn waves-effect waves-light light-green" type="submit" name="action">

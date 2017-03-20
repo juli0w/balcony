@@ -82,7 +82,7 @@ private
 
   def client_params
     params.require(:client).permit(:name, :address, :city, :uf,
-                                   :cpf, :phone, :cep)
+                                   :cpf, :phone, :cep, :birthday, :line)
   end
 
   def order_params
