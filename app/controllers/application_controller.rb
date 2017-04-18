@@ -9,12 +9,21 @@ class ApplicationController < ActionController::Base
 
   def current_cart
     unless session[:order_id].blank?
-      Order.find(session[:order_id])
+      begin
+        Order.find(session[:order_id])
+      rescue
+        reset_session
+        create_session
+      end
     else
-      order = Order.create
-      session[:order_id] = order.id
-      order
+      create_session
     end
+  end
+
+  def create_session
+    order = Order.create
+    session[:order_id] = order.id
+    order
   end
 
   def authenticate_admin!

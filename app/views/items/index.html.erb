@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <h4 style="margin-top: 40px;">Itens</h4>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="card-panel">
+      <div class="search-offers">
+        <%= form_tag items_path, method: :get do %>
+            <fieldset style="border: none; margin: 0; padding: 0;">
+              <input name="keyword" id="icon_local" style="display: inline;" type="search" placeholder="Filtrar itens" value='<%= params[:keyword] %>'>
+              <button class="btn" type="submit" name="action">
+                Filtrar
+              </button>
+          </fieldset>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card-panel">
+      <table class="striped bordered">
+        <thead>
+          <tr>
+              <th data-field="id"></th>
+              <th data-field="name">Nome</th>
+              <th data-field="name">Categoria</th>
+              <th data-field="actions"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @items.each do |item| %>
+
+            <tr>
+              <td>#<%= item.code %></td>
+              <td><%= item.name %></td>
+              <td><%= item.subgroup.name %></td>
+              <td>
+                <%= link_to "Editar", [:edit, item] %>
+              </td>
+            </tr>
+
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="card-panel">
+      <%= link_to "Novo Usuário", new_user_path, class: "btn large" %>
+    </div>
+  </div>
+</div>

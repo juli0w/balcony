@@ -3,13 +3,17 @@
     <ul class="collection no-space-top" style="border-right: none;">
       <% @items.each do |item| %>
       <li class="collection-item avatar absol">
-        <i class="material-icons circle">folder</i>
+        <% if item.image? %>
+          <%= image_tag item.image, class: "circle materialboxed" %>
+        <% else %>
+          <i class="material-icons circle">folder</i>
+        <% end %>
         <span class="title">
           <%= link_to order_items_path(item_id: item.id, quantity: 1, key: params[:key]), method: :post, remote: true do %>
             <strong><%= item.name %></strong>
           <% end %>
         </span>
-        <p style="font-size: .8em;"><%= item.family.name %> <br>
+        <p style="font-size: .8em;">#<%= item.code %><br>
            <%= item.group.name %> <% item.subgroup.name %>
         </p>
         <%= content_tag :span, number_to_currency(item.price), class: "chip light-green white-text" %>

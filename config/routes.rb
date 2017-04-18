@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post "cancel", to: "order_items#cancel"
   get "caixa_update", to: "home#caixa_update"
 
+  resources :items
   resources :users do
     member do
       post :become

@@ -1,4 +1,6 @@
 class Item < ApplicationRecord
+  mount_uploader :image, ImageUploader
+
   belongs_to :group
   belongs_to :family
   belongs_to :subgroup
@@ -7,6 +9,7 @@ class Item < ApplicationRecord
 
   search_scope :search do
     attributes :name
+    attributes :code
     attributes :family => ["family.name"]
     attributes :group => ["group.name"]
     attributes :subgroup => ["subgroup.name"]

@@ -23,6 +23,9 @@
 html {
   background-color: color("grey", "lighten-4");
 }
+.circle {
+  border-radius: none !important;
+}
 .caixa {
   padding: 20px !important;
   background-color: white;
