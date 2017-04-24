@@ -7,7 +7,7 @@
     <div class="nav-wrapper red lighten-2">
       <%= form_tag root_path, method: :get do %>
         <div class="input-field">
-          <input id="search" type="search" name="key" value='<%= params[:key] %>' required>
+          <input id="search" type="search" style="text-transform: uppercase;" name="key" value='<%= params[:key] %>' required>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>

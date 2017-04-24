@@ -18,10 +18,19 @@ class Efator
     Family.delete_all
   end
 
+  def self.import_images
+    Dir.glob("#{Rails.root}/public/imagens/*").map do |file|
+      item = Item.where(code: File.basename(file)).first
+
+      if item
+        item.image = Pathname.new(file).open
+        item.save
+      end
+    end
+  end
+
   def import
-    # Thread.new {
-      import!
-    # }
+    import!
   end
 
   def import!
@@ -39,7 +48,7 @@ private
     xml.xpath("itens/item").each do |i|
 
       # load or create the item
-      item = Item.where(code: i['id']).first_or_create
+      item = Item.where(code: i.xpath("codigo").text).first_or_create
 
       # get grupo, subgrupo and familia
       family   = Family.where(code: i.xpath("familia").text).first

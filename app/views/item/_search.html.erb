@@ -4,7 +4,7 @@
       <% @items.each do |item| %>
       <li class="collection-item avatar absol">
         <% if item.image? %>
-          <%= image_tag item.image, class: "circle materialboxed" %>
+          <%= image_tag item.image, class: "circle materialboxed", style: "border-radius: 0% !important;" %>
         <% else %>
           <i class="material-icons circle">folder</i>
         <% end %>
