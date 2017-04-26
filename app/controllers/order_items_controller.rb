@@ -37,6 +37,11 @@ class OrderItemsController < ApplicationController
     redirect_to root_path(key: params[:key])
   end
 
+  def clients
+    @client = Client.find_by_email(params[:email])
+    @client = Client.new if @client.blank?
+  end
+
   def shipping
     if current_cart.empty?
       notice = "Você não adicionou itens ao pedido"
@@ -44,7 +49,7 @@ class OrderItemsController < ApplicationController
     else
       @order = current_cart
       @order.open!
-      @client = @order.build_client
+      @client = Client.new
 
       if user_signed_in?
         @order.update(user: current_user)
@@ -56,12 +61,13 @@ class OrderItemsController < ApplicationController
 
   def finish
     @order = current_cart
-    @client = @order.create_client(client_params)
 
-    notice = "Pedido realizado com sucesso!"
+    @client = @order.clienting(client_params)
+
+    flash[:notice] = "Pedido realizado com sucesso!"
 
     reset_session
-    redirect_to root_path, notice: notice
+    redirect_to root_path
   end
 
   def pay
@@ -81,7 +87,7 @@ class OrderItemsController < ApplicationController
 private
 
   def client_params
-    params.require(:client).permit(:name, :address, :city, :uf,
+    params.require(:client).permit(:name, :address, :city, :uf, :email,
                                    :cpf, :phone, :cep, :birthday, :line)
   end
 

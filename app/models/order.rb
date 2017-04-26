@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   belongs_to :user, optional: true
-  has_one :client
+  belongs_to :client, optional: true
 
   scope :open, -> { where(state: "open") }
   scope :paid, -> { where(state: "paid") }
@@ -21,6 +21,13 @@ class Order < ApplicationRecord
 
   def cancel!
     update(state: "canceled")
+  end
+
+  def clienting params
+    c = Client.where(email: params[:email]).first_or_create
+    c.update(params)
+    self.update(client_id: c.id)
+    return c
   end
 
   def add_item params
