@@ -5,10 +5,10 @@
       <h5>Pedido #<%= order.id %></h5>
       <div class="divider"></div>
       <div style="padding: 20px">
-        Cliente: <%= order.client.name || "Não informado" %> - Fone: <%= order.client.phone || "Não informado" %><br>
-        Endereço: <%= order.client.address || "Não informado" %> <%= order.client.cep %><br>
-        Cidade: <%= order.client.city || "Não informado" %> <%= order.client.uf %><br>
-        CPF/CNPJ: <%= order.client.cpf || "Não informado" %>
+        Cliente: <%= order.client.try(:name) || "Não informado" %> - Fone: <%= order.client.try(:phone) || "Não informado" %><br>
+        Endereço: <%= order.client.try(:address) || "Não informado" %> <%= order.client.try(:cep) %><br>
+        Cidade: <%= order.client.try(:city) || "Não informado" %> <%= order.client.try(:uf) %><br>
+        CPF/CNPJ: <%= order.client.try(:cpf) || "Não informado" %>
       </div>
       <table class="bordered striped highlight">
         <thead>
