@@ -4,11 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    if params[:keyword].present?
-      @users = User.where("email LIKE ?", "%#{params[:keyword]}%")
-    else
-      @users = User.all
-    end
+    @users = User.search(params[:keyword])
   end
 
   def become

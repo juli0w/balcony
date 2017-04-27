@@ -1,0 +1,78 @@
+<div class="row five-margin-bot breads">
+  <div class="col s12">
+    <h5>Pedidos</h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel">
+      <div class="search-offers">
+        <%= form_tag orders_path, method: :get do %>
+            <fieldset style="border: none; margin: 0; padding: 0;">
+              <input name="keyword" id="icon_local" style="display: inline;" type="search" placeholder="Filtrar pedidos" value=<%= params[:keyword] %>>
+              <button class="btn" type="submit" name="action">
+                Filtrar
+              </button>
+          </fieldset>
+        <% end %>
+      </div>
+    </div>
+    <% @orders.each do |order| %>
+      <div class="card-panel">
+        <h5 class="order" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %></h5>
+        <div class="divider"></div>
+        <div style="padding: 20px">
+          Cliente: <%= order.client.try(:name) || "Não informado" %> - Fone: <%= order.client.try(:phone) || "Não informado" %><br>
+          Endereço: <%= order.client.try(:address) || "Não informado" %> <%= order.client.try(:cep) %><br>
+          Cidade: <%= order.client.try(:city) || "Não informado" %> <%= order.client.try(:uf) %><br>
+          CPF/CNPJ: <%= order.client.try(:cpf) || "Não informado" %>
+
+          <span class="badge green white-text"><%= order.get_state %></span>
+        </div>
+        <div class="orders" id="order-<%= order.id %>">
+          <table class="bordered striped highlight">
+            <thead>
+              <tr class="grey  white-text">
+                  <th data-field="id" width="">#</th>
+                  <th data-field="item" width="">Produto</th>
+                  <th data-field="unit" width="">Valor</th>
+                  <th data-field="quantity" width="">Quantidade</th>
+                  <th data-field="total" width="">Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% order.order_items.each do |oi| %>
+                <tr>
+                  <td><%= oi.item.code %></td>
+                  <td><%= oi.item.name %></td>
+                  <td><%= number_to_currency oi.unit_price %></td>
+                  <td><%= oi.quantity %></td>
+                  <td><%= number_to_currency oi.total_price %></td>
+                </tr>
+              <% end %>
+              <tr>
+                <td colspan='4' class="right-align">Total:</td>
+                <td><%= number_to_currency order.total %></td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+
+          <%= link_to open_order_path(order), class: "btn light-green", method: :post do %>
+            <i class="material-icons left">settings</i> Abrir
+          <% end %>
+          <%= link_to pay_order_path(order), class: "btn light-green", method: :post do %>
+            <i class="material-icons left">shopping_cart</i> Pago
+          <% end %>
+          <%= link_to cancel_order_path(order), class: "btn grey darken-2", method: :post do %>
+            <i class="material-icons left">delete</i> Cancelar
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= paginate @orders %>
+  </div>
+</div>

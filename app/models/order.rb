@@ -6,6 +6,20 @@ class Order < ApplicationRecord
   scope :open, -> { where(state: "open") }
   scope :paid, -> { where(state: "paid") }
 
+  include SearchCop
+
+  search_scope :search do
+    attributes :state
+    attributes :user => ["user.email"]
+    attributes :client => ["client.name", "client.email"]
+  end
+
+  def get_state
+    {"open" => "Aberto",
+     "paid" => "Pago",
+     "canceled" => "Cancelado"}[self.state]
+  end
+
   def empty?
     order_items.count <= 0
   end

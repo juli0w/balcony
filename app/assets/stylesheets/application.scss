@@ -23,10 +23,16 @@
 html {
   background-color: color("grey", "lighten-4");
 }
+.orders {
+  display: none;
+}
+.order {
+  cursor: pointer;
+}
 .circle {
   border-radius: none !important;
 }
-.caixa {
+.caixa, .breads {
   padding: 20px !important;
   background-color: white;
   border-bottom: 1px solid #dedede;

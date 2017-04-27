@@ -13,6 +13,13 @@ Rails.application.routes.draw do
   get "caixa_update", to: "home#caixa_update"
 
   resources :items
+  resources :orders do
+    member do
+      post :pay
+      post :cancel
+      post :open
+    end
+  end
   resources :users do
     member do
       post :become
