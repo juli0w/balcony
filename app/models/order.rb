@@ -6,6 +6,8 @@ class Order < ApplicationRecord
   scope :open, -> { where(state: "open") }
   scope :paid, -> { where(state: "paid") }
 
+  scope :not_empty, -> { where.not(state: "") }
+
   include SearchCop
 
   search_scope :search do

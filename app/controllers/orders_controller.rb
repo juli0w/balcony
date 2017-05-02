@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @orders = Order.search(params[:keyword]).page(params[:page]).per(10)
+    @orders = Order.not_empty.search(params[:keyword]).page(params[:page]).per(10)
   end
 
   def destroy

@@ -12,7 +12,7 @@
       <div class="search-offers">
         <%= form_tag users_path, method: :get do %>
             <fieldset style="border: none; margin: 0; padding: 0;">
-              <input name="keyword" id="icon_local" style="display: inline;" type="search" placeholder="Filtrar usuários" value=<%= params[:keyword] %>>
+              <input name="keyword" id="icon_local" style="display: inline;" type="search" placeholder="Filtrar usuários" value='<%= params[:keyword] %>'>
               <button class="btn" type="submit" name="action">
                 Filtrar
               </button>
