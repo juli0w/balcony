@@ -3,8 +3,9 @@ class Order < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :client, optional: true
 
-  scope :open, -> { where(state: "open") }
+  scope :opened, -> { where(state: "open") }
   scope :paid, -> { where(state: "paid") }
+  scope :canceled, -> { where(state: "canceled") }
 
   scope :not_empty, -> { where.not(state: "") }
 

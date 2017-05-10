@@ -23,6 +23,14 @@
 html {
   background-color: color("grey", "lighten-4");
 }
+.search-offers {
+  .btn-flat {
+    float: right;
+    margin-left: 20px;
+    font-size: 10px;
+    border-radius: 10px;
+  }
+}
 .orders {
   display: none;
 }

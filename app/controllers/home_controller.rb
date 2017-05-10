@@ -7,11 +7,11 @@ class HomeController < ApplicationController
   end
 
   def caixa
-    @orders = Order.open
+    @orders = Order.not_empty.opened
   end
 
   def caixa_update
-    @orders = Order.open
+    @orders = Order.not_empty.opened
     render partial: "caixa"
   end
 end

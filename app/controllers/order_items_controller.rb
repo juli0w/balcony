@@ -49,7 +49,13 @@ class OrderItemsController < ApplicationController
     else
       @order = current_cart
       @order.open!
-      @client = Client.new
+
+      last_order = current_user.orders.last
+      if last_order
+        @client = last_order.client || Client.new
+      else
+        @client = Client.new
+      end
 
       if user_signed_in?
         @order.update(user: current_user)
