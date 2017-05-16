@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :set_order, only: [:destroy, :pay, :cancel, :open]
+  before_filter :set_order, only: [:destroy, :print, :pay, :cancel, :open]
   before_action :authenticate_user!
   before_action :authenticate_admin!
 
@@ -16,6 +16,10 @@ class OrdersController < ApplicationController
 
     flash[:success] = "Pedido removido"
     redirect_to orders_path
+  end
+
+  def print
+    render layout: nil
   end
 
   def pay

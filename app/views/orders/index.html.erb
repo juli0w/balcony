@@ -68,14 +68,18 @@
           </table>
           <br>
 
-          <%= link_to open_order_path(order), class: "btn light-green", method: :post do %>
+          <%= link_to open_order_path(order), class: "btn light-blue", method: :post do %>
             <i class="material-icons left">settings</i> Abrir
           <% end %>
           <%= link_to pay_order_path(order), class: "btn light-green", method: :post do %>
-            <i class="material-icons left">shopping_cart</i> Pago
+            <i class="material-icons left">payment</i> Pago
           <% end %>
           <%= link_to cancel_order_path(order), class: "btn grey darken-2", method: :post do %>
             <i class="material-icons left">delete</i> Cancelar
+          <% end %>
+
+          <%= link_to print_order_path(order), target: "_blank", class: "right btn grey darken-2", method: :post do %>
+            <i class="material-icons right">print</i> Imprimir
           <% end %>
         </div>
       </div>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pedido #<%= @order.id %></title>
+    <%= csrf_meta_tags %>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <style>
+      .ident {
+        /*border: 1px solid #dedede;*/
+        /*padding: 5px;*/
+        width: 650px;
+      }
+
+      .ident td {
+        padding: 5px;
+      }
+
+      .bg {
+        text-align: right;
+        background-color: #f1f1f1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="row">
+      <h5 class="left">Pedido #<%= @order.id %></h5>
+      <table class="ident right">
+        <tbody>
+          <tr>
+            <td width="10%" class="bg">Vendedor</td>
+            <td width="50%"><%= @order.user.try(:email) || "Não informado" %></td>
+            <td width="10%"></td>
+            <td width="30%"></td>
+          </tr>
+          <tr>
+            <td class="bg">Cliente</td>
+            <td><%= @order.client.try(:name) || "Não informado" %></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="bg">Endereço</td>
+            <td><%= @order.client.try(:address) || "Não informado" %> <%= @order.client.try(:cep) %></td>
+            <td class="bg">Cidade</td>
+            <td><%= @order.client.try(:city) || "Não informado" %> <%= @order.client.try(:uf) %></td>
+          </tr>
+          <tr>
+            <td class="bg">CPF/CNPJ</td>
+            <td><%= @order.client.try(:cpf) || "Não informado" %></td>
+            <td class="bg">Telefone</td>
+            <td><%= @order.client.try(:phone) || "Não informado" %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="divider"></div>
+    </div>
+    <div class="row">
+      <table class="striped">
+        <thead>
+          <tr>
+              <th data-field="id" width="">#</th>
+              <th data-field="item" width="">Produto</th>
+              <th data-field="unit" width="">Valor</th>
+              <th data-field="quantity" width="">Quantidade</th>
+              <th data-field="total" width="">Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @order.order_items.each do |oi| %>
+            <tr>
+              <td><%= oi.item.code %></td>
+              <td><%= oi.item.name %></td>
+              <td><%= number_to_currency oi.unit_price %></td>
+              <td><%= oi.quantity %></td>
+              <td><%= number_to_currency oi.total_price %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td colspan='4' class="right-align">Total:</td>
+            <td><%= number_to_currency @order.total %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </body>
+</html>
