@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "clean", to: "order_items#clean"
   post "finish_order", to: "order_items#finish"
   post "shipping_order", to: "order_items#shipping"
-  get "clients", to: "order_items#clients"
+  get "get_clients", to: "order_items#clients"
   get "caixa", to: "home#caixa"
   post "pay", to: "order_items#pay"
   post "cancel", to: "order_items#cancel"
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       post :print
     end
   end
+  resources :clients
   resources :users do
     member do
       post :become

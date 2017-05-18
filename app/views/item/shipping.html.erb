@@ -1,7 +1,7 @@
 <script>
 $(document).ready(function() {
   $("#email").blur(function() {
-    client = $.get('<%= clients_path %>', { email: $(this).val() });
+    client = $.get('<%= get_clients_path %>', { email: $(this).val() });
   });
 });
 </script>

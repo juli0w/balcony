@@ -13,6 +13,7 @@
         <li style="padding-right: 20px;">Bem vindo <%= current_user.username %>! <i class="material-icons left">perm_identity</i></li>
         <% if current_user.admin? %>
           <li><%= link_to 'Usuários', users_path %></li>
+          <li><%= link_to 'Clientes', clients_path %></li>
           <li><%= link_to 'Pedidos', orders_path %></li>
           <li><%= link_to 'Itens', items_path %></li>
         <% end %>
@@ -36,6 +37,7 @@
         <li style="padding-right: 20px;">Bem vindo <%= current_user.username %>! <i class="material-icons left">perm_identity</i></li>
         <% if current_user.admin? %>
           <li><%= link_to 'Usuários', users_path %></li>
+          <li><%= link_to 'Clientes', clients_path %></li>
           <li><%= link_to 'Itens', items_path %></li>
         <% end %>
         <% if current_user.caixa? %>
