@@ -11,6 +11,16 @@ class ItemsController < ApplicationController
     end
   end
 
+  def print
+    if params[:keyword].present?
+      @items = Item.search(params[:keyword])
+    else
+      @items = Item.all
+    end
+
+    render layout: nil
+  end
+
   def become
     sign_in(:item, Item.find(params[:id]))
     redirect_to root_url

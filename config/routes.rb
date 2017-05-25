@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   post "cancel", to: "order_items#cancel"
   get "caixa_update", to: "home#caixa_update"
 
-  resources :items
+  resources :items do
+    collection do
+      get :print
+    end
+  end
   resources :orders do
     member do
       post :pay

@@ -16,9 +16,11 @@
               <button class="btn" type="submit" name="action">
                 Filtrar
               </button>
+              <%= link_to "Imprimir", print_items_path(keyword: params[:keyword]), class: "btn large blue" %>
           </fieldset>
         <% end %>
       </div>
+
     </div>
 
     <div class="card-panel">
@@ -50,10 +52,6 @@
 
       <%= paginate @items %>
 
-    </div>
-
-    <div class="card-panel">
-      <%= link_to "Novo Usuário", new_user_path, class: "btn large" %>
     </div>
   </div>
 </div>
