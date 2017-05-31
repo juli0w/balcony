@@ -1,10 +1,13 @@
 <style>
+  table {
+    font-size: 18px;
+  }
   td {
     padding: 5px 10px;
   }
   img {
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
   }
 </style>
 
@@ -15,19 +18,17 @@
         <th width="1%" data-field="id"></th>
         <th width="40%" data-field="name">Produto</th>
         <th width="15%" data-field="actions">Preço</th>
-        <th width="35%" data-field="name">Categoria</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @items.each do |item| %>
+    <% @items.order(:name).each do |item| %>
 
       <tr>
         <td><%= image_tag item.image %></td>
         <td>#<%= item.code %></td>
         <td><%= item.name %></td>
         <td align="center"><%= number_to_currency item.price %></td>
-        <td align="center"><%= item.subgroup.name %></td>
       </tr>
 
     <% end %>
