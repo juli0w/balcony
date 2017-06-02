@@ -1,6 +1,8 @@
 class Item < ApplicationRecord
   mount_uploader :image, ImageUploader
 
+  default_scope { where(active: true) }
+
   belongs_to :group
   belongs_to :family
   belongs_to :subgroup

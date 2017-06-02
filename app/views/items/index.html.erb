@@ -17,6 +17,7 @@
                 Filtrar
               </button>
               <%= link_to "Imprimir", print_items_path(keyword: params[:keyword]), class: "btn large blue" %>
+              <%= link_to "Sem imagem", items_path(noimage: 'noimage'), class: "btn right" %>
           </fieldset>
         <% end %>
       </div>

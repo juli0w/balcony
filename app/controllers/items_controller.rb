@@ -9,6 +9,10 @@ class ItemsController < ApplicationController
     else
       @items = Item.all.page(params[:page])
     end
+
+    if params[:noimage]
+      @items = @items.where(image: nil)
+    end
   end
 
   def print
