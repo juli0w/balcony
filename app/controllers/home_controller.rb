@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   before_action :authenticate_caixa!, only: [:caixa, :caixa_update]
 
   def index
-    @items = Item.search(params[:key].try(:upcase)).first(50).order(:name)
+    @items = Item.order(:name).search(params[:key].try(:upcase)).first(50)
   end
 
   def caixa
