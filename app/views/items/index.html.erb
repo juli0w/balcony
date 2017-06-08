@@ -28,10 +28,11 @@
       <table class="striped bordered">
         <thead>
           <tr>
-              <th data-field="id"></th>
-              <th data-field="name">Nome</th>
-              <th data-field="name">Categoria</th>
-              <th data-field="actions"></th>
+            <th data-field="img"></th>
+            <th data-field="id"></th>
+            <th data-field="name">Nome</th>
+            <th data-field="name">Categoria</th>
+            <th data-field="actions"></th>
           </tr>
         </thead>
 
@@ -39,6 +40,7 @@
           <% @items.each do |item| %>
 
             <tr>
+              <td><%= image_tag item.image, width: 70, height: 70 %></td>
               <td>#<%= item.code %></td>
               <td><%= item.name %></td>
               <td><%= item.subgroup.name %></td>
