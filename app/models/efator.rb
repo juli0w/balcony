@@ -20,7 +20,7 @@ class Efator
 
   def self.import_images
     Dir.glob("#{Rails.root}/public/imagens/*").map do |file|
-      item = Item.where(code: File.basename(file)).first
+      item = Item.where(code: File.basename(file).to_i).first
 
       if item
         item.image = Pathname.new(file).open
