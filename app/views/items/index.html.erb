@@ -40,7 +40,7 @@
           <% @items.each do |item| %>
 
             <tr>
-              <td><%= image_tag item.image, class: "circle materialboxed", style: "border-radius: 0% !important;" %></td>
+              <td><%= image_tag item.image, class: "circle materialboxed", style: "width: 60px; height: 60px; border-radius: 0% !important;" %></td>
               <td><%= item.code %></td>
               <td><%= item.name %></td>
               <td><%= item.subgroup.name %></td>
