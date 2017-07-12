@@ -5,9 +5,9 @@ class ItemsController < ApplicationController
 
   def index
     if params[:keyword].present?
-      @items = Item.search(params[:keyword]).page(params[:page])
+      @items = Item.search(params[:keyword]).page(params[:page]).order(:name)
     else
-      @items = Item.all.page(params[:page])
+      @items = Item.all.page(params[:page]).order(:name)
     end
 
     if params[:noimage]
