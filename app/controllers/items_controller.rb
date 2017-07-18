@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
     if params[:keyword].present?
       @items = Item.search(params[:keyword])
     else
-      @items = Item.all.page(params[:page]).per(500)
+      @items = Item.all.page(params[:page]).per(200)
     end
 
     render layout: nil
