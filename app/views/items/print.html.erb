@@ -25,7 +25,7 @@
     <% @items.order(:name).each do |item| %>
 
       <tr>
-        <td><%= image_tag item.image %></td>
+        <td><%= image_tag item.image.thumb %></td>
         <td><%= item.code %></td>
         <td><%= item.name %></td>
         <td align="center"><%= number_to_currency item.price %></td>
