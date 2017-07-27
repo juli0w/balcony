@@ -9,6 +9,9 @@ class User < ApplicationRecord
               :presence => true,
               :uniqueness => { :case_sensitive => false }
 
+  validates :password, presence: true, length: {minimum: 5, maximum: 120}, on: :create
+  validates :password, length: {minimum: 5, maximum: 120}, on: :update, allow_blank: true
+
   has_many :orders
 
   include SearchCop

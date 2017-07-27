@@ -31,7 +31,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
+    if user_params[:password].blank? and (current_user.admin? || current_user == @user)
+      done = @user.update_without_password(user_params)
+    else
+      done = @user.update(user_params)
+    end
+    
+    if done
       flash[:success] = "Salvo com sucesso!"
       redirect_to users_path
     else
