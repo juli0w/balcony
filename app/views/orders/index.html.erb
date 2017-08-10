@@ -35,6 +35,9 @@
           Endereço: <%= order.client.try(:address) || "Não informado" %> <%= order.client.try(:cep) %><br>
           Cidade: <%= order.client.try(:city) || "Não informado" %> <%= order.client.try(:uf) %><br>
           CPF/CNPJ: <%= order.client.try(:cpf) || "Não informado" %>
+          <% if order.obs %>
+            <br><%= order.obs %>
+          <% end %>
 
           <span class="badge green white-text"><%= order.get_state %></span>
         </div>
@@ -68,16 +71,18 @@
           </table>
           <br>
 
+          <% if current_user.admin? %>
+            <%= link_to pay_order_path(order), class: "btn light-green", method: :post do %>
+              <i class="material-icons left">payment</i> Pago
+            <% end %>
+          <% end %>
+
           <%= link_to open_order_path(order), class: "btn light-blue", method: :post do %>
             <i class="material-icons left">settings</i> Abrir
-          <% end %>
-          <%= link_to pay_order_path(order), class: "btn light-green", method: :post do %>
-            <i class="material-icons left">payment</i> Pago
           <% end %>
           <%= link_to cancel_order_path(order), class: "btn grey darken-2", method: :post do %>
             <i class="material-icons left">delete</i> Cancelar
           <% end %>
-
           <%= link_to print_order_path(order), target: "_blank", class: "right btn grey darken-2", method: :post do %>
             <i class="material-icons right">print</i> Imprimir
           <% end %>

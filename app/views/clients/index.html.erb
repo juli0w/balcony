@@ -35,10 +35,11 @@
           <% @clients.each do |client| %>
 
           <tr>
-            <td>#<%= client.id %></td>
+            <td><%= client.id %></td>
             <td><%= client.name %></td>
             <td>
-              <%= link_to "Editar", [:edit, client] %>
+            <%= link_to "Fazer pedido", [:select, client] %>
+            | <%= link_to "Editar", [:edit, client] %>
             | <%= link_to "Remover", client, method: :delete, data: { confirm: "Tem certeza?" } %>
             </td>
           </tr>

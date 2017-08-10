@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
-  before_filter :set_client, only: [:show, :edit, :update, :destroy]
+  before_filter :set_client, only: [:select, :show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :authenticate_admin!
+  before_action :authenticate_vendedor!
 
   def index
     @clients = Client.search(params[:keyword])
@@ -38,6 +38,16 @@ class ClientsController < ApplicationController
     end
   end
 
+  def select
+    session[:client] = @client.id
+    redirect_to root_path
+  end
+
+  def clear
+    session[:client] = nil
+    redirect_to root_path
+  end
+
   def destroy
     @client.delete
 
@@ -52,6 +62,6 @@ private
   end
 
   def client_params
-    params.require(:client).permit(:email, :name, :address, :city, :uf, :cpf, :birthday, :phone, :cep)
+    params.require(:client).permit(:email, :name, :address, :city, :uf, :cpf, :birthday, :phone, :cep, :line)
   end
 end

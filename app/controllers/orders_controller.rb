@@ -1,14 +1,19 @@
 class OrdersController < ApplicationController
   before_filter :set_order, only: [:destroy, :print, :pay, :cancel, :open]
   before_action :authenticate_user!
-  before_action :authenticate_admin!
+  before_action :authenticate_vendedor!
 
   def index
-    @orders = Order.not_empty
+    if current_user.admin?
+      @orders = Order.not_empty
+    else
+      @orders = current_user.orders.not_empty
+    end
+
     if params[:type].present?
       @orders = @orders.send(params[:type])
     end
-    @orders = @orders.search(params[:keyword]).page(params[:page]).per(10)
+    @orders = @orders.search(params[:keyword]).page(params[:page]).per(10).order("id DESC")
   end
 
   def destroy

@@ -21,12 +21,20 @@ class User < ApplicationRecord
     attributes :email
   end
 
+  def role_name
+    {1 => "caixa", 2 => "vendedor", 3 => "administrador"}[role.to_i]
+  end
+
   def caixa?
-    role.to_i >= 1
+    role.to_i == 1 || role.to_i >= 3
+  end
+
+  def vendedor?
+    role.to_i == 2 || role.to_i >= 3
   end
 
   def admin?
-    role.to_i >= 2
+    role.to_i >= 3
   end
 
   def login=(login)

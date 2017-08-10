@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
     return true if current_user.admin?
 
     flash[:alert] = "Você não é administrador"
+    sign_out
     redirect_to root_path
   end
 
@@ -37,6 +38,15 @@ class ApplicationController < ActionController::Base
     return true if current_user.caixa?
 
     flash[:alert] = "Você não é caixa"
+    sign_out
+    redirect_to root_path
+  end
+
+  def authenticate_vendedor!
+    return true if current_user.vendedor?
+
+    flash[:alert] = "Você não tem permissão"
+    sign_out
     redirect_to root_path
   end
 

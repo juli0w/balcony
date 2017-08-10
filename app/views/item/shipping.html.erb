@@ -17,9 +17,15 @@ $(document).ready(function() {
       <%= form_for @client, url: finish_order_path, method: :post do |f| %>
         <div class="card-content">
           <div class="row">
-            <div class="input-field col s12 m6">
+            <div class="input-field col s12">
               <%= f.label :email, "Email" %>
               <%= f.text_field :email, id: "email" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.label :company, "Razão Social" %>
+              <%= f.text_field :company %>
             </div>
           </div>
           <div class="row">
@@ -33,9 +39,13 @@ $(document).ready(function() {
             </div>
           </div>
           <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s6">
               <%= f.label :address, "Endereço" %>
               <%= f.text_field :address %>
+            </div>
+            <div class="input-field col s6">
+              <%= f.label :district, "Bairro" %>
+              <%= f.text_field :district %>
             </div>
           </div>
           <div class="row">
@@ -68,6 +78,13 @@ $(document).ready(function() {
             <div class="input-field col s6">
               <%= f.label :birthday, 'Aniversário', class: "active" %>
               <%= f.date_field :birthday %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <%= label_tag :obs, 'Observações' %>
+              <%= text_area_tag :obs, "", class: "materialize-textarea" %>
             </div>
           </div>
         </div>

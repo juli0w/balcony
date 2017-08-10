@@ -1,3 +1,16 @@
+<div class="col s12 red darken-1 white-text" style="padding: 0;">
+  <span style="padding: 5px;" class="left">
+    <%= @client.name %>
+    <br><%= @client.email %>
+  </span>
+  <a class="btn-large right green" onclick="$('.search').slideToggle(); $('.cart').slideToggle();">
+    <i class="large material-icons">shopping_cart</i>
+  </a>
+
+  <%= link_to clear_client_path(@client), class: "btn-large right red darken-1" do %>
+    <i class="large material-icons">refresh</i>
+  <% end %>
+</div>
 <div class="col s12 no-space cart" style="display: none;">
   <%= render "cart/cart" %>
 </div>
@@ -16,9 +29,4 @@
   </nav>
 
   <%= render "item/search" %>
-</div>
-<div class="fixed-action-btn" style="right: 120px;">
-  <a class="btn-floating btn-large red" onclick="$('.search').slideToggle(); $('.cart').slideToggle();">
-    <i class="large material-icons">shopping_cart</i>
-  </a>
 </div>

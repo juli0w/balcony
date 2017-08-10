@@ -1,4 +1,6 @@
 class OrderItemsController < ApplicationController
+  before_filter :authenticate_vendedor!
+
   def create
     @order = current_cart
     @order_item = @order.add_item(order_params)
@@ -48,14 +50,14 @@ class OrderItemsController < ApplicationController
       redirect_to root_path, notice: notice
     else
       @order = current_cart
-      @order.open!
+      @client = Client.find(session[:client])
 
-      last_order = current_user.orders.last
-      if last_order
-        @client = last_order.client || Client.new
-      else
-        @client = Client.new
-      end
+      # last_order = current_user.orders.last
+      # if last_order
+      #   @client = last_order.client || Client.new
+      # else
+      #   @client = Client.new
+      # end
 
       if user_signed_in?
         @order.update(user: current_user)
@@ -67,12 +69,15 @@ class OrderItemsController < ApplicationController
 
   def finish
     @order = current_cart
+    @order.open!
+    @order.update(obs: params[:obs])
 
     @client = @order.clienting(client_params)
 
     flash[:notice] = "Pedido realizado com sucesso!"
 
     reset_session
+    session[:client] = nil
     redirect_to root_path
   end
 
@@ -94,7 +99,7 @@ private
 
   def client_params
     params.require(:client).permit(:name, :address, :city, :uf, :email,
-                                   :cpf, :phone, :cep, :birthday, :line)
+                                   :cpf, :phone, :cep, :birthday, :line, :company, :district)
   end
 
   def order_params

@@ -25,7 +25,12 @@ Rails.application.routes.draw do
       post :print
     end
   end
-  resources :clients
+  resources :clients do
+    member do
+      get :select
+      get :clear
+    end
+  end
   resources :users do
     member do
       post :become

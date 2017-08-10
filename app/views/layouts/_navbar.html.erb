@@ -1,3 +1,8 @@
+<% if user_signed_in? %>
+  <div class="row grey darken-3 white-text" style="margin: 0; padding: 5px;">
+    <span class="right" style="padding-right: 10px;"><%= current_user.username %> (<%= current_user.role_name %>)</span>
+  </div>
+<% end %>
 <nav>
   <div class="nav-wrapper">
     <a href="/" class="brand-logo">Loja do Pintor</a>
@@ -10,15 +15,16 @@
           <i class="material-icons left" aria-hidden="true">perm_identity</i> Registrar
         <% end %></li>
       <% else %>
-        <li style="padding-right: 20px;">Bem vindo <%= current_user.username %>! <i class="material-icons left">perm_identity</i></li>
         <% if current_user.admin? %>
           <li><%= link_to 'Usuários', users_path %></li>
-          <li><%= link_to 'Clientes', clients_path %></li>
-          <li><%= link_to 'Pedidos', orders_path %></li>
           <li><%= link_to 'Itens', items_path %></li>
         <% end %>
         <% if current_user.caixa? %>
           <li><%= link_to 'Caixa', caixa_path %></li>
+        <% end %>
+        <% if current_user.vendedor? %>
+          <li><%= link_to 'Clientes', clients_path %></li>
+          <li><%= link_to 'Pedidos', orders_path %></li>
         <% end %>
         <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
       <% end %>
@@ -34,14 +40,16 @@
           <i class="material-icons left" aria-hidden="true">perm_identity</i> Registrar
         <% end %></li>
       <% else %>
-        <li style="padding-right: 20px;">Bem vindo <%= current_user.username %>! <i class="material-icons left">perm_identity</i></li>
         <% if current_user.admin? %>
           <li><%= link_to 'Usuários', users_path %></li>
-          <li><%= link_to 'Clientes', clients_path %></li>
           <li><%= link_to 'Itens', items_path %></li>
         <% end %>
         <% if current_user.caixa? %>
           <li><%= link_to 'Caixa', caixa_path %></li>
+        <% end %>
+        <% if current_user.vendedor? %>
+          <li><%= link_to 'Clientes', clients_path %></li>
+          <li><%= link_to 'Pedidos', orders_path %></li>
         <% end %>
         <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
       <% end %>
