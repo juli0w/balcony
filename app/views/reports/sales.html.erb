@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col s12 m12 l12">
+    <h4 style="margin-top: 40px;">Vendas x Vendedor</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="card-panel">
+    <div class="search-offers">
+      <%= form_tag sales_report_path, method: :get do %>
+        <fieldset style="border: none; margin: 0; padding: 0;">
+          <div class="row">
+            <div class="input-field col s12">
+              <%= label_tag :from, 'Período', class: "active" %>
+              <%= date_field_tag :from, params[:from] %>
+              <%= date_field_tag :to, params[:to] %>
+            </div>
+          </div>
+            <button class="btn" type="submit" name="action">
+              Filtrar
+            </button>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-panel">
+    <table class="striped bordered">
+      <thead>
+        <tr>
+          <th data-field="id"></th>
+          <th data-field="date">Data</th>
+          <th data-field="client">Cliente</th>
+          <th data-field="seller">Vendedor</th>
+          <th data-field="value">Valor</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if @orders.any? %>
+          <% @orders.each do |order| %>
+            <tr>
+              <td><%= order.id %></td>
+              <td><%= l order.created_at.to_date %></td>
+              <td><%= order.client.try(:name) %></td>
+              <td><%= order.user.try(:name) %></td>
+              <td><%= number_to_currency order.calculate_total %></td>
+            </tr>
+          <% end %>
+
+          <tr>
+            <td colspan=3></td>
+            <td style="text-align: right">Total:</td>
+            <td><%= number_to_currency @orders.sum(&:calculate_total) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -71,7 +71,7 @@
           </table>
           <br>
 
-          <% if current_user.admin? %>
+          <% if true#current_user.admin? %>
             <%= link_to pay_order_path(order), class: "btn light-green", method: :post do %>
               <i class="material-icons left">payment</i> Pago
             <% end %>

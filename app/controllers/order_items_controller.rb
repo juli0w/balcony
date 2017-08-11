@@ -98,7 +98,7 @@ class OrderItemsController < ApplicationController
 private
 
   def client_params
-    params.require(:client).permit(:name, :address, :city, :uf, :email,
+    params.require(:client).permit(:name, :address, :city, :uf, :email, :section_id,
                                    :cpf, :phone, :cep, :birthday, :line, :company, :district)
   end
 

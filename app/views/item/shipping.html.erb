@@ -72,8 +72,8 @@ $(document).ready(function() {
           </div>
           <div class="row">
             <div class="input-field col s6">
-              <%= f.label :line, 'Ramo de atuação' %>
-              <%= f.text_field :line %>
+              <%= f.collection_select :section_id, Section.all, :id, :name %>
+              <%= f.label :section_id, 'Ramo de atuação' %>
             </div>
             <div class="input-field col s6">
               <%= f.label :birthday, 'Aniversário', class: "active" %>

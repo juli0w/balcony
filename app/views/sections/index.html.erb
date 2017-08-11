@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <h4 style="margin-top: 40px;">Ramos</h4>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="card-panel">
+      <table class="striped bordered">
+        <thead>
+          <tr>
+              <th data-field="id"></th>
+              <th data-field="name">Nome</th>
+              <th data-field="actions"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @sections.each do |section| %>
+
+          <tr>
+            <td><%= section.id %></td>
+            <td><%= section.name %></td>
+            <td>
+            <%= link_to "Editar", [:edit, section] %>
+            | <%= link_to "Remover", section, method: :delete, data: { confirm: "Tem certeza?" } %>
+            </td>
+          </tr>
+
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="card-panel">
+      <%= link_to "Novo Ramo", new_section_path, class: "btn large" %>
+    </div>
+  </div>
+</div>

@@ -7,6 +7,12 @@
       </div>
     </div>
     <div class="row">
+      <div class="input-field col s12">
+        <%= f.label :company, "Razão Social" %>
+        <%= f.text_field :company %>
+      </div>
+    </div>
+    <div class="row">
       <div class="input-field col s7">
         <%= f.label :name, "Nome" %>
         <%= f.text_field :name %>
@@ -17,9 +23,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col s6">
         <%= f.label :address, "Endereço" %>
         <%= f.text_field :address %>
+      </div>
+      <div class="input-field col s6">
+        <%= f.label :district, "Bairro" %>
+        <%= f.text_field :district %>
       </div>
     </div>
     <div class="row">
@@ -46,8 +56,8 @@
     </div>
     <div class="row">
       <div class="input-field col s6">
-        <%= f.label :line, 'Ramo de atuação' %>
-        <%= f.text_field :line %>
+        <%= f.collection_select :section_id, Section.all, :id, :name %>
+        <%= f.label :section_id, 'Ramo de atuação' %>
       </div>
       <div class="input-field col s6">
         <%= f.label :birthday, 'Aniversário', class: "active" %>

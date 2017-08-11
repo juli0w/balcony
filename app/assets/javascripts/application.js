@@ -19,6 +19,8 @@ $(document).ready(function() {
   $('.modal').modal();
   $('.modal').modal('open');
   $(".button-collapse").sideNav();
+  $('select').material_select();
+  $(".dropdown-button").dropdown();
 
   // function updateCaixa() {
   //   $(".caixa-update").load("/caixa_update");

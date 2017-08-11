@@ -62,6 +62,6 @@ private
   end
 
   def client_params
-    params.require(:client).permit(:email, :name, :address, :city, :uf, :cpf, :birthday, :phone, :cep, :line)
+    params.require(:client).permit(:email, :section_id, :name, :address, :city, :uf, :cpf, :birthday, :phone, :cep, :line, :company, :district)
   end
 end

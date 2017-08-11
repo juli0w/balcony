@@ -40,7 +40,9 @@
             <td>
             <%= link_to "Fazer pedido", [:select, client] %>
             | <%= link_to "Editar", [:edit, client] %>
-            | <%= link_to "Remover", client, method: :delete, data: { confirm: "Tem certeza?" } %>
+            <% if current_user.admin? %>
+              | <%= link_to "Remover", client, method: :delete, data: { confirm: "Tem certeza?" } %>
+            <% end %>
             </td>
           </tr>
 

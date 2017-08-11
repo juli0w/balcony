@@ -1,0 +1,15 @@
+<%= form_for @section do |f| %>
+  <div class="card-content">
+    <div class="row">
+      <div class="input-field col s12 m6">
+        <%= f.label :name, "Ramo" %>
+        <%= f.text_field :name, id: "name" %>
+      </div>
+    </div>
+  </div>
+  <div class="card-action">
+    <button id="submit" class="btn waves-effect waves-light light-green" type="submit" name="action">
+      <%= material_icon.person_pin.css_class("left") %> Salvar
+    </button>
+  </div>
+<% end %>
