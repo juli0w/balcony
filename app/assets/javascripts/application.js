@@ -17,7 +17,7 @@
 
 $(document).ready(function() {
   $('.modal').modal();
-  $('.modal').modal('open');
+  $('#modal1').modal('open');
   $(".button-collapse").sideNav();
   $('select').material_select();
   $(".dropdown-button").dropdown();
