@@ -5,6 +5,11 @@ class ClientsController < ApplicationController
 
   def index
     @clients = Client.search(params[:keyword])
+
+    respond_to do |format|
+      format.html { @clients = @clients.page(params[:page]) }
+      format.xls
+    end
   end
 
   def show

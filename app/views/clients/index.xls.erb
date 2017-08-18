@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Nome</Data></Cell>
+        <Cell><Data ss:Type="String">Cargo</Data></Cell>
+        <Cell><Data ss:Type="String">Data de aniversário</Data></Cell>
+        <Cell><Data ss:Type="String">Nome da empresa</Data></Cell>
+        <Cell><Data ss:Type="String">Categoria</Data></Cell>
+        <Cell><Data ss:Type="String">Origem do Cliente</Data></Cell>
+        <Cell><Data ss:Type="String">Usuário responsável</Data></Cell>
+        <Cell><Data ss:Type="String">CPF</Data></Cell>
+        <Cell><Data ss:Type="String">Descrição</Data></Cell>
+        <Cell><Data ss:Type="String">Ranking</Data></Cell>
+        <Cell><Data ss:Type="String">Telefone</Data></Cell>
+        <Cell><Data ss:Type="String">Celular</Data></Cell>
+        <Cell><Data ss:Type="String">Fax</Data></Cell>
+        <Cell><Data ss:Type="String">Ramal</Data></Cell>
+        <Cell><Data ss:Type="String">Rádio</Data></Cell>
+        <Cell><Data ss:Type="String">E-mail</Data></Cell>
+        <Cell><Data ss:Type="String">País</Data></Cell>
+        <Cell><Data ss:Type="String">Estado</Data></Cell>
+        <Cell><Data ss:Type="String">Cidade</Data></Cell>
+        <Cell><Data ss:Type="String">CEP</Data></Cell>
+        <Cell><Data ss:Type="String">Bairro</Data></Cell>
+        <Cell><Data ss:Type="String">Rua</Data></Cell>
+        <Cell><Data ss:Type="String">Número</Data></Cell>
+        <Cell><Data ss:Type="String">Complemento</Data></Cell>
+        <Cell><Data ss:Type="String">Facebook</Data></Cell>
+        <Cell><Data ss:Type="String">Twitter</Data></Cell>
+        <Cell><Data ss:Type="String">LinkedIn</Data></Cell>
+        <Cell><Data ss:Type="String">Skype</Data></Cell>
+        <Cell><Data ss:Type="String">MSN</Data></Cell>
+      </Row>
+    <% @clients.each do |client| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= client.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.birthday.strftime("%d/%m") if client.birthday %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.company %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.cpf %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.phone %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.email %></Data></Cell>
+        <Cell><Data ss:Type="String">Brasil</Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.uf %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.city %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.cep %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.district %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.address %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "" %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
