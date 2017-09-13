@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
     if params[:type].present?
       @orders = @orders.send(params[:type])
     end
-    @orders = @orders.search(params[:keyword]).page(params[:page]).per(10).order("id DESC")
+    @orders = @orders.search(params[:keyword]).page(params[:page]).per(10).order("orders.id DESC")
   end
 
   def destroy
