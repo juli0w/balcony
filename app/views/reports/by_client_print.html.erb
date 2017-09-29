@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cliente <%= @client.name %></title>
+    <%= csrf_meta_tags %>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <style>
+      .ident {
+        /*border: 1px solid #dedede;*/
+        /*padding: 5px;*/
+        width: 650px;
+      }
+
+      .ident td {
+        padding: 5px;
+      }
+
+      .bg {
+        text-align: right;
+        background-color: #f1f1f1;
+      }
+
+      h5.mg {
+        font-size: 18px;
+        margin-top: 50px;
+        margin-bottom: 7px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="row">
+      <h5 class="left"><%= @client.name %></h5>
+      <table class="ident right">
+        <tbody>
+          <tr>
+            <td width="10%" class="bg">Vendedor</td>
+            <td width="50%"><%= current_user.try(:email) || "Não informado" %></td>
+            <td width="10%"></td>
+            <td width="30%"></td>
+          </tr>
+          <tr>
+            <td class="bg">Endereço</td>
+            <td><%= @client.try(:address) || "Não informado" %> <%= @client.try(:cep) %></td>
+            <td class="bg">Cidade</td>
+            <td><%= @client.try(:city) || "Não informado" %> <%= @client.try(:uf) %></td>
+          </tr>
+          <tr>
+            <td class="bg">CPF/CNPJ</td>
+            <td><%= @client.try(:cpf) || "Não informado" %></td>
+            <td class="bg">Telefone</td>
+            <td><%= @client.try(:phone) || "Não informado" %></td>
+          </tr>
+          <tr>
+            <td width="10%" class="bg">Total</td>
+            <td width="50%"><%= number_to_currency @orders.sum(&:calculate_total) %></td>
+            <td width="10%"></td>
+            <td width="30%"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="divider"></div>
+    </div>
+    <div class="row">
+      <% @orders.each do |order| %>
+        <div class="">
+          <h5 class="mg">Pedido <%= order.id %></h5>
+          <p style="margin-top:0;padding-top:0;"><%= l(order.created_at).to_s.gsub("-0300", "") %></p>
+          <table class="bordered">
+            <thead>
+              <tr class="">
+                  <th data-field="id" width=""></th>
+                  <th data-field="item" width="">Produto</th>
+                  <th data-field="unit" width="">Valor</th>
+                  <th data-field="quantity" width="">Quantidade</th>
+                  <th data-field="total" width="">Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% order.order_items.each do |oi| %>
+                <tr>
+                  <td><%= oi.item.code %></td>
+                  <td><%= oi.item.name %></td>
+                  <td><%= number_to_currency oi.unit_price %></td>
+                  <td><%= oi.quantity %></td>
+                  <td><%= number_to_currency oi.total_price %></td>
+                </tr>
+              <% end %>
+                <tr>
+                  <td colspan=3></td>
+                  <td style="text-align: right">Total:</td>
+                  <td><%= number_to_currency order.calculate_total %></td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+    </div>
+
+  </body>
+</html>

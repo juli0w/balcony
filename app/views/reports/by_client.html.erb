@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col s12 m12 l12">
+    <h4 style="margin-top: 40px;">Vendas x Cliente</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="card-panel">
+    <div class="search-offers">
+      <%= form_tag by_client_report_path, method: :get do %>
+        <fieldset style="border: none; margin: 0; padding: 0;">
+          <div class="row">
+            <div class="input-field col s12">
+              <p>
+                Cliente
+                <%= text_field_tag :client, params[:client] %>
+              </p>
+              <p>
+                Período
+                <%= date_field_tag :from, params[:from] %>
+                <%= date_field_tag :to, params[:to] %>
+              </p>
+            </div>
+          </div>
+            <button class="btn" type="submit" name="action">
+              Filtrar
+            </button>
+            <%= link_to "Imprimir", by_client_print_report_path(from: params[:from], to: params[:to], client: params[:client]), class: "btn large grey darken-1" %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+
+  <% unless @orders.blank? %>
+    <% @orders.each do |order| %>
+      <div class="card-panel">
+        <h6>Pedido <%= order.id %> - <%= l(order.created_at).to_s.gsub("-0300", "") %> - <%= number_to_currency order.calculate_total %></h6>
+
+        <table class="bordered striped highlight">
+          <thead>
+            <tr class="grey  white-text">
+                <th data-field="id" width=""></th>
+                <th data-field="item" width="">Produto</th>
+                <th data-field="unit" width="">Valor</th>
+                <th data-field="quantity" width="">Quantidade</th>
+                <th data-field="total" width="">Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% order.order_items.each do |oi| %>
+              <tr>
+                <td><%= oi.item.code %></td>
+                <td><%= oi.item.name %></td>
+                <td><%= number_to_currency oi.unit_price %></td>
+                <td><%= oi.quantity %></td>
+                <td><%= number_to_currency oi.total_price %></td>
+              </tr>
+            <% end %>
+              <tr>
+                <td colspan=3></td>
+                <td style="text-align: right">Total:</td>
+                <td><%= number_to_currency order.calculate_total %></td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+    <h5>Total: <%= number_to_currency @orders.sum(&:calculate_total) %></h5>
+  <% end %>
+</div>

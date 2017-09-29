@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   # reports
 
   get "reports/sales", to: "reports#sales", as: "sales_report"
+  get "reports/by_client", to: "reports#by_client", as: "by_client_report"
+  get "reports/by_client_print", to: "reports#by_client_print", as: "by_client_print_report"
 
   #
 
