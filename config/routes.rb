@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   #
 
+  resources :listings
   resources :items do
     collection do
       get :print

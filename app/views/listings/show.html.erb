@@ -1,0 +1,36 @@
+<style>
+  table {
+    font-size: 18px;
+  }
+  td {
+    padding: 5px 10px;
+  }
+  img {
+    width: 60px;
+    height: 60px;
+  }
+</style>
+
+<table class="striped bordered">
+  <thead>
+    <tr>
+        <th width="1%" data-field="id"></th>
+        <th width="1%" data-field="id"></th>
+        <th width="40%" data-field="name">Produto</th>
+        <th width="15%" data-field="actions">Preço</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @items.each do |item| %>
+
+      <tr>
+        <td><%= image_tag item.first.image.thumb %></td>
+        <td><%= item.first.code %></td>
+        <td><%= item.first.name %></td>
+        <td align="center"><%= number_to_currency item.first.price %></td>
+      </tr>
+
+    <% end %>
+  </tbody>
+</table>

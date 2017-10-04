@@ -6,6 +6,7 @@
 <ul id="dropdown1" class="dropdown-content">
   <li><%= link_to 'Vendas x Vendedor', sales_report_path %></li>
   <li><%= link_to 'Cliente', by_client_report_path %></li>
+  <li><%= link_to 'Pautas', listings_path %></li>
 </ul>
 <nav>
   <div class="nav-wrapper">
@@ -57,6 +58,7 @@
           <li><%= link_to 'Caixa', caixa_path %></li>
         <% end %>
         <% if current_user.vendedor? %>
+          <li><%= link_to 'Pautas', listings_path %></li>
           <li><%= link_to 'Clientes', clients_path %></li>
           <li><%= link_to 'Pedidos', orders_path %></li>
         <% end %>

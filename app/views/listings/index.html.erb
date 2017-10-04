@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <h4 style="margin-top: 40px;">Pautas</h4>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="card-panel">
+      <table class="striped bordered">
+        <thead>
+          <tr>
+              <th data-field="id"></th>
+              <th data-field="name">Nome</th>
+              <th data-field="actions"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @listings.each do |listing| %>
+
+          <tr>
+            <td><%= listing.id %></td>
+            <td><%= listing.name %></td>
+            <td>
+              <%= link_to "Imprimir", listing %>
+            </td>
+          </tr>
+
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

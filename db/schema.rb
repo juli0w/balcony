@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811124559) do
+ActiveRecord::Schema.define(version: 20171004114814) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -63,6 +63,13 @@ ActiveRecord::Schema.define(version: 20170811124559) do
     t.index ["family_id"], name: "index_items_on_family_id"
     t.index ["group_id"], name: "index_items_on_group_id"
     t.index ["subgroup_id"], name: "index_items_on_subgroup_id"
+  end
+
+  create_table "listings", force: :cascade do |t|
+    t.string   "items"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_items", force: :cascade do |t|
