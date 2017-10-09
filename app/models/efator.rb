@@ -59,7 +59,7 @@ private
       item.name   = i.xpath("descricao").text
       item.family_id = family.id
       item.group_id = group.id
-      item.subgroup_id = subgroup.id
+      item.subgroup_id = subgroup.try(:id)
       item.price  = i.xpath("precovenda").text
       item.active = (i.xpath("ativo").text == "true")
 
