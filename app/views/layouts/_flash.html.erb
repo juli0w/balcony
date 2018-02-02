@@ -1,3 +1,6 @@
+<%
+  flash.delete(:alert) if flash[:alert] == "Logado com sucesso"
+%>
 <% flash.each do |name, msg| %>
   <div id="modal1" class="modal">
     <div class="center modal-content">
