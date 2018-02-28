@@ -12,7 +12,7 @@
       <%= link_to "Novo Cliente", new_client_path, class: "btn" %>
       <%= link_to "Exportar", clients_path(format: "xls"), class: "btn" %>
 
-      <div class="search-offers">
+      <div class="search-offers" style="margin-top: 20px;">
         <%= form_tag clients_path, method: :get do %>
             <fieldset style="border: none; margin: 0; padding: 0;">
               <input name="keyword" id="icon_local" style="display: inline;" type="search" placeholder="Filtrar clientes" value='<%= params[:keyword] %>'>
