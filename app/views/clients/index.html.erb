@@ -9,6 +9,9 @@
 <div class="container">
   <div class="row">
     <div class="card-panel">
+      <%= link_to "Novo Cliente", new_client_path, class: "btn" %>
+      <%= link_to "Exportar", clients_path(format: "xls"), class: "btn" %>
+
       <div class="search-offers">
         <%= form_tag clients_path, method: :get do %>
             <fieldset style="border: none; margin: 0; padding: 0;">
@@ -16,9 +19,7 @@
               <button class="btn" type="submit" name="action">
                 Filtrar
               </button>
-              <%= link_to "Novo Cliente", new_client_path, class: "btn right" %>
-              <%= link_to "Exportar", clients_path(format: "xls"), class: "right btn" %>
-          </fieldset>
+            </fieldset>
         <% end %>
       </div>
     </div>
