@@ -20,13 +20,14 @@
         text-align: right;
         background-color: #f1f1f1;
       }
+      .row { font-size: 10px; }
     </style>
   </head>
 
   <body>
     <div class="row">
-      <h5 class="left">Pedido #<%= @order.id %></h5>
-      <table style="font-size: 10px" class="ident right">
+      <h5 style="font-size: 12px" class="left">Pedido #<%= @order.id %></h5>
+      <table class="ident right">
         <tbody>
           <tr>
             <td width="10%" class="bg">Vendedor</td>
