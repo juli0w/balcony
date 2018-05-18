@@ -9,7 +9,7 @@
       .ident {
         /*border: 1px solid #dedede;*/
         /*padding: 5px;*/
-        width: 650px;
+        width: 500px;
       }
 
       .ident td {
@@ -21,25 +21,25 @@
         background-color: #f1f1f1;
       }
       .row { font-size: 10px; }
+      td { padding: 5px !important; }
     </style>
   </head>
 
   <body>
     <div class="row">
-      <h5 style="font-size: 12px" class="left">Pedido #<%= @order.id %></h5>
-      <table class="ident right">
+      <table class="ident">
         <tbody>
-          <tr>
-            <td width="10%" class="bg">Vendedor</td>
-            <td width="50%"><%= @order.user.try(:email) || "Não informado" %></td>
-            <td width="10%"></td>
-            <td width="30%"></td>
-          </tr>
           <tr>
             <td class="bg">Cliente</td>
             <td><%= @order.client.try(:name) || "Não informado" %></td>
-            <td></td>
-            <td></td>
+            <td width="10%" class="bg">Vendedor</td>
+            <td width="50%"><%= @order.user.try(:email) || "Não informado" %></td>
+          </tr>
+          <tr>
+            <td class="bg">Telefone</td>
+            <td><%= @order.client.try(:phone) || "Não informado" %></td>
+            <td class="bg">CPF/CNPJ</td>
+            <td><%= @order.client.try(:cpf) || "Não informado" %></td>
           </tr>
           <tr>
             <td class="bg">Endereço</td>
@@ -47,14 +47,9 @@
             <td class="bg">Cidade</td>
             <td><%= @order.client.try(:city) || "Não informado" %> <%= @order.client.try(:uf) %></td>
           </tr>
-          <tr>
-            <td class="bg">CPF/CNPJ</td>
-            <td><%= @order.client.try(:cpf) || "Não informado" %></td>
-            <td class="bg">Telefone</td>
-            <td><%= @order.client.try(:phone) || "Não informado" %></td>
-          </tr>
         </tbody>
       </table>
+      <h5 style="font-size: 12px" class="left">Pedido #<%= @order.id %></h5>
     </div>
     <div class="row">
       <div class="divider"></div>
@@ -88,6 +83,8 @@
         </tbody>
       </table>
     </div>
-
+<script>
+window.print();
+</script>
   </body>
 </html>
