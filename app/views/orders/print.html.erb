@@ -9,7 +9,7 @@
       .ident {
         /*border: 1px solid #dedede;*/
         /*padding: 5px;*/
-        width: 500px;
+        width: 100%;
       }
 
       .ident td {
@@ -26,16 +26,18 @@
   </head>
 
   <body>
-    <div class="row">
+    <div class="row" style="margin-bottom: 0;">
       <table class="ident">
         <tbody>
           <tr>
-            <td class="bg">Cliente</td>
-            <td><%= @order.client.try(:name) || "Não informado" %></td>
+            <td width="10%" class="bg">Pedido</td>
+            <td><%= @order.id %></td>
             <td width="10%" class="bg">Vendedor</td>
-            <td width="50%"><%= @order.user.try(:email) || "Não informado" %></td>
+            <td colspan="3"><%= @order.user.try(:email) || "Não informado" %></td>
           </tr>
           <tr>
+            <td class="bg">Cliente</td>
+            <td><%= @order.client.try(:name) || "Não informado" %></td>
             <td class="bg">Telefone</td>
             <td><%= @order.client.try(:phone) || "Não informado" %></td>
             <td class="bg">CPF/CNPJ</td>
@@ -43,16 +45,12 @@
           </tr>
           <tr>
             <td class="bg">Endereço</td>
-            <td><%= @order.client.try(:address) || "Não informado" %> <%= @order.client.try(:cep) %></td>
+            <td colspan="3"><%= @order.client.try(:address) || "Não informado" %> <%= @order.client.try(:cep) %></td>
             <td class="bg">Cidade</td>
             <td><%= @order.client.try(:city) || "Não informado" %> <%= @order.client.try(:uf) %></td>
           </tr>
         </tbody>
       </table>
-      <h5 style="font-size: 12px" class="left">Pedido #<%= @order.id %></h5>
-    </div>
-    <div class="row">
-      <div class="divider"></div>
     </div>
     <div class="row">
       <table class="striped">
