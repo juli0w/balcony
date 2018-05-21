@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       post :cancel
       post :open
       post :print
+      get  :print
     end
   end
   resources :clients do

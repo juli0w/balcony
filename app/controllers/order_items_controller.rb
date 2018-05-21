@@ -78,7 +78,7 @@ class OrderItemsController < ApplicationController
 
     reset_session
     session[:client] = nil
-    redirect_to root_path
+    redirect_to orders_path
   end
 
   def pay

@@ -7,10 +7,20 @@ $(document).ready(function() {
 </script>
 <div class="row five-margin-bot">
   <div class="col s12 caixa">
-    <h5>DADOS DO CLIENTE</h5>
+    <h5>CONFIRMAR DADOS DO CLIENTE</h5>
   </div>
 </div>
-
+<style>
+.row .card .row {
+  margin-bottom: 0;
+}
+.row .card .row input[type="text"] {
+  padding: 0 !important;
+  height: 30px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+</style>
 <div class="row">
   <div class="col s12">
     <div class="card">
@@ -19,72 +29,72 @@ $(document).ready(function() {
           <div class="row">
             <div class="input-field col s12">
               <%= f.label :email, "Email" %>
-              <%= f.text_field :email, id: "email" %>
+              <%= f.text_field :email, id: "email", readonly: true %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <%= f.label :company, "Razão Social" %>
-              <%= f.text_field :company %>
+              <%= f.text_field :company, readonly: true %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s7">
               <%= f.label :name, "Nome" %>
-              <%= f.text_field :name %>
+              <%= f.text_field :name, readonly: true %>
             </div>
             <div class="input-field col s5">
               <%= f.label :phone, "Telefone" %>
-              <%= f.text_field :phone %>
+              <%= f.text_field :phone, readonly: true %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s6">
               <%= f.label :address, "Endereço" %>
-              <%= f.text_field :address %>
+              <%= f.text_field :address, readonly: true %>
             </div>
             <div class="input-field col s6">
               <%= f.label :district, "Bairro" %>
-              <%= f.text_field :district %>
+              <%= f.text_field :district, readonly: true %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s8">
               <%= f.label :city, "Cidade" %>
-              <%= f.text_field :city, value: "Joinville" %>
+              <%= f.text_field :city, readonly: true %>
             </div>
             <div class="input-field col s4">
               <%= f.label :uf, "Estado" %>
-              <%= f.text_field :uf, value: "SC" %>
+              <%= f.text_field :uf, readonly: true %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <%= f.label :cep, 'CEP' %>
-              <%= f.text_field :cep %>
+              <%= f.text_field :cep, readonly: true %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <%= f.label :cpf, 'CPF/CNPJ' %>
-              <%= f.text_field :cpf %>
+              <%= f.text_field :cpf, readonly: true %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s6">
-              <%= f.collection_select :section_id, Section.all, :id, :name %>
+              <%= f.collection_select :section_id, Section.all, :id, :name, {}, disabled: true %>
               <%= f.label :section_id, 'Ramo de atuação' %>
             </div>
             <div class="input-field col s6">
               <%= f.label :birthday, 'Aniversário', class: "active" %>
-              <%= f.date_field :birthday %>
+              <%= f.date_field :birthday, readonly: true %>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field col s12">
               <%= label_tag :obs, 'Observações' %>
-              <%= text_area_tag :obs, "", class: "materialize-textarea" %>
+              <%= text_area_tag :obs, "", class: "materialize-textarea", style: "height: 100px" %>
             </div>
           </div>
         </div>
