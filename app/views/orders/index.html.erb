@@ -42,7 +42,7 @@
           <span class="badge green white-text"><%= order.get_state %></span>
         </div>
         <div class="orders" id="order-<%= order.id %>">
-          <table class="bordered striped highlight">
+          <table class="bordered striped highlight" style="margin-top: 20px;">
             <thead>
               <tr class="grey  white-text">
                   <th data-field="id" width="">#</th>
@@ -82,6 +82,9 @@
           <% end %>
           <%= link_to cancel_order_path(order), class: "btn grey darken-2", method: :post do %>
             <i class="material-icons left">delete</i> Cancelar
+          <% end %>
+          <%= link_to edit_order_path(order), class: "btn grey darken-2" do %>
+            <i class="material-icons left">edit</i> Editar
           <% end %>
           <%= link_to print_order_path(order), target: "_blank", class: "right btn grey darken-2", method: :post do %>
             <i class="material-icons right">print</i> Imprimir

@@ -16,6 +16,12 @@ class OrdersController < ApplicationController
     @orders = @orders.search(params[:keyword]).page(params[:page]).per(10).order("orders.id DESC")
   end
 
+  def edit
+    session[:client] = Order.find(params[:id]).client_id
+    session[:order_id] = params[:id]
+    redirect_to root_path
+  end
+
   def destroy
     @order.delete
 
