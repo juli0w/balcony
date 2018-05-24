@@ -13,11 +13,15 @@
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s7">
+      <div class="input-field col s5">
         <%= f.label :name, "Contato" %>
         <%= f.text_field :name %>
       </div>
-      <div class="input-field col s5">
+      <div class="input-field col s4">
+        <%= f.label :birthday, 'Aniversário', class: "active" %>
+        <%= f.date_field :birthday %>
+      </div>
+      <div class="input-field col s3">
         <%= f.label :phone, "Telefone" %>
         <%= f.text_field :phone %>
       </div>
@@ -58,10 +62,6 @@
       <div class="input-field col s6">
         <%= f.collection_select :section_id, Section.all, :id, :name %>
         <%= f.label :section_id, 'Ramo de atuação' %>
-      </div>
-      <div class="input-field col s6">
-        <%= f.label :birthday, 'Aniversário', class: "active" %>
-        <%= f.date_field :birthday %>
       </div>
     </div>
   </div>

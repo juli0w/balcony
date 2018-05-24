@@ -30,6 +30,7 @@
           <tr>
               <th data-field="id"></th>
               <th data-field="name">Nome</th>
+              <th data-field="name">Contato</th>
               <th data-field="actions"></th>
           </tr>
         </thead>
@@ -39,6 +40,7 @@
 
           <tr>
             <td><%= client.id %></td>
+            <td><%= client.company %></td>
             <td><%= client.name %></td>
             <td>
             <%= link_to "Fazer pedido", [:select, client] %>
