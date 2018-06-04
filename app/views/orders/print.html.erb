@@ -36,7 +36,7 @@
           </tr>
           <tr>
             <td class="bg">Cliente</td>
-            <td><%= @order.client.try(:name) || "Não informado" %></td>
+            <td><%= @order.client.try(:company) || "Não informado" %></td>
             <td class="bg">Telefone</td>
             <td><%= @order.client.try(:phone) || "Não informado" %></td>
             <td width="10%" class="bg">CPF/CNPJ</td>
