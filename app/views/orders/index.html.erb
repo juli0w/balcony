@@ -31,7 +31,7 @@
         <div class="divider"></div>
         <div style="padding: 20px">
           Vendedor: <%= order.user.try(:email) || "Não informado" %><br>
-          Cliente: <%= order.client.try(:name) || "Não informado" %> - Fone: <%= order.client.try(:phone) || "Não informado" %><br>
+          Cliente: <%= order.client.try(:company) || "Não informado" %> - Fone: <%= order.client.try(:phone) || "Não informado" %><br>
           Endereço: <%= order.client.try(:address) || "Não informado" %> <%= order.client.try(:cep) %><br>
           Cidade: <%= order.client.try(:city) || "Não informado" %> <%= order.client.try(:uf) %><br>
           CPF/CNPJ: <%= order.client.try(:cpf) || "Não informado" %>
