@@ -26,6 +26,7 @@
       </div>
     </div>
     <% @orders.each do |order| %>
+    <% begin %>
       <div class="card-panel">
         <h5 class="order" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %></h5>
         <div class="divider"></div>
@@ -91,8 +92,10 @@
           <% end %>
         </div>
       </div>
+      <% rescue => e %>
+        <%= order.id %>
+      <% end %>
     <% end %>
-
     <%= paginate @orders %>
   </div>
 </div>
