@@ -10,10 +10,10 @@
       </thead>
 
       <tbody>
-        <% current_cart.order_items.each do |order_item| %>
+        <% current_cart.order_items.order("id desc").each do |order_item| %>
         <tr>
           <td>
-            <strong><%= order_item.item.name %></strong>
+            <strong><%= order_item.item.try(:name) %></strong>
             <%= link_to order_item_path(order_item, key: params[:key]), method: :delete, class: "red-text" do %>
             <i class="material-icons" style="vertical-align: bottom;">delete</i>
             <% end %>
