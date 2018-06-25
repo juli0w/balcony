@@ -70,9 +70,10 @@ class OrderItemsController < ApplicationController
   def finish
     @order = current_cart
     @order.open!
-    @order.update(obs: params[:obs])
+    @order.update(obs: params[:obs],
+                  client_id: session[:client])
 
-    @client = @order.clienting(client_params)
+    # @client = @order.clienting(client_params)
 
     flash[:notice] = "Pedido realizado com sucesso!"
 
