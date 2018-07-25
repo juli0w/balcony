@@ -25,6 +25,10 @@ class User < ApplicationRecord
     {1 => "caixa", 2 => "vendedor", 3 => "administrador"}[role.to_i]
   end
 
+  def client?
+    role.to_i == 0
+  end
+
   def caixa?
     role.to_i == 1 || role.to_i >= 3
   end

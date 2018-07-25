@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
   before_filter :set_client, only: [:select, :show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :authenticate_vendedor!
+  before_action :authenticate_vendedor!, except: [:clear, :profile, :update_profile]
 
   def index
     @clients = Client.search(params[:keyword])
@@ -13,6 +13,21 @@ class ClientsController < ApplicationController
   end
 
   def show
+  end
+
+  def profile
+    @user = Client.where(company: current_user.username).first
+  end
+
+  def update_profile
+    @user = Client.where(company: current_user.username).first
+    if @user.update(client_params)
+      flash[:success] = "Salvo com sucesso!"
+      redirect_to profile_path
+    else
+      flash.now[:alert] = "Por favor verifique os campos."
+      render :profile
+    end
   end
 
   def new

@@ -20,6 +20,8 @@
           <i class="material-icons left" aria-hidden="true">perm_identity</i> Registrar
         <% end %></li>
       <% else %>
+        <li><%= link_to 'Catálogo', root_path %></li>
+        <li><%= link_to 'Dados', profile_path %></li>
         <% if current_user.admin? %>
           <li><%= link_to 'Usuários', users_path %></li>
           <li><%= link_to 'Itens', items_path %></li>
@@ -30,11 +32,11 @@
         <% end %>
         <% if current_user.vendedor? %>
           <li><%= link_to 'Clientes', clients_path %></li>
-          <li><%= link_to 'Pedidos', orders_path %></li>
           <li><%= link_to "#", 'data-activates' => "dropdown1", class: "dropdown-button" do %>
             Relatórios <i class="material-icons right">arrow_drop_down</i>
           <% end %></li>
         <% end %>
+        <li><%= link_to 'Pedidos', orders_path %></li>
         <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
       <% end %>
     </ul>
@@ -49,6 +51,8 @@
           <i class="material-icons left" aria-hidden="true">perm_identity</i> Registrar
         <% end %></li>
       <% else %>
+      <li><%= link_to 'Catálogo', root_path %></li>
+      <li><%= link_to 'Dados', profile_path %></li>
         <% if current_user.admin? %>
           <li><%= link_to 'Usuários', users_path %></li>
           <li><%= link_to 'Itens', items_path %></li>
@@ -60,8 +64,8 @@
         <% if current_user.vendedor? %>
           <li><%= link_to 'Pautas', listings_path %></li>
           <li><%= link_to 'Clientes', clients_path %></li>
-          <li><%= link_to 'Pedidos', orders_path %></li>
         <% end %>
+        <li><%= link_to 'Pedidos', orders_path %></li>
         <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
       <% end %>
       </ul>

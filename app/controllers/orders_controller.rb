@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_filter :set_order, only: [:destroy, :print, :pay, :cancel, :open]
   before_action :authenticate_user!
-  before_action :authenticate_vendedor!
+  # before_action :authenticate_vendedor!
 
   def index
     if current_user.admin?

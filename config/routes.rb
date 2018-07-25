@@ -42,6 +42,8 @@ Rails.application.routes.draw do
       get :clear
     end
   end
+  get :profile, controller: :clients
+  post :profile, controller: :clients, action: :update_profile
   resources :users do
     member do
       post :become

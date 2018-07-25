@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :set_user, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :authenticate_admin!
+  before_action :authenticate_admin!, except: [:profile, :update_profile]
 
   def index
     @users = User.search(params[:keyword])
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     else
       done = @user.update(user_params)
     end
-    
+
     if done
       flash[:success] = "Salvo com sucesso!"
       redirect_to users_path
@@ -59,6 +59,9 @@ private
     @user = User.find(params[:id])
   end
 
+  def client_params
+    params.require('/profile').permit(:email, :section_id, :name, :address, :city, :uf, :cpf, :birthday, :phone, :cep, :line, :company, :district)
+  end
   def user_params
     params.require(:user).permit(:email, :username, :password, :role, :password_confirmation)
   end

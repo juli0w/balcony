@@ -1,5 +1,5 @@
 class OrderItemsController < ApplicationController
-  before_filter :authenticate_vendedor!
+  # before_filter :authenticate_vendedor!
 
   def create
     @order = current_cart
