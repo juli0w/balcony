@@ -4,12 +4,13 @@ class HomeController < ApplicationController
 
   def index
     if current_user.client?
-      client = Client.where(section: Section.first, company: current_user.username).first_or_create
+      client = Client.where(company: current_user.username).first_or_create(section: Section.last, name: current_user.username)
       session[:client] = client.id
     end
 
     if session[:client].blank?
-      redirect_to clients_path
+      session[:client] = Client.where(company: current_user.username).first_or_create(section: Section.last, name: current_user.username).id
+      # redirect_to clients_path
     else
       @client = Client.find(session[:client])
       @items = Item.order(:name).search(params[:key].try(:upcase)).first(50)
