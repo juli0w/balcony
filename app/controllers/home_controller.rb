@@ -11,10 +11,10 @@ class HomeController < ApplicationController
     if session[:client].blank?
       session[:client] = Client.where(company: current_user.username).first_or_create(section: Section.last, name: current_user.username).id
       # redirect_to clients_path
-    else
-      @client = Client.find(session[:client])
-      @items = Item.order(:name).search(params[:key].try(:upcase)).first(50)
     end
+
+    @items = Item.order(:name).search(params[:key].try(:upcase)).first(50)
+    @client = Client.find(session[:client])
   end
 
   def caixa
