@@ -14,7 +14,7 @@
           <% end %>
         </span>
         <p style="font-size: .8em;"><%= item.code %><br>
-           <%= item.group.name %> <% item.subgroup.name %>
+           <%= item.group.try(:name) %> <% item.subgroup.try(:name) %>
         </p>
         <%= content_tag :span, number_to_currency(item.price), class: "chip light-green white-text" %>
       </li>

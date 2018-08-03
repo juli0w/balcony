@@ -50,16 +50,16 @@ private
       # load or create the item
       item = Item.where(code: i.xpath("codigo").text).first_or_create
 
-      if i.xpath("codigo").text == "5476"
-        Rails.logger.info "----------------------------------"
-        Rails.logger.info item.id
-        Rails.logger.info item.name
-        Rails.logger.info i.xpath("precovenda").text
-        Rails.logger.info item.price.to_s
-        Rails.logger.info "----------------------------------"
-      else
-       next
-      end
+      # if i.xpath("codigo").text == "5476"
+      #   Rails.logger.info "----------------------------------"
+      #   Rails.logger.info item.id
+      #   Rails.logger.info item.name
+      #   Rails.logger.info i.xpath("precovenda").text
+      #   Rails.logger.info item.price.to_s
+      #   Rails.logger.info "----------------------------------"
+      # else
+      #  next
+      # end
 
       # get grupo, subgrupo and familia
       family   = Family.where(code: i.xpath("familia").text).first
