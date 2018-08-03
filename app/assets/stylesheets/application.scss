@@ -68,8 +68,20 @@ html {
   text-transform: uppercase;
   margin-left: 20px;
 }
+
 .searching {
-  height: 600px;
+  min-height: 200px;
+  bottom: 0;
+  overflow-y: scroll;
+  top: 198px;
+  position: absolute;
+  height: auto !important;
+  width: 100%;
+}
+@media only screen and (min-width: 601px) {
+  .searching {
+    top: 215px;
+  }
 }
 .searching2 {
   height: inherit;
