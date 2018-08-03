@@ -3,9 +3,9 @@ class Item < ApplicationRecord
 
   default_scope { where(active: true) }
 
-  belongs_to :group
-  belongs_to :family
-  belongs_to :subgroup
+  belongs_to :group, optional: true
+  belongs_to :family, optional: true
+  belongs_to :subgroup, optional: true
 
   include SearchCop
 

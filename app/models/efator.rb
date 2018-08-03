@@ -51,12 +51,12 @@ private
       item = Item.where(code: i.xpath("codigo").text).first_or_create
 
       if i.xpath("codigo").text == "5476"
-        print "----------------------------------"
-        print item.id
-        print item.name
-        print i.xpath("precovenda").text
-        print item.price.to_s
-        print "----------------------------------"
+        Rails.logger.info "----------------------------------"
+        Rails.logger.info item.id
+        Rails.logger.info item.name
+        Rails.logger.info i.xpath("precovenda").text
+        Rails.logger.info item.price.to_s
+        Rails.logger.info "----------------------------------"
       else
        next
       end
