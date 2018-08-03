@@ -50,15 +50,26 @@ private
       # load or create the item
       item = Item.where(code: i.xpath("codigo").text).first_or_create
 
+      if i.xpath("codigo").text == "5476"
+        print "----------------------------------"
+        print item.id
+        print item.name
+        print i.xpath("precovenda").text
+        print item.price.to_s
+        print "----------------------------------"
+      else
+       next
+      end
+
       # get grupo, subgrupo and familia
       family   = Family.where(code: i.xpath("familia").text).first
       group    = Group.where(code: i.xpath("grupo").text).first
       subgroup = Subgroup.where(code: i.xpath("subgrupo").text).first
 
       # update item values
-      item.name   = i.xpath("descricao").text
+      item.name      = i.xpath("descricao").text
       item.family_id = family.id
-      item.group_id = group.id
+      item.group_id  = group.id
       item.subgroup_id = subgroup.try(:id)
       item.price  = i.xpath("precovenda").text
       item.active = (i.xpath("ativo").text == "true")
