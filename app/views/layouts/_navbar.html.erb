@@ -3,11 +3,7 @@
     <span class="right" style="padding-right: 10px;"><%= current_user.username %> (<%= current_user.role_name %>)</span>
   </div>
 <% end %>
-<ul id="dropdown1" class="dropdown-content">
-  <li><%= link_to 'Vendas x Vendedor', sales_report_path %></li>
-  <li><%= link_to 'Cliente', by_client_report_path %></li>
-  <li><%= link_to 'Pautas', listings_path %></li>
-</ul>
+
 <nav>
   <div class="nav-wrapper">
     <a href="/" class="brand-logo">Loja do Pintor</a>
@@ -21,26 +17,48 @@
         <% end %></li>
       <% else %>
         <li><%= link_to 'Catálogo', root_path %></li>
+        <li><%= link_to 'Tintas', tintas_path %></li>
         <% if current_user.role.to_i == 0 %>
           <li><%= link_to 'Dados', profile_path %></li>
         <% end %>
-        <% if current_user.admin? %>
-          <li><%= link_to 'Usuários', users_path %></li>
-          <li><%= link_to 'Itens', items_path %></li>
-          <li><%= link_to 'Ramos', sections_path %></li>
-        <% end %>
-        <% if current_user.caixa? %>
+
+        <% if false #current_user.caixa? %>
           <li><%= link_to 'Caixa', caixa_path %></li>
         <% end %>
+        <li><%= link_to 'Pedidos', orders_path %></li>
         <% if current_user.vendedor? %>
           <li><%= link_to 'Clientes', clients_path %></li>
           <li><%= link_to "#", 'data-activates' => "dropdown1", class: "dropdown-button" do %>
             Relatórios <i class="material-icons right">arrow_drop_down</i>
           <% end %></li>
         <% end %>
-        <li><%= link_to 'Pedidos', orders_path %></li>
+        <% if current_user.admin? %>
+        <li><%= link_to "#", 'data-activates' => "dropdown2", class: "dropdown-button" do %>
+          Cadastros <i class="material-icons right">arrow_drop_down</i>
+        <% end %></li>
+        <li><%= link_to "#", 'data-activates' => "dropdown3", class: "dropdown-button" do %>
+          Integrações <i class="material-icons right">arrow_drop_down</i>
+        <% end %></li>
+        <% end %>
         <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
       <% end %>
+    </ul>
+
+    <ul id="dropdown3" class="dropdown-content">
+      <li><%= link_to 'Resicolor', resicolor_path %></li>
+      <li><%= link_to 'Efator', import_path %></li>
+    </ul>
+
+    <ul id="dropdown2" class="dropdown-content">
+      <li><%= link_to 'Usuários', users_path %></li>
+      <li><%= link_to 'Itens', items_path %></li>
+      <li><%= link_to 'Ramos', sections_path %></li>
+    </ul>
+
+    <ul id="dropdown1" class="dropdown-content">
+      <li><%= link_to 'Vendas x Vendedor', sales_report_path %></li>
+      <li><%= link_to 'Cliente', by_client_report_path %></li>
+      <li><%= link_to 'Pautas', listings_path %></li>
     </ul>
 
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -62,7 +80,7 @@
           <li><%= link_to 'Itens', items_path %></li>
           <li><%= link_to 'Ramos', sections_path %></li>
         <% end %>
-        <% if current_user.caixa? %>
+        <% if false#current_user.caixa? %>
           <li><%= link_to 'Caixa', caixa_path %></li>
         <% end %>
         <% if current_user.vendedor? %>

@@ -1,8 +1,22 @@
 Rails.application.routes.draw do
   devise_for :users, :path => 'u'
+
+  # efator
   get "import", to: "efator#index"
   post "import", to: "efator#import"
   post "reset", to: "efator#reset"
+
+  # resicolor
+  get "resicolor", to: "resicolor#index"
+  post "resicolor", to: "resicolor#import"
+  get "resicolor/integrate", to: "resicolor#integrate"
+  get "resicolor/rproducts", to: "resicolor#rproducts"
+  get "resicolor/rproducts", to: "resicolor#rproducts"
+  get "resicolor/rbases", to: "resicolor#rbases"
+  patch "resicolor/rbase_update", to: "resicolor#rbase_update"
+  get "resicolor/rformulas", to: "resicolor#rformulas"
+  post "resicolor/reset", to: "resicolor#reset"
+
   get "clean", to: "order_items#clean"
   post "finish_order", to: "order_items#finish"
   post "shipping_order", to: "order_items#shipping"
@@ -11,6 +25,8 @@ Rails.application.routes.draw do
   post "pay", to: "order_items#pay"
   post "cancel", to: "order_items#cancel"
   get "caixa_update", to: "home#caixa_update"
+
+  get  "tintas", to: "home#tintas"
 
   # reports
 
@@ -50,7 +66,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :order_items, only: [:create, :destroy, :update]
+  resources :order_items,  only: [:create, :destroy, :update]
+  resources :order_tintas, only: [:create, :destroy, :update]
 
   root to: "home#index"
 end

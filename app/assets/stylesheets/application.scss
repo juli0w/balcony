@@ -23,6 +23,12 @@
 html {
   background-color: color("grey", "lighten-4");
 }
+
+.autocomplete-content.dropdown-content {
+  position: absolute;
+  width: 450px;
+}
+
 .search-offers {
   .btn-flat {
     float: right;

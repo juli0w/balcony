@@ -1,0 +1,73 @@
+<%= render "rmenu" %>
+
+<div class="">
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <h4 style="margin-top: 40px;">Fórmulas Resicolor</h4>
+    </div>
+  </div>
+</div>
+
+<div class="">
+  <div class="row">
+    <div class="card-panel">
+      <div class="search-offers" style="margin-bottom: 20px;">
+        <%= form_tag resicolor_rformulas_path, method: :get do %>
+            <fieldset style="border: none; margin: 0; padding: 0;">
+              <input name="keyword" id="icon_local" style="display: inline; width:500px;" type="search" placeholder="Filtrar fórmulas" value='<%= params[:keyword] %>'>
+              <button class="btn" type="submit" name="action">
+                Filtrar
+              </button>
+            </fieldset>
+        <% end %>
+      </div>
+
+      <table class="striped bordered">
+        <thead>
+          <tr>
+              <th data-field="id">Produto</th>
+              <th data-field="name">Cor</th>
+              <th data-field="name">Linha</th>
+              <th data-field="c">C1</th>
+              <th data-field="q">Q1</th>
+              <th data-field="c">C2</th>
+              <th data-field="q">Q2</th>
+              <th data-field="c">C3</th>
+              <th data-field="q">Q3</th>
+              <th data-field="c">C4</th>
+              <th data-field="q">Q4</th>
+              <th data-field="c">C5</th>
+              <th data-field="q">Q5</th>
+              <th data-field="c">C6</th>
+              <th data-field="q">Q6</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @rformulas.first(100).each do |rformula| %>
+
+          <tr>
+            <td><%= rformula.rproduct.code %></td>
+            <td><%= rformula.rcolor.name %></td>
+            <td><%= rformula.line %></td>
+            <td><%= rformula.c1 %></td>
+            <td><%= rformula.q1 %></td>
+            <td><%= rformula.c2 %></td>
+            <td><%= rformula.q2 %></td>
+            <td><%= rformula.c3 %></td>
+            <td><%= rformula.q3 %></td>
+            <td><%= rformula.c4 %></td>
+            <td><%= rformula.q4 %></td>
+            <td><%= rformula.c5 %></td>
+            <td><%= rformula.q5 %></td>
+            <td><%= rformula.c6 %></td>
+            <td><%= rformula.q6 %></td>
+          </tr>
+
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

@@ -55,7 +55,6 @@
       <table class="striped">
         <thead>
           <tr>
-              <th data-field="id" width="">#</th>
               <th data-field="item" width="">Produto</th>
               <th data-field="unit" width="">Valor</th>
               <th data-field="quantity" width="">Quantidade</th>
@@ -66,15 +65,27 @@
         <tbody>
           <% @order.order_items.each do |oi| %>
             <tr>
-              <td><%= oi.item.code %></td>
               <td><%= oi.item.name %></td>
               <td><%= number_to_currency oi.unit_price %></td>
               <td><%= oi.quantity %></td>
               <td><%= number_to_currency oi.total_price %></td>
             </tr>
           <% end %>
+
+          <% @order.order_tintas.each do |oi| %>
+            <tr>
+              <td>
+                <%= oi.rformula.color.split("-").first %> (<%= oi.rformula.rproduct.can.humanize %>)
+                <span style="font-size: .8em; display: block;"><%= oi.rformula.rline.name %></span>
+                <span style="font-size: .8em; display: block;"><%= oi.rformula.rproduct.code %></span>
+              </td>
+              <td><%= number_to_currency oi.unit_price %></td>
+              <td><%= oi.quantity %></td>
+              <td><%= number_to_currency oi.total_price %></td>
+            </tr>
+          <% end %>
           <tr>
-            <td colspan='4' class="right-align">Total:</td>
+            <td colspan='3' class="right-align">Total:</td>
             <td><%= number_to_currency @order.total %></td>
           </tr>
         </tbody>

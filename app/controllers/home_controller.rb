@@ -17,6 +17,17 @@ class HomeController < ApplicationController
     @client = Client.find(session[:client])
   end
 
+  def tintas
+    if params[:marca] == "Resicolor" and !params[:color].blank?
+      @tintas = Rformula.joins(:rcolor).
+                         joins(:rproduct).
+                         where("rcolors.name LIKE ?", "%#{params[:color]}%").
+                         where("rproducts.can == ?", params[:can])
+
+      @tintas = @tintas.where('rline_id == ?', params[:line]) if !params[:line].blank?
+    end
+  end
+
   def caixa
     @orders = Order.not_empty.opened
   end

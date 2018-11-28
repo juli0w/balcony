@@ -1,0 +1,40 @@
+<%= render "rmenu" %>
+
+<div class="">
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <h4 style="margin-top: 40px;">Produtos Resicolor</h4>
+    </div>
+  </div>
+</div>
+
+<div class="">
+  <div class="row">
+    <div class="card-panel">
+      <table class="striped bordered">
+        <thead>
+          <tr>
+              <th data-field="id">Código</th>
+              <th data-field="name">Base</th>
+              <th data-field="name">Embalagem</th>
+              <th data-field="actions">Densidade</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @rproducts.each do |rproduct| %>
+
+          <tr>
+            <td><%= rproduct.code %></td>
+            <td><%= rproduct.base %></td>
+            <td><%= rproduct.can %></td>
+            <td><%= rproduct.density %></td>
+          </tr>
+
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

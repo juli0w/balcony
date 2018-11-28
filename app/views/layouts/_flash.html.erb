@@ -1,5 +1,11 @@
 <% flash.each do |name, msg| %>
-  <div style="padding: 10px 5px; background-color: #d4edda; color: #155724;">
+  <div id="flash" style="display: none; position: absolute; padding: 10px 15px; background-color: #d4edda; color: #155724;">
     <%= msg %>
   </div>
 <% end %>
+<script>
+$(document).ready(function() {
+  $('#flash').slideDown();
+  setInterval(function() { $('#flash').slideUp() }, 5000);
+});
+</script>

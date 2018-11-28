@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="card-panel">
+    <table class="striped bordered">
+      <thead>
+        <tr>
+            <th data-field="id">Produto</th>
+            <th data-field="name">Base</th>
+            <th data-field="name">Acabamento</th>
+            <th data-field="name">Embalagem</th>
+            <th data-field="actions">Item</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @integrate.each do |integrate| %>
+
+        <tr>
+          <td><%= integrate.product %></td>
+          <td><%= integrate.base %></td>
+          <td><%= integrate.line %></td>
+          <td><%= integrate.can %></td>
+          <td><%= integrate.item.name %></td>
+        </tr>
+
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>

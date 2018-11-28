@@ -1,0 +1,2 @@
+class Rbase < ApplicationRecord
+end

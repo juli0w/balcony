@@ -21,6 +21,8 @@ gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+gem 'roo'
+
 gem 'mysql2'
 gem 'materialize-sass'
 gem 'material_icons'

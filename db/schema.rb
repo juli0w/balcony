@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004114814) do
+ActiveRecord::Schema.define(version: 20181127123104) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -82,16 +82,100 @@ ActiveRecord::Schema.define(version: 20171004114814) do
     t.index ["order_id"], name: "index_order_items_on_order_id"
   end
 
+  create_table "order_tinta", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "rformula_id"
+    t.integer  "quantity"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["order_id"], name: "index_order_tinta_on_order_id"
+    t.index ["rformula_id"], name: "index_order_tinta_on_rformula_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string   "name"
     t.string   "state"
-    t.decimal  "total"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.decimal  "total",      precision: 10, scale: 2
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "user_id"
     t.integer  "client_id"
     t.string   "obs"
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "rbases", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.decimal  "density",    precision: 8,  scale: 2
+    t.integer  "rgb"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.decimal  "price",      precision: 10, scale: 2
+  end
+
+  create_table "rcolors", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rformulas", force: :cascade do |t|
+    t.integer  "rproduct_id"
+    t.string   "color"
+    t.string   "base"
+    t.string   "line"
+    t.string   "rgb"
+    t.integer  "c1"
+    t.decimal  "q1",          precision: 10, scale: 2
+    t.integer  "c2"
+    t.decimal  "q2",          precision: 10, scale: 2
+    t.integer  "c3"
+    t.decimal  "q3",          precision: 10, scale: 2
+    t.integer  "c4"
+    t.decimal  "q4",          precision: 10, scale: 2
+    t.integer  "c5"
+    t.decimal  "q5",          precision: 10, scale: 2
+    t.integer  "c6"
+    t.decimal  "q6",          precision: 10, scale: 2
+    t.string   "notes"
+    t.decimal  "price",       precision: 10, scale: 2
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "rcolor_id"
+    t.integer  "rline_id"
+    t.index ["rcolor_id"], name: "index_rformulas_on_rcolor_id"
+    t.index ["rline_id"], name: "index_rformulas_on_rline_id"
+    t.index ["rproduct_id"], name: "index_rformulas_on_rproduct_id"
+  end
+
+  create_table "rintegrations", force: :cascade do |t|
+    t.string   "base"
+    t.string   "can"
+    t.string   "line"
+    t.string   "product"
+    t.integer  "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_rintegrations_on_item_id"
+  end
+
+  create_table "rlines", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rproducts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.string   "base"
+    t.decimal  "density",    precision: 8, scale: 2
+    t.string   "can"
+    t.integer  "item_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["item_id"], name: "index_rproducts_on_item_id"
   end
 
   create_table "sections", force: :cascade do |t|

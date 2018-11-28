@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
-  has_many :order_items, dependent: :destroy
+  has_many :order_items,  dependent: :destroy
+  has_many :order_tintas, dependent: :destroy
   belongs_to :user, optional: true
   belongs_to :client, optional: true
 
@@ -24,7 +25,7 @@ class Order < ApplicationRecord
   end
 
   def empty?
-    order_items.count <= 0
+    (order_items.count + order_tintas.count) <= 0
   end
 
   def open!
@@ -61,7 +62,23 @@ class Order < ApplicationRecord
     return order_item
   end
 
+  def add_tinta params
+    order_tinta = order_tintas.select { |ot| ot.rformula_id == params[:tinta_id].to_i }.first
+    qty = (params[:quantity].to_i > 0) ? params[:quantity].to_i : 1
+
+    unless order_tinta.blank?
+      order_tinta.quantity += qty
+    else
+      order_tinta = order_tintas.new(rformula_id: params[:tinta_id], quantity: qty)
+    end
+
+    order_tinta.save
+    return order_tinta
+  end
+
   def calculate_total
-    @total = order_items.collect { |oi| oi.valid? ? (oi.quantity * oi.unit_price) : 0 }.sum
+    @total_i = order_items.collect  { |oi| oi.valid? ? (oi.quantity * oi.unit_price) : 0 }.sum
+    @total_t = order_tintas.collect { |oi| oi.valid? ? (oi.quantity * oi.unit_price) : 0 }.sum
+    @total = @total_i + @total_t
   end
 end

@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="card-panel">
+    <table class="striped bordered">
+      <thead>
+        <tr>
+            <th data-field="id">Código</th>
+            <th data-field="name">Nome</th>
+            <th data-field="name">RGB</th>
+            <th data-field="actions">Preço</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @rbases.each do |rbase| %>
+
+        <tr>
+          <td><%= rbase.code %></td>
+          <td><%= rbase.name %></td>
+          <td><%= rbase.rgb %></td>
+          <td>
+            <%= form_for rbase, url: resicolor_rbase_update_path, remote: true do |f| %>
+              <%= f.hidden_field :id %>
+              <i class="material-icons prefix">attach_money</i>
+              <%= f.number_field :price, step: "0.01", style: "vertical-align: super; margin-bottom:0; width: 65px;" %>
+              <button id="submit" class="btn btn-tiny waves-effect waves-light light-green" type="submit" name="action">
+                <i class="material-icons">loop</i>
+              </button>
+            <% end %>
+          </td>
+        </tr>
+
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>
