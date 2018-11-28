@@ -1,7 +1,7 @@
 class CreateRformulas < ActiveRecord::Migration[5.0]
   def change
     create_table :rformulas do |t|
-      t.references :rproduct, foreign_key: true
+      t.references :rproduct, foreign_key: true, index: true
       t.string :color
       t.string :base
       t.string :line
