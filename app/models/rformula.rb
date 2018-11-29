@@ -5,7 +5,11 @@ class Rformula < ApplicationRecord
 
   include SearchCop
 
-  MARGIN = 50
+  MARGIN = 40
+
+  CAN = { "LATA"   => 20,
+          "GALAO"  => 4,
+          "QUARTO" => 1 }
 
   search_scope :search do
     attributes :color
@@ -15,9 +19,9 @@ class Rformula < ApplicationRecord
     attributes :notes
   end
 
-  def calculate_price
-    return price unless price.blank?
-    
+  def calculate_price can=nil
+    return total_price(can) unless price.blank?
+
     total_price = 0
 
     {c1 => q1, c2 => q2, c3 => q3, c4 => q4, c5 => q5, c6 => q6}.each do |c, q|
@@ -25,9 +29,14 @@ class Rformula < ApplicationRecord
       total_price += (q * rbase(c).price) unless q.blank?
     end
 
-    update(price: total_price + (total_price * MARGIN/100))
+    update(price: total_price)
 
-    return price
+    return total_price can
+  end
+
+  def total_price can=nil
+    pr = price * CAN[can]
+    pr + (pr * MARGIN/100)
   end
 
   def get_base n

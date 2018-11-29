@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181127123104) do
+ActiveRecord::Schema.define(version: 20181129124444) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20181127123104) do
     t.integer  "quantity"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "can"
     t.index ["order_id"], name: "index_order_tinta_on_order_id"
     t.index ["rformula_id"], name: "index_order_tinta_on_rformula_id"
   end

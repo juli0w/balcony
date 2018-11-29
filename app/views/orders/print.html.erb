@@ -75,7 +75,7 @@
           <% @order.order_tintas.each do |oi| %>
             <tr>
               <td>
-                <%= oi.rformula.color.split("-").first %> (<%= oi.rformula.rproduct.can.humanize %>)
+                <%= oi.rformula.color.split("-").first %> (<%= oi.can.try(:humanize) %>)
                 <span style="font-size: .8em; display: block;"><%= oi.rformula.rline.name %></span>
                 <span style="font-size: .8em; display: block;"><%= oi.rformula.rproduct.code %></span>
               </td>

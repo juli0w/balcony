@@ -38,7 +38,7 @@ private
     worksheet.each_row_streaming(pad_cells: true, offset: 1) do |row|
       code    = row[0].to_s
       name    = row[1].to_s
-      density = row[2].to_s.to_d
+      density = row[2].to_s.gsub(",", ".")
       rgb     = row[4].to_s
 
       if code != "ColorantCode"
@@ -57,7 +57,7 @@ private
     worksheet.each_row_streaming(pad_cells: true, offset: 1) do |row|
       code    = row[0].to_s
       base    = row[2].to_s
-      density = row[4].to_s.to_d
+      density = row[4].to_s.gsub(",", ".")
       can     = row[5].to_s
 
       if code != "Product Code"
@@ -82,28 +82,26 @@ private
         color = row[8].to_s
 
         c1 = row[11].to_s
-        q1 = row[12].to_s
+        q1 = row[12].to_s.gsub(",", ".")
 
         c2 = row[13].to_s
-        q2 = row[14].to_s
+        q2 = row[14].to_s.gsub(",", ".")
 
         c3 = row[15].to_s
-        q3 = row[16].to_s
+        q3 = row[16].to_s.gsub(",", ".")
 
         c4 = row[17].to_s
-        q4 = row[18].to_s
+        q4 = row[18].to_s.gsub(",", ".")
 
         c5 = row[19].to_s
-        q5 = row[20].to_s
+        q5 = row[20].to_s.gsub(",", ".")
 
         c6 = row[21].to_s
-        q6 = row[22].to_s
+        q6 = row[22].to_s.gsub(",", ".")
 
         rgb   = row[23].to_s
         notes = row[26].to_s
 
-
-        puts "#{line} #{base} #{color}"
         rproduct = Rproduct.find_by_code(pcode)
         rformula = Rformula.where(line: line, base: base, color: color, rproduct_id: rproduct.id).first_or_create
 
@@ -111,7 +109,7 @@ private
         rformula.rline  = Rline.where(name: line).first_or_create
 
         rformula.c1 = c1
-        rformula.q1 = q1.to_d
+        rformula.q1 = q1
 
         rformula.c2 = c2
         rformula.q2 = q2

@@ -34,7 +34,7 @@
 <% @tintas.first(50).each do |tinta| %>
 <div id="rf-<%= tinta.id %>" class="modal">
   <div class="modal-content">
-    <h5 style="text-align: center;"><%= tinta.color.split("-").first.humanize %> (<%= tinta.rproduct.can.humanize %>)</h5>
+    <h5 style="text-align: center;"><%= tinta.color.split("-").first.humanize %> (<%= params[:can] %>)</h5>
     <h6 style="text-align: center;"><%= "#{tinta.rline.name} - #{tinta.rproduct.code}" %></h5>
     <table class="striped bordered">
       <thead>
@@ -78,7 +78,6 @@
           <th data-field="name">Cor</th>
           <th data-field="name">Linha</th>
           <th data-field="name">Cobertura</th>
-          <th data-field="name">Embalagem</th>
           <th data-field="name">Preço</th>
           <th data-field="actions"></th>
       </tr>
@@ -86,17 +85,15 @@
 
     <tbody>
       <% if @tintas %>
-        <% @tintas.first(50).each do |tinta| %>
-
+        <% @tintas.first(30).each do |tinta| %>
         <tr>
           <td><%= tinta.rcolor.name.split("-").first %></td>
           <td><%= tinta.rline.name %></td>
           <td><%= tinta.rproduct.code %></td>
-          <td><%= tinta.rproduct.can %></td>
-          <td><%= number_to_currency tinta.calculate_price %></td>
+          <td><%= number_to_currency tinta.calculate_price(params[:can]) %></td>
           <td>
             <%= link_to "Fórmula", "#rf-#{tinta.id}", class: "modal-trigger" %> |
-            <%= link_to "Adicionar", order_tintas_path(tinta_id: tinta.id, quantity: 1), method: :post, remote: true %>
+            <%= link_to "Adicionar", order_tintas_path(tinta_id: tinta.id, quantity: 1, can: params[:can]), method: :post, remote: true %>
           </td>
         </tr>
 

@@ -33,7 +33,7 @@
         <% current_cart.order_tintas.order("id desc").each do |order_tinta| %>
         <tr>
           <td>
-            <strong><%= order_tinta.rformula.color.split("-").first %></strong> (<%= order_tinta.rformula.rproduct.can.humanize %>)
+            <strong><%= order_tinta.rformula.color.split("-").first %></strong> (<%= order_tinta.can.try(:humanize) %>)
             <%= link_to order_tinta_path(order_tinta, key: params[:key]), method: :delete, class: "red-text" do %>
               <i class="material-icons" style="vertical-align: bottom;">delete</i>
             <% end %>

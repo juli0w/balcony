@@ -21,10 +21,11 @@ class HomeController < ApplicationController
     if params[:marca] == "Resicolor" and !params[:color].blank?
       @tintas = Rformula.joins(:rcolor).
                          joins(:rproduct).
-                         where("rcolors.name LIKE ?", "%#{params[:color]}%").
-                         where("rproducts.can == ?", params[:can])
+                         where("rcolors.name LIKE ?", "%#{params[:color]}%")
 
       @tintas = @tintas.where('rline_id == ?', params[:line]) if !params[:line].blank?
+
+      @tintas = @tintas.reject { |t| (Rproduct.where(code: t.rproduct.code, base: t.base, can: params[:can]).count <= 0) }
     end
   end
 
