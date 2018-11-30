@@ -24,7 +24,7 @@ class HomeController < ApplicationController
                          where("rcolors.name LIKE ?", "%#{params[:color]}%").
                          where("rproducts.can" => params[:can])
 
-      @tintas = @tintas.where('rline_id == ?', params[:line].to_i) if !params[:line].blank?
+      @tintas = @tintas.where(rline_id: params[:line].to_i) if !params[:line].blank?
 
       # @tintas = @tintas.reject { |t| (Rproduct.where(code: t.rproduct.code, base: t.base, can: params[:can]).count <= 0) }
     end
