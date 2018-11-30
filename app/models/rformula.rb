@@ -19,15 +19,19 @@ class Rformula < ApplicationRecord
     attributes :notes
   end
 
+  def rbase c=nil
+    Rbase.select {|r| r.code.to_i == c.to_i }.first if c
+  end
+
   def calculate_price can=nil
-    total_price = 0
+    tprice = 0
 
     {c1 => q1, c2 => q2, c3 => q3, c4 => q4, c5 => q5, c6 => q6}.each do |c, q|
       puts "#{c} - #{q}"
-      total_price += (q * rbase(c).price) unless q.blank?
+      tprice += q * (((rbase(c).price) *1000)/946)/1000 unless q.blank?
     end
 
-    update(price: total_price)
+    update(price: tprice)
 
     return total_price can
   end
@@ -39,9 +43,5 @@ class Rformula < ApplicationRecord
 
   def get_base n
     rbase self.send("c#{n}")
-  end
-
-  def rbase c=nil
-    Rbase.select {|r| r.code.to_i == c.to_i }.first if c
   end
 end
