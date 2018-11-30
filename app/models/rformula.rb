@@ -20,8 +20,6 @@ class Rformula < ApplicationRecord
   end
 
   def calculate_price can=nil
-    return total_price(can) unless price.blank?
-
     total_price = 0
 
     {c1 => q1, c2 => q2, c3 => q3, c4 => q4, c5 => q5, c6 => q6}.each do |c, q|
