@@ -26,11 +26,17 @@ class Rformula < ApplicationRecord
   def calculate_price can=nil
     tprice = 0
 
+    puts "---------------"
+    puts "Calculando pigmentos"
     {c1 => q1, c2 => q2, c3 => q3, c4 => q4, c5 => q5, c6 => q6}.each do |c, q|
-      puts "#{c} - #{q}"
-      tprice += q * (((rbase(c).price) *1000)/946)/1000 unless q.blank?
+      puts "---------------"
+      puts "Pigmento: #{rbase(c).code} -> #{q}"
+      value = q * (((rbase(c).price) *1000)/946)/1000
+      puts "R$ #{value.to_s}"
+      tprice += value unless q.blank?
     end
 
+    puts "---------------"
     update(price: tprice)
 
     return total_price can
@@ -38,7 +44,13 @@ class Rformula < ApplicationRecord
 
   def total_price can=nil
     pr = price * CAN[can]
-    pr + (pr * MARGIN/100)
+    total = pr + (pr * MARGIN/100)
+    puts "Valor por ml: #{price}"
+    puts "Subtotal: #{pr} (#{can} [#{CAN[can]}])"
+    puts "Total: #{total}"
+    puts "---------------"
+
+    return total
   end
 
   def get_base n
