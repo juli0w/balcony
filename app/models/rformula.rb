@@ -5,11 +5,11 @@ class Rformula < ApplicationRecord
 
   include SearchCop
 
-  MARGIN = 40
+  MARGIN = 50
 
-  CAN = { "LATA"   => 20,
-          "GALAO"  => 4,
-          "QUARTO" => 1 }
+  CAN = { "LATA"   => 20000,
+          "GALAO"  => 3600,
+          "QUARTO" => 900 }
 
   search_scope :search do
     attributes :color

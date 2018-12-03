@@ -21,7 +21,7 @@
             </div>
 
             <div class="input-field col s12 m3">
-              <%= select_tag(:rp, options_for_select(Rproduct.all.map(&:code).uniq, params[:rp]), include_blank: true, prompt: "Linha") %>
+              <%= select_tag(:rp, options_for_select(Rproduct.all.map(&:code).uniq, params[:rp]), include_blank: true, prompt: "Cobertura") %>
             </div>
           </div>
 
