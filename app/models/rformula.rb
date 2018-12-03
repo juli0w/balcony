@@ -29,11 +29,13 @@ class Rformula < ApplicationRecord
     puts "---------------"
     puts "Calculando pigmentos"
     {c1 => q1, c2 => q2, c3 => q3, c4 => q4, c5 => q5, c6 => q6}.each do |c, q|
-      puts "---------------"
-      puts "Pigmento: #{rbase(c).code} -> #{q}"
-      value = q * (((rbase(c).price) *1000)/946)/1000
-      puts "R$ #{value.to_s}"
-      tprice += value unless q.blank?
+      unless q.blank?
+        puts "---------------"
+        puts "Pigmento: #{rbase(c).code} -> #{q}"
+        value = q * (((rbase(c).price) *1000)/946)/1000
+        puts "R$ #{value.to_s}"
+        tprice += value
+      end
     end
 
     puts "---------------"
