@@ -1,5 +1,6 @@
 class Rproduct < ApplicationRecord
-  # belongs_to :item, optional: true
+  belongs_to :item, optional: true
+  
   CAN = { "LATA"   => 20,
           "GALAO"  => 4,
           "QUARTO" => 1 }

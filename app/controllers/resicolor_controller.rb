@@ -12,7 +12,27 @@ class ResicolorController < ApplicationController
   end
 
   def rproducts
-    @rproducts = Rproduct.all
+    @rproducts = Rproduct.all.page(params[:page]).per(20)
+    @items = Item.last(10)
+  end
+
+  def search
+    @rproduct = Rproduct.find(params[:id])
+    @items = Item.order(:name).search(params[:key].try(:upcase)).first(10)
+
+    respond_to do |format|
+      format.js { }
+    end
+  end
+
+  def change
+    @rproduct = Rproduct.find(params[:id])
+    @rproduct.item_id = params[:item_id]
+    @rproduct.save
+
+    respond_to do |format|
+      format.js { }
+    end
   end
 
   def rbases

@@ -17,7 +17,7 @@
               <th data-field="id">Código</th>
               <th data-field="name">Base</th>
               <th data-field="name">Embalagem</th>
-              <th data-field="actions">Densidade</th>
+              <th data-field="actions">Item</th>
           </tr>
         </thead>
 
@@ -28,12 +28,34 @@
             <td><%= rproduct.code %></td>
             <td><%= rproduct.base %></td>
             <td><%= rproduct.can %></td>
-            <td><%= rproduct.density %></td>
+            <td>
+              <span style="vertical-align: top;" id='td-rproduct-<%= rproduct.id %>'><%= rproduct.item.try(:name) %></span>
+              <%= link_to "#", style: "margin: 0 6px; float: right;", onclick: "$('#rproduct-#{rproduct.id}').modal('open'); preventDefault();" do %>
+              <i class="material-icons">cloud_upload</i>
+              <% end %>
+
+              <div id="rproduct-<%= rproduct.id %>" class="modal">
+                <div class="modal-content">
+                  <%= form_tag rproduct_search_path(rproduct.id), remote: true, method: :get do %>
+                    <div class="input-field">
+                      <input id="search" onfocus="this.select();" type="search" style="text-transform: uppercase;" name="key" value='<%= rproduct.item.try(:name) %>' autofocus=true required>
+                      <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                      <i class="material-icons">close</i>
+                    </div>
+                  <% end %>
+                  <div id="modal-<%= rproduct.id %>">
+                    <%= render "modal", rproduct_id: rproduct.id, items: Item.search(rproduct.item.try(:name)).first(20) %>
+                  </div>
+                </div>
+              </div>
+            </td>
           </tr>
 
           <% end %>
         </tbody>
       </table>
+
+      <%= paginate @rproducts %>
 
     </div>
   </div>

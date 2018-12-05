@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   post "resicolor", to: "resicolor#import"
   get "resicolor/integrate", to: "resicolor#integrate"
   get "resicolor/rproducts", to: "resicolor#rproducts"
-  get "resicolor/rproducts", to: "resicolor#rproducts"
+  get "resicolor/rproducts/:id/search", to: "resicolor#search", as: 'rproduct_search'
+  post "resicolor/rproduct/:id", to: "resicolor#change", as: :resicolor_rproduct
   get "resicolor/rbases", to: "resicolor#rbases"
   patch "resicolor/rbase_update", to: "resicolor#rbase_update"
   get "resicolor/rformulas", to: "resicolor#rformulas"
