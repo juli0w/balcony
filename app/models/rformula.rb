@@ -7,9 +7,9 @@ class Rformula < ApplicationRecord
 
   MARGIN = 50
 
-  CAN = { "LATA"   => 20000,
-          "GALAO"  => 3600,
-          "QUARTO" => 900 }
+  CAN = { "LATA"   => 20,
+          "GALAO"  => 4,
+          "QUARTO" => 1 }
 
   search_scope :search do
     attributes :color
@@ -32,7 +32,7 @@ class Rformula < ApplicationRecord
       unless q.blank?
         puts "---------------"
         puts "Pigmento: #{rbase(c).code} [R$ #{rbase(c).price}] -> #{q}mL"
-        value = q * (((rbase(c).price) *1000)/946)/1000
+        value = q * ((rbase(c).price) /946)
         puts "R$ #{value.to_s}"
         tprice += value
       end
@@ -46,7 +46,10 @@ class Rformula < ApplicationRecord
 
   def total_price can=nil
     pr = price * CAN[can]
-    total = pr + (pr * MARGIN/100)
+    rprod = Rproduct.where(can: can, base: base, code: rproduct.code).first
+    rpr   = rprod.item.try(:price) || 0
+    puts "Integrado com #{rprod.item.try(:name)}"
+    total = pr + (pr * MARGIN/100) + rpr
     puts "Valor por ml: #{price}"
     puts "Subtotal: #{pr} (#{can} [#{CAN[can]}])"
     puts "Total: #{total}"
