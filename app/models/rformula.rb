@@ -48,7 +48,7 @@ class Rformula < ApplicationRecord
     pr = price * CAN[can]
     rprod = Rproduct.where(can: can, base: base, code: rproduct.code).first
     rpr   = rprod.item.try(:price) || 0
-    puts "Integrado com #{rprod.item.try(:name)}"
+    puts "Integrado com #{rprod.item.try(:name) || '[missing]'}"
     total = pr + (pr * MARGIN/100) + rpr
     puts "Valor por ml: #{price}"
     puts "Subtotal: #{pr} (#{can} [#{CAN[can]}])"

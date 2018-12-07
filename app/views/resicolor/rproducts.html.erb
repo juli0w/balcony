@@ -30,7 +30,7 @@
             <td><%= rproduct.can %></td>
             <td>
               <span style="vertical-align: top;" id='td-rproduct-<%= rproduct.id %>'><%= rproduct.item.try(:name) %></span>
-              <%= link_to "#", style: "margin: 0 6px; float: right;", onclick: "$('#rproduct-#{rproduct.id}').modal('open'); preventDefault();" do %>
+              <%= link_to "javascript:void();", style: "margin: 0 6px; float: right;", onclick: "$('#rproduct-#{rproduct.id}').modal('open'); preventDefault();" do %>
               <i class="material-icons">cloud_upload</i>
               <% end %>
 
