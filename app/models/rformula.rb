@@ -39,18 +39,23 @@ class Rformula < ApplicationRecord
     end
 
     puts "---------------"
-    update(price: tprice)
+    # update(price: tprice)
 
-    return total_price can
+    return total_price(can, tprice)
   end
 
-  def total_price can=nil
-    pr = price * CAN[can]
+  def total_price can=nil, tprice=nil
+    pr = tprice * CAN[can]
     rprod = Rproduct.where(can: can, base: base, code: rproduct.code).first
     rpr   = rprod.item.try(:price) || 0
     puts "Integrado com #{rprod.item.try(:name) || '[missing]'}"
-    total = pr + (pr * MARGIN/100) + rpr
-    puts "Valor por ml: #{price}"
+    unless rprod.item.nil?
+      total = pr + (pr * MARGIN/100) + rpr
+    else
+      total = 0
+    end
+
+    puts "Valor por ml: #{tprice}"
     puts "Subtotal: #{pr} (#{can} [#{CAN[can]}])"
     puts "Total: #{total}"
     puts "---------------"
