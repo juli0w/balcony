@@ -92,8 +92,8 @@
         <% @tintas.first(30).each do |tinta| %>
         <tr>
           <td><%= tinta.rcolor.name.split("-").first %></td>
-          <td><%= tinta.rline.name %></td>
-          <td><%= tinta.rproduct.code %></td>
+          <td><%= tinta.rline.name.split("-")[1] %></td>
+          <td><%= tinta.rproduct.code.gsub("[NOVO]","") %></td>
           <td><%= number_to_currency tinta.calculate_price(params[:can]) %></td>
           <td>
             <%= link_to "Fórmula", "#rf-#{tinta.id}", class: "modal-trigger" %> |
