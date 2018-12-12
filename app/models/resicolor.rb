@@ -38,16 +38,16 @@ private
     worksheet.each_row_streaming(pad_cells: true, offset: 1) do |row|
       code    = row[0].to_s
       name    = row[1].to_s
-      density = row[2].to_s.gsub(",", ".")
+      density = row[2].value
       rgb     = row[4].to_s
 
       if code != "ColorantCode"
-        puts "#{code}: #{name} - #{rgb}"
+        puts "#{code}: #{name} - #{density}[#{row[2].to_s}]"
         rbase = Rbase.where(code: code).first_or_create
         rbase.name    = name
         rbase.density = density
         rbase.rgb     = rgb
-        rbase.save
+        puts rbase.save
       end
     end
   end

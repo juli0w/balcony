@@ -8,7 +8,7 @@ class ResicolorController < ApplicationController
     @resicolor = Resicolor.new(params[:file], params[:formula])
     @resicolor.import
 
-    redirect_to resicolor_rformulas_path, notice: "OK!"
+    redirect_to resicolor_rbases_path, notice: "OK!"
   end
 
   def rproducts
