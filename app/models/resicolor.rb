@@ -27,7 +27,7 @@ private
       puts "Found #{worksheets.count} worksheets"
 
       import_colorants(workbook.sheet(0))
-      # import_products (workbook.sheet(1))
+      import_products (workbook.sheet(1))
     end
 
     import_formulas(formula) if formula
@@ -57,7 +57,7 @@ private
     worksheet.each_row_streaming(pad_cells: true, offset: 1) do |row|
       code    = row[0].to_s
       base    = row[2].to_s
-      density = row[4].to_s.gsub(",", ".")
+      density = row[4].value
       can     = row[5].to_s
 
       if code != "Product Code"
