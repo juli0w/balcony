@@ -6,6 +6,7 @@
             <th data-field="id">Código</th>
             <th data-field="name">Nome</th>
             <th data-field="name">RGB</th>
+            <th data-field="name">Densidade</th>
             <th data-field="actions">Preço</th>
         </tr>
       </thead>
@@ -17,6 +18,7 @@
           <td><%= rbase.code %></td>
           <td><%= rbase.name %></td>
           <td><%= rbase.rgb %></td>
+          <td><%= rbase.density %></td>
           <td>
             <%= form_for rbase, url: resicolor_rbase_update_path, remote: true do |f| %>
               <%= f.hidden_field :id %>
