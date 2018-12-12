@@ -31,6 +31,7 @@
         <h5 class="order" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %></h5>
         <div class="divider"></div>
         <div style="padding: 20px">
+          <span style="float: right; color: #898989;"><%= l(order.created_at).split("-")[0] %></span>
           Vendedor: <%= order.user.try(:email) || "Não informado" %><br>
           Cliente: <%= order.client.try(:company) || "Não informado" %> - Fone: <%= order.client.try(:phone) || "Não informado" %><br>
           Endereço: <%= order.client.try(:address) || "Não informado" %> <%= order.client.try(:cep) %><br>
