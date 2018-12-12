@@ -30,7 +30,7 @@
         <tbody>
           <tr>
             <td width="10%" class="bg">Pedido</td>
-            <td><%= @order.id %></td>
+            <td><%= @order.id %> - <%= l(@order.created_at.to_date).split("-")[0] %></td>
             <td width="10%" class="bg">Vendedor</td>
             <td colspan="3"><%= @order.user.try(:email) || "Não informado" %></td>
           </tr>
