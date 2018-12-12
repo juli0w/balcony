@@ -27,7 +27,7 @@ private
       puts "Found #{worksheets.count} worksheets"
 
       import_colorants(workbook.sheet(0))
-      import_products (workbook.sheet(1))
+      # import_products (workbook.sheet(1))
     end
 
     import_formulas(formula) if formula
