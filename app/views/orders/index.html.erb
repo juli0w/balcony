@@ -28,7 +28,7 @@
     <% @orders.each do |order| %>
     <% begin %>
       <div class="card-panel">
-        <h5 class="order" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %></h5>
+        <h5 class="order" id="<%= order.id %>" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %></h5>
         <div class="divider"></div>
         <div style="padding: 20px">
           <span style="float: right; color: #898989;"><%= l(order.created_at).split("-")[0] %></span>
