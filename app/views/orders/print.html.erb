@@ -63,7 +63,7 @@
       </div>
       <div style="float:right; width: 140px;">
         <span class="titled">Vendedor:<br></span>
-        <%= @order.user.try(:email) || "Não informado" %>
+        <%= @order.seller || @order.user.try(:email) %>
       </div>
     </div>
     <div class="row rowed">

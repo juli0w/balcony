@@ -12,6 +12,7 @@
   padding: 0 0px;
   padding-bottom: 0px;
   margin: 0;
+  font-size: 12px;
 }
 </style>
 <div class="row">
@@ -51,7 +52,7 @@
             </div>
             <div style="float:right; width: 180px;">
               <span class="titled">Vendedor:<br></span>
-              <%= order.user.try(:email) || "Não informado" %>
+              <%= order.seller || order.user.try(:email) %>
             </div>
           </div>
           <div class="row rowed">
