@@ -49,7 +49,7 @@
                 <%= l(order.created_at.to_date).split("-")[0] %>
               </div>
             </div>
-            <div style="float:right; width: 140px;">
+            <div style="float:right; width: 180px;">
               <span class="titled">Vendedor:<br></span>
               <%= order.user.try(:email) || "Não informado" %>
             </div>
@@ -59,7 +59,7 @@
               <span class="titled">Cliente:<br></span>
               <%= order.client.try(:company) || "Não informado" %>
             </div>
-            <div style="float:right; width: 140px;">
+            <div style="float:right; width: 180px;">
               <span class="titled">Telefone:<br></span>
               <%= order.client.try(:phone) || "Não informado" %>
             </div>
@@ -74,7 +74,7 @@
               <%= order.client.address || 'Não informado' %>
               <%= ", #{order.client.district}" unless order.client.district.blank? %>
             </div>
-            <div style="float:right; width: 140px;">
+            <div style="float:right; width: 180px;">
               <span class="titled">Município:<br></span>
               <%= order.client.try(:city) || "Não informado" %> <%= order.client.try(:uf) %>
             </div>
