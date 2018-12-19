@@ -3,10 +3,20 @@
     <h5>Pedidos</h5>
   </div>
 </div>
-
+<style>
+.titled {
+  color: #767676; font-size: 8px;
+  text-transform: uppercase;
+}
+.rowed {
+  padding: 0 0px;
+  padding-bottom: 0px;
+  margin: 0;
+}
+</style>
 <div class="row">
   <div class="col s12">
-    <div class="card-panel">
+    <div class="card-panel" style="padding: 20px;">
       <div class="search-offers">
         <%= form_tag orders_path, method: :get do %>
             <fieldset style="border: none; margin: 0; padding: 0;">
@@ -27,21 +37,56 @@
     </div>
     <% @orders.each do |order| %>
     <% begin %>
-      <div class="card-panel">
-        <h5 class="order" id="<%= order.id %>" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %></h5>
+      <div class="card-panel" style="padding: 10px 20px;">
+        <h5 class="order" style="font-size: 16px;" id="<%= order.id %>" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %>
+        <span class="badge green white-text right"><%= order.get_state %></span></h5>
         <div class="divider"></div>
-        <div style="padding: 20px">
-          <span style="float: right; color: #898989;"><%= l(order.created_at).split("-")[0] %></span>
-          Vendedor: <%= order.user.try(:email) || "Não informado" %><br>
-          Cliente: <%= order.client.try(:company) || "Não informado" %> - Fone: <%= order.client.try(:phone) || "Não informado" %><br>
-          Endereço: <%= order.client.try(:address) || "Não informado" %> <%= order.client.try(:cep) %><br>
-          Cidade: <%= order.client.try(:city) || "Não informado" %> <%= order.client.try(:uf) %><br>
-          CPF/CNPJ: <%= order.client.try(:cpf) || "Não informado" %>
+        <div style="padding-top: 10px">
+          <div class="row rowed">
+            <div style="float: left;">
+              <div style="float:right; width: 140px;">
+                <span class="titled">Data:<br></span>
+                <%= l(order.created_at.to_date).split("-")[0] %>
+              </div>
+            </div>
+            <div style="float:right; width: 140px;">
+              <span class="titled">Vendedor:<br></span>
+              <%= order.user.try(:email) || "Não informado" %>
+            </div>
+          </div>
+          <div class="row rowed">
+            <div style="float: left;">
+              <span class="titled">Cliente:<br></span>
+              <%= order.client.try(:company) || "Não informado" %>
+            </div>
+            <div style="float:right; width: 140px;">
+              <span class="titled">Telefone:<br></span>
+              <%= order.client.try(:phone) || "Não informado" %>
+            </div>
+            <div style="float:right; width: 140px;">
+              <span class="titled">CNPJ:<br></span>
+              <%= order.client.try(:cpf) || "Não informado" %>
+            </div>
+          </div>
+          <div class="row rowed">
+            <div style="float: left;">
+              <span class="titled">Endereço:<br></span>
+              <%= order.client.address || 'Não informado' %>
+              <%= ", #{order.client.district}" unless order.client.district.blank? %>
+            </div>
+            <div style="float:right; width: 140px;">
+              <span class="titled">Município:<br></span>
+              <%= order.client.try(:city) || "Não informado" %> <%= order.client.try(:uf) %>
+            </div>
+            <div style="float:right; width: 140px;">
+              <span class="titled">CEP:<br></span>
+              <%= order.client.try(:cep) || "Não informado" %>
+            </div>
+          </div>
           <% if order.obs %>
             <br><%= order.obs %>
           <% end %>
 
-          <span class="badge green white-text"><%= order.get_state %></span>
         </div>
         <div class="orders" id="order-<%= order.id %>">
           <table class="bordered striped highlight" style="margin-top: 20px;">

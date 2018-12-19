@@ -7,7 +7,7 @@ $(document).ready(function() {
 </script>
 <div class="row five-margin-bot">
   <div class="col s12 caixa">
-    <h5>CONFIRMAR DADOS DO CLIENTE</h5>
+    <h5>CONFIRMAR DADOS</h5>
   </div>
 </div>
 <style>
@@ -26,6 +26,22 @@ $(document).ready(function() {
     <div class="card">
       <%= form_for @client, url: finish_order_path, method: :post do |f| %>
         <div class="card-content">
+          <div class="row">
+            <div class="input-field col s12">
+              <%= select_tag(:seller, options_from_collection_for_select(User.where("role >= 2"), :username, :username, current_user.try(:username))) %>
+              <%= label_tag :seller, "Vendedor" %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <%= label_tag :obs, 'Observações' %>
+              <%= text_area_tag :obs, "", class: "materialize-textarea", style: "height: 100px" %>
+            </div>
+          </div>
+
+          <h6 style="color: #767676; margin-bottom: 30px; margin-top: 20px; font-weight: bold;">Dados do cliente</h6>
+
           <div class="row">
             <div class="input-field col s12">
               <%= f.label :email, "Email" %>
@@ -88,13 +104,6 @@ $(document).ready(function() {
             <div class="input-field col s6">
               <%= f.label :birthday, 'Aniversário', class: "active" %>
               <%= f.date_field :birthday, readonly: true %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col s12">
-              <%= label_tag :obs, 'Observações' %>
-              <%= text_area_tag :obs, "", class: "materialize-textarea", style: "height: 100px" %>
             </div>
           </div>
         </div>

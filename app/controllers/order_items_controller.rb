@@ -71,7 +71,8 @@ class OrderItemsController < ApplicationController
     @order = current_cart
     @order.open!
     @order.update(obs: params[:obs],
-                  client_id: session[:client])
+                  client_id: session[:client],
+                  seller: params[:seller])
 
     # @client = @order.clienting(client_params)
 
