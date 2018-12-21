@@ -32,6 +32,12 @@ class ClientsController < ApplicationController
 
   def new
     @client = Client.new
+
+    begin
+      code = SecureRandom.hex(3)
+    end until Client.find_by_email(code).nil?
+
+    @client.email = code
   end
 
   def create
