@@ -3,7 +3,7 @@ class OrderTinta < ApplicationRecord
   belongs_to :rformula
 
   def unit_price
-    rformula.calculate_price(can)
+    rformula.calculate_price(can) || 0
   end
 
   def total_price

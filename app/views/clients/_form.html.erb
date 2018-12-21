@@ -2,13 +2,13 @@
   <div class="card-content">
     <div class="row">
       <div class="input-field col s12 m6">
-        <%= f.label :email, "Email" %>
+        <%= f.label :email, "Identificador único" %>
         <%= f.text_field :email, id: "email" %>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <%= f.label :company, "Nome" %>
+        <%= f.label :company, "Razão social" %>
         <%= f.text_field :company %>
       </div>
     </div>
@@ -60,7 +60,7 @@
     </div>
     <div class="row">
       <div class="input-field col s6">
-        <%= f.collection_select :section_id, Section.all, :id, :name %>
+        <%= f.collection_select :section_id, Section.all.order(:name), :id, :name %>
         <%= f.label :section_id, 'Ramo de atuação' %>
       </div>
     </div>

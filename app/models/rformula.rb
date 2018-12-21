@@ -41,7 +41,7 @@ class Rformula < ApplicationRecord
     puts "---------------"
     # update(price: tprice)
 
-    return total_price(can, tprice)
+    return total_price(can, tprice) || 0
   end
 
   def total_price can=nil, tprice=nil
@@ -60,7 +60,7 @@ class Rformula < ApplicationRecord
     puts "Total: #{total}"
     puts "---------------"
 
-    return total
+    return total || 0
   end
 
   def get_base n

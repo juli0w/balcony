@@ -40,12 +40,21 @@
     <% begin %>
       <div class="card-panel" style="padding: 10px 20px;">
         <h5 class="order" style="font-size: 16px;" id="<%= order.id %>" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %>
-        <span class="badge green white-text right"><%= order.get_state %></span></h5>
+          <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; margin-top: -7px;", class: "white-text grey lighten-1 right", method: :post do %>
+          <i class="material-icons">print</i>
+          <% end %>
+        </h5>
+
+
         <div class="divider"></div>
         <div style="padding-top: 10px">
           <div class="row rowed">
             <div style="float: left;">
-              <div style="float:right; width: 140px;">
+              <div style="width: 140px; float: left">
+                <span class="titled">Total:<br></span>
+                <%= number_to_currency(order.total) %>
+              </div>
+              <div style="width: 140px; float: left">
                 <span class="titled">Data:<br></span>
                 <%= l(order.created_at.to_date).split("-")[0] %>
               </div>
@@ -84,10 +93,16 @@
               <%= order.client.try(:cep) || "Não informado" %>
             </div>
           </div>
-          <% if order.obs %>
-            <br><%= order.obs %>
+          <% unless order.obs.blank? %>
+          <div class="row rowed">
+            <div style="float: left;">
+              <span class="titled">Observação:<br></span>
+              <%= order.obs %>
+            </div>
+          </div>
           <% end %>
 
+          <span class="badge green white-text" style="margin-top: -30px; font-size: 9px; font-weight: bold; text-transform: uppercase;"><%= order.get_state %></span>
         </div>
         <div class="orders" id="order-<%= order.id %>">
           <table class="bordered striped highlight" style="margin-top: 20px;">
@@ -104,7 +119,7 @@
               <% order.order_items.each do |oi| %>
                 <tr>
                   <td><%= oi.item.name %></td>
-                  <td><%= number_to_currency oi.unit_price %></td>
+                  <td><%= number_to_currency(oi.unit_price) || 0 %></td>
                   <td><%= oi.quantity %></td>
                   <td><%= number_to_currency oi.total_price %></td>
                 </tr>
@@ -153,7 +168,7 @@
         </div>
       </div>
       <% rescue => e %>
-        <%= order.id %>
+        <%= e.inspect %>
       <% end %>
     <% end %>
     <%= paginate @orders %>

@@ -20,6 +20,17 @@ $(document).ready(function() {
   margin-top: 8px;
   font-size: 12px;
 }
+.titled {
+  color: #767676; font-size: 9px;
+  text-transform: uppercase;
+  line-height: 2.5em;
+}
+.rowed {
+  padding: 0 10px;
+  padding-bottom: 5px;
+  margin: 0;
+  font-size: 14px;
+}
 </style>
 <div class="row">
   <div class="col s12">
@@ -28,7 +39,7 @@ $(document).ready(function() {
         <div class="card-content">
           <div class="row">
             <div class="input-field col s12">
-              <%= select_tag(:seller, options_from_collection_for_select(User.where("role >= 2"), :username, :username, current_user.try(:username))) %>
+              <%= select_tag(:seller, options_from_collection_for_select(User.where("role >= 2"), :username, :name, current_user.try(:username))) %>
               <%= label_tag :seller, "Vendedor" %>
             </div>
           </div>
@@ -42,71 +53,41 @@ $(document).ready(function() {
 
           <h6 style="color: #767676; margin-bottom: 30px; margin-top: 20px; font-weight: bold;">Dados do cliente</h6>
 
-          <div class="row">
-            <div class="input-field col s12">
-              <%= f.label :email, "Email" %>
-              <%= f.text_field :email, id: "email", readonly: true %>
+          <div class="row rowed">
+            <div style="float: left; min-width: 300px;">
+              <span class="titled">Razão social:<br></span>
+              <%= @client.try(:company) || "Não informado" %>
+            </div>
+            <div style="float: left;">
+              <span class="titled">Nome:<br></span>
+              <%= @client.try(:name) || "Não informado" %>
+            </div>
+            <div style="float:right; width: 180px;">
+              <span class="titled">Telefone:<br></span>
+              <%= @client.try(:phone) || "Não informado" %>
+            </div>
+            <div style="float:right; width: 140px;">
+              <span class="titled">CNPJ:<br></span>
+              <%= @client.try(:cpf) || "Não informado" %>
             </div>
           </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <%= f.label :company, "Nome" %>
-              <%= f.text_field :company, readonly: true %>
+
+          <div class="row rowed" style="margin-bottom: 20px;">
+            <div style="float: left;">
+              <span class="titled">Endereço:<br></span>
+              <%= @client.address || 'Não informado' %>
+              <%= ", #{@client.district}" unless @client.district.blank? %>
+            </div>
+            <div style="float:right; width: 180px;">
+              <span class="titled">Município:<br></span>
+              <%= @client.try(:city) || "Não informado" %> <%= @client.try(:uf) %>
+            </div>
+            <div style="float:right; width: 140px;">
+              <span class="titled">CEP:<br></span>
+              <%= @client.try(:cep) || "Não informado" %>
             </div>
           </div>
-          <div class="row">
-            <div class="input-field col s7">
-              <%= f.label :name, "Contato" %>
-              <%= f.text_field :name, readonly: true %>
-            </div>
-            <div class="input-field col s5">
-              <%= f.label :phone, "Telefone" %>
-              <%= f.text_field :phone, readonly: true %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s6">
-              <%= f.label :address, "Endereço" %>
-              <%= f.text_field :address, readonly: true %>
-            </div>
-            <div class="input-field col s6">
-              <%= f.label :district, "Bairro" %>
-              <%= f.text_field :district, readonly: true %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s8">
-              <%= f.label :city, "Cidade" %>
-              <%= f.text_field :city, readonly: true %>
-            </div>
-            <div class="input-field col s4">
-              <%= f.label :uf, "Estado" %>
-              <%= f.text_field :uf, readonly: true %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <%= f.label :cep, 'CEP' %>
-              <%= f.text_field :cep, readonly: true %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <%= f.label :cpf, 'CPF/CNPJ' %>
-              <%= f.text_field :cpf, readonly: true %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s6">
-              <%= f.collection_select :section_id, Section.all, :id, :name, {}, disabled: true %>
-              <%= f.label :section_id, 'Ramo de atuação' %>
-            </div>
-            <div class="input-field col s6">
-              <%= f.label :birthday, 'Aniversário', class: "active" %>
-              <%= f.date_field :birthday, readonly: true %>
-            </div>
-          </div>
-        </div>
+
         <div class="card-action">
           <button id="submit" class="btn waves-effect waves-light light-green" type="submit" name="action">
             <%= material_icon.shopping_cart.css_class("left") %> Finalizar

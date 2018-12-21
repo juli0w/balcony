@@ -38,7 +38,7 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
 
     if @client.save
-      redirect_to clients_path, notice: "Cliente criado com sucesso"
+      redirect_to clients_path(keyword: @client.name), notice: "Cliente criado com sucesso"
     else
       flash.now[:alert] = "Por favor verifique os campos."
       render :new
@@ -51,7 +51,7 @@ class ClientsController < ApplicationController
   def update
     if @client.update(client_params)
       flash[:success] = "Salvo com sucesso!"
-      redirect_to clients_path
+      redirect_to clients_path(keyword: @client.name)
     else
       flash.now[:alert] = "Por favor verifique os campos."
       render :edit

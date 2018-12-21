@@ -26,7 +26,8 @@
         <thead>
           <tr>
               <th data-field="id"></th>
-              <th data-field="name">Email</th>
+              <th data-field="name">Nome</th>
+              <th data-field="name">Usuário</th>
               <th data-field="actions"></th>
           </tr>
         </thead>
@@ -36,6 +37,7 @@
 
           <tr>
             <td>#<%= user.id %></td>
+            <td><%= user.name %></td>
             <td><%= user.username %></td>
             <td>
               <%= link_to "Editar", [:edit, user] %>
