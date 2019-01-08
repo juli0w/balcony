@@ -50,7 +50,7 @@ class Order < ApplicationRecord
 
   def add_item params
     order_item = order_items.select { |oi| oi.item_id == params[:item_id].to_i }.first
-    qty = (params[:quantity].to_i > 0) ? params[:quantity].to_i : 1
+    qty = (params[:quantity].to_d > 0) ? params[:quantity].to_d : 1
 
     unless order_item.blank?
       order_item.quantity += qty
@@ -64,7 +64,7 @@ class Order < ApplicationRecord
 
   def add_tinta params
     order_tinta = order_tintas.where(rformula_id: params[:tinta_id].to_i, can: params[:can]).first
-    qty = (params[:quantity].to_i > 0) ? params[:quantity].to_i : 1
+    qty = (params[:quantity].to_d > 0) ? params[:quantity].to_d : 1
 
     unless order_tinta.blank?
       order_tinta.quantity += qty

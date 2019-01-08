@@ -30,6 +30,17 @@ class HomeController < ApplicationController
   # end
 
   def tintas
+    if current_user.client?
+      client = Client.where(company: current_user.username).first_or_create(section: Section.last, name: current_user.username)
+      session[:client] = client.id
+    end
+
+    if session[:client].blank?
+      session[:client] = Client.where(company: current_user.username).first_or_create(section: Section.last, name: current_user.username).id
+      # redirect_to clients_path
+    end
+
+    @client = Client.find(session[:client])
     if params[:marca] == "Resicolor" and !params[:color].blank?
       @tintas = Rformula.joins(:rcolor).
                          joins(:rproduct).

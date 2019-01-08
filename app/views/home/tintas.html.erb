@@ -1,4 +1,29 @@
-<div class="row" style="margin-top: -7px; margin-bottom: 0;">
+<div class="row" style="margin-bottom: -7px;">
+<div class="col s12 m6 red darken-1 white-text" style="height: 54px; padding: 0;">
+  <span style="padding: 5px;" class="left">
+    <%= @client.name %>
+    <br><%= @client.company %>
+  </span>
+</div>
+<div class="col s12 m6 red darken-1 white-text" style="padding: 0;">
+  <a class="btn-large right green" onclick="$('.search').slideToggle(); $('.cart').slideToggle(); $('#search').focus();">
+    <i class="large material-icons">shopping_cart</i>
+  </a>
+
+  <%= link_to "#client-infos", class: "modal-trigger btn-large right red darken-1" do %>
+    <i class="large material-icons">account_box</i>
+  <% end %>
+
+  <%= link_to clear_client_path(@client), class: "btn-large right red darken-1" do %>
+    <i class="large material-icons">refresh</i>
+  <% end %>
+</div>
+<div class="col s12 no-space cart" style="display: none;">
+  <%= render "cart/cart" %>
+</div>
+</div>
+<div class="search">
+<div class="row" style="margin-top: 0px; margin-bottom: 0;">
   <div class="card-panel">
     <div class="search-offers">
       <%= form_tag tintas_path, method: :get do %>
@@ -8,7 +33,7 @@
               <%= select_tag :marca, options_for_select([ "Resicolor" ], "Resicolor") %>
             </div>
             <div class="input-field col s12 m5">
-              <%= text_field_tag :color, params[:color], class: "autocomplete" %>
+              <%= text_field_tag :color, params[:color], id: "search", class: "autocomplete" %>
               <%= label_tag :color, "Cor" %>
             </div>
             <div class="input-field col s12 m4">
@@ -106,4 +131,37 @@
     </tbody>
   </table>
 </div>
-<script>
+</div>
+<div id="client-infos" class="modal">
+  <div class="modal-content">
+    <h5 style="text-align: center;"><%= @client.name %></h5>
+    <table>
+      <tbody>
+        <tr>
+          <td style="text-align: right; padding-right: 20px; width: 170px;">Razão social</td>
+          <td><%= @client.company %> (<%= @client.section.try(:name) %>)</td>
+        </tr>
+        <tr>
+          <td style="text-align: right; padding-right: 20px; width: 170px;">Email</td>
+          <td><%= @client.email %></td>
+        </tr>
+        <tr>
+          <td style="text-align: right; padding-right: 20px; width: 170px;">Telefone</td>
+          <td><%= @client.phone %></td>
+        </tr>
+        <tr>
+          <td style="text-align: right; padding-right: 20px; width: 170px;">Endereço</td>
+          <td><%= @client.address %> <%= @client.district %> - <%= @client.city %>/<%= @client.uf %></td>
+        </tr>
+        <tr>
+          <td style="text-align: right; padding-right: 20px; width: 170px;">CPF/CNPJ</td>
+          <td><%= @client.cpf %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</a>
+    <%= link_to "Editar", [:edit, @client], class: "btn-flat" %>
+  </div>
+</div>
