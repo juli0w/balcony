@@ -36,19 +36,19 @@ class OrdersController < ApplicationController
   def pay
     @order.pay!
 
-    redirect_to orders_path, notice: "Pagamento confirmado."
+    redirect_to orders_path(type: params[:type]), notice: "Pagamento confirmado."
   end
 
   def cancel
     @order.cancel!
 
-    redirect_to orders_path, notice: "Pedido cancelado."
+    redirect_to orders_path(type: params[:type]), notice: "Pedido cancelado."
   end
 
   def open
     @order.open!
 
-    redirect_to orders_path, notice: "Pedido aberto."
+    redirect_to orders_path(type: params[:type]), notice: "Pedido aberto."
   end
 
 private

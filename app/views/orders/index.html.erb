@@ -145,11 +145,11 @@
           <br>
 
           <% if current_user.caixa? %>
-            <%= link_to pay_order_path(order), class: "btn light-green", method: :post do %>
+            <%= link_to pay_order_path(order, type: params[:type]), class: "btn light-green", method: :post do %>
               <i class="material-icons left">payment</i> Pago
             <% end %>
 
-            <%= link_to open_order_path(order), class: "btn light-blue", method: :post do %>
+            <%= link_to open_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
               <i class="material-icons left">settings</i> Abrir
             <% end %>
 
@@ -158,7 +158,7 @@
             <% end %>
           <% end %>
 
-          <%= link_to cancel_order_path(order), class: "btn grey darken-2", method: :post do %>
+          <%= link_to cancel_order_path(order, type: params[:type]), class: "btn grey darken-2", method: :post do %>
             <i class="material-icons left">delete</i> Cancelar
           <% end %>
 
