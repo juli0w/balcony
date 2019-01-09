@@ -1,0 +1,22 @@
+<div id="login-page" class="row" style="width: 500px;">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-image">
+            <img src="https://i.ytimg.com/vi/QCDv2t4fs7s/maxresdefault.jpg">
+            <span class="card-title"></span>
+          </div>
+          <div class="card-content">
+            <% if @client %>
+              <h5><%= @client.company %></h5>
+              <p>Desde <%= @initial_date %> você fez <%= @client.orders.paid.count %> pedido(s), totalizando<br>
+                <span style="font-weight: bold; font-size: 18px; color: green"><%= @client.points(@initial_date).to_i %> pontos</span></p>
+              <% else %>
+                <p>CPF não encontrado no sistema. Qualquer dúvida fale com nossos atendentes ou ligue para (47) 3429-4000.</p>
+              <% end %>
+            </div>
+            <div class="card-action">
+              <a href="/pontos">Voltar</a>
+            </div>
+        </div>
+      </div>
+</div>

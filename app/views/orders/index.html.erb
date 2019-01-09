@@ -36,7 +36,7 @@
         <% end %>
       </div>
     </div>
-    <% @orders.each do |order| %>
+    <% @orders.where.not(client: nil).each do |order| %>
     <% begin %>
       <div class="card-panel" style="padding: 10px 20px;">
         <h5 class="order" style="font-size: 16px;" id="<%= order.id %>" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %>
@@ -81,8 +81,8 @@
           <div class="row rowed">
             <div style="float: left;">
               <span class="titled">Endereço:<br></span>
-              <%= order.client.address || 'Não informado' %>
-              <%= ", #{order.client.district}" unless order.client.district.blank? %>
+              <%= order.client.try(:address) || 'Não informado' %>
+              <%= ", #{order.client.try(:district)}" unless order.client.try(:district).blank? %>
             </div>
             <div style="float:right; width: 180px;">
               <span class="titled">Município:<br></span>
@@ -168,7 +168,7 @@
         </div>
       </div>
       <% rescue => e %>
-        <%= e.inspect %>
+        <%= order.cancel! %>
       <% end %>
     <% end %>
     <%= paginate @orders %>

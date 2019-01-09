@@ -14,4 +14,8 @@ class Client < ApplicationRecord
     attributes :district
     attributes :section => ["section.name"]
   end
+
+  def points date
+    orders.where("created_at > ?", date).sum(&:calculate_total)
+  end
 end

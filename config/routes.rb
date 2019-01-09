@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   post "cancel", to: "order_items#cancel"
   get "caixa_update", to: "home#caixa_update"
 
+  get  "pontos", to: "home#pontos"
+  post "pontos", to: "home#pontos"
+
   get  "tintas", to: "home#tintas"
 
   # reports

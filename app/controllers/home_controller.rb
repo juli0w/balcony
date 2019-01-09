@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:pontos]
   before_action :authenticate_caixa!, only: [:caixa, :caixa_update]
 
   def index
@@ -15,6 +15,17 @@ class HomeController < ApplicationController
 
     @items = Item.order(:name).search(params[:key].try(:upcase)).first(50)
     @client = Client.find(session[:client])
+  end
+
+  def pontos
+    @initial_date = "02/01/2019"
+    if params[:cpf]
+      @client = Client.where(cpf: params[:cpf]).first
+      render "view_points", layout: "pontos"
+      return
+    end
+
+    render layout: "pontos"
   end
 
   # def tintas

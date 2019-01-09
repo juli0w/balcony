@@ -3,9 +3,10 @@
     <table class="bordered">
       <thead>
         <tr>
-            <th data-field="name" width="60%">Produto</th>
-            <th data-field="qtd" width="20%">Qtd</th>
-            <th data-field="total" width="20%">Total</th>
+            <th data-field="name" width="55%">Produto</th>
+            <th data-field="qtd" width="15%">Preço Unit.</th>
+            <th data-field="qtd" width="15%">Qtd</th>
+            <th data-field="total" width="15%">Total</th>
         </tr>
       </thead>
 
@@ -20,6 +21,7 @@
             <span style="display: block; font-size: .8em;"><%= order_item.item.family.name %></span>
             <span style="display: block; font-size: .8em;"><%= order_item.item.group.name %> <%= order_item.item.subgroup.name %></span>
           </td>
+          <td><%= number_to_currency(order_item.unit_price) %></td>
           <td><%= form_for order_item, remote: true do |f| %>
                 <%= f.number_field :quantity, step: 0.5, style: "width: 40px;" %>
                 <button id="submit" class="btn btn-tiny waves-effect waves-light light-green" type="submit" name="action">
@@ -40,8 +42,9 @@
             <span style="font-size: .8em; display: block;"><%= order_tinta.rformula.rline.name %></span>
             <span style="font-size: .8em; display: block;"><%= order_tinta.rformula.rproduct.code %></span>
           </td>
+          <td><%= number_to_currency(order_tinta.unit_price) %></td>
           <td><%= form_for order_tinta, url: order_tinta_path(order_tinta), remote: true do |f| %>
-                <%= f.number_field :quantity, style: "width: 40px;" %>
+                <%= f.number_field :quantity, step: 0.5, style: "width: 40px;" %>
                 <button id="submit" class="btn btn-tiny waves-effect waves-light light-green" type="submit" name="action">
                   <i class="material-icons">loop</i>
                 </button>
@@ -51,7 +54,7 @@
         <% end %>
       </tbody>
       <tr>
-        <td colspan="2" class="right-align"><strong>Total:</strong></td>
+        <td colspan="3" class="right-align"><strong>Total:</strong></td>
         <td colspan="2"><strong><%= number_to_currency(current_cart.calculate_total) %></strong></td>
       </tr>
     </table>
