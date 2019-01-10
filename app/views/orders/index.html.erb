@@ -1,6 +1,6 @@
 <div class="row five-margin-bot breads">
   <div class="col s12">
-    <h5>Pedidos</h5>
+    <h5 class="left">Pedidos</h5>
   </div>
 </div>
 <style>
@@ -28,10 +28,11 @@
 
               <%= hidden_field_tag :type, params[:type] %>
 
-              <%= link_to "Todos", orders_path, class: "btn-flat #{'disabled' if params[:type].blank?}" %>
-              <%= link_to "Abertos", orders_path(type: "opened"), class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
-              <%= link_to "Pagos", orders_path(type: "paid"), class: "btn-flat #{'disabled' if params[:type] == 'paid'}" %>
-              <%= link_to "Cancelados", orders_path(type: "canceled"), class: "btn-flat #{'disabled' if params[:type] == 'canceled'}" %>
+
+              <%= link_to "Cancelados", orders_path(type: "canceled"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'canceled'}" %>
+              <%= link_to "Pagos", orders_path(type: "paid"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'paid'}" %>
+              <%= link_to "Abertos", orders_path(type: "opened"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
+              <%= link_to "Todos", orders_path, style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type].blank?}" %>
           </fieldset>
         <% end %>
       </div>
