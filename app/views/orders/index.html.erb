@@ -145,7 +145,7 @@
           </table>
           <br>
 
-          <% if current_user.caixa? %>
+          <% if current_user.vendedor? %>
             <%= link_to pay_order_path(order, type: params[:type]), class: "btn light-green", method: :post do %>
               <i class="material-icons left">payment</i> Pago
             <% end %>
