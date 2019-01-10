@@ -1,25 +1,33 @@
 <div id="login-page" class="row" style="width: 500px;">
-  <div class="col s12 z-depth-4 card-panel">
-    <%= form_tag "/pontos" do |f| %>
-      <div class="row">
-        <div class="input-field col s12 center">
-          <h4>Loja do Pintor</h4>
-          <p class="center login-form-text">Promoção de Pontos</p>
+    <div class="col s12">
+      <div class="card">
+        <div class="card-image">
+          <img src="https://i.ytimg.com/vi/QCDv2t4fs7s/maxresdefault.jpg">
+          <span class="card-title"></span>
         </div>
-      </div>
-      <div class="row" style="margin-bottom: 0">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">perm_identity</i>
-          <%= text_field_tag :cpf, "", id: 'login' %>
-          <label for="login">CPF (apenas números)</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <%= submit_tag "Consultar pontuação", name: "action", class: "btn col s12" %>
-        </div>
-      </div>
 
-    <% end %>
-  </div>
+        <div class="card-content">
+          <%= form_tag "/pontos" do |f| %>
+            <div class="row">
+              <div class="input-field col s12 center">
+                <p class="center login-form-text">Promoção de Pontos</p>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom: 0">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">perm_identity</i>
+                <%= text_field_tag :cpf, "", id: 'login' %>
+                <label for="login">CPF (apenas números)</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <%= submit_tag "Consultar pontuação", name: "action", class: "btn col s12" %>
+              </div>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
 </div>

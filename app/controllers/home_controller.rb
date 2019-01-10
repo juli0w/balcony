@@ -20,7 +20,7 @@ class HomeController < ApplicationController
   def pontos
     @initial_date = "02/01/2019"
     if params[:cpf]
-      @client = Client.where(cpf: params[:cpf]).first
+      @client = Client.all.select {|c| c.cpf.try(:gsub, ".", "").try(:gsub, "-", "") == params[:cpf] }.first
       render "view_points", layout: "pontos"
       return
     end
