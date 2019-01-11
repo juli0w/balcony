@@ -1,0 +1,61 @@
+<div class="row breads" style="margin-bottom: 0">
+  <div class="col s12">
+    <h5>Dashboard</h5>
+    <h5 style="margin:0; font-size: 16px;">Vendas do dia</h5>
+  </div>
+</div>
+<div class="row" style="margin-bottom: 0;">
+  <div class="card-panel" style="margin-top: 0px; margin-bottom: 0px; border-bottom: 1px solid #d1d1d1;">
+    <table class="striped bordered">
+      <thead>
+        <tr>
+            <th data-field="id"></th>
+            <th data-field="name">Vendas</th>
+            <th data-field="actions">Total</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @orders.each do |user, orders| %>
+
+        <tr>
+          <td width="70%"><%= user.name || user.username %></td>
+          <td width="15%"><%= orders.count %></td>
+          <td width="15%"><%= number_to_currency orders.sum(&:total) %></td>
+        </tr>
+
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row breads" style="margin-bottom: 0; margin-top: 0;">
+  <div class="col s12">
+    <h5 style="margin:0; font-size: 16px;">Vendas do mês</h5>
+  </div>
+</div>
+<div class="row">
+  <div class="card-panel" style="margin-top: 0px;">
+    <table class="striped bordered">
+      <thead>
+        <tr>
+            <th data-field="id"></th>
+            <th data-field="name">Vendas</th>
+            <th data-field="actions">Total</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @orders_by_month.each do |user, orders| %>
+
+        <tr>
+          <td width="70%"><%= user.name || user.username %></td>
+          <td width="15%"><%= orders.count %></td>
+          <td width="15%"><%= number_to_currency orders.sum(&:total) %></td>
+        </tr>
+
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

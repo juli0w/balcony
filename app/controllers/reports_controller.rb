@@ -2,12 +2,17 @@ class ReportsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_vendedor!, only: [:sales, :by_client]
 
+  def dashboard
+    @orders = Order.paid.where(created_at: Date.today).group_by(&:user)
+    @orders_by_month = Order.paid.where("created_at > ? and created_at < ?", Date.today.at_beginning_of_month, Date.today.at_end_of_month).group_by(&:user)
+  end
+
   def sales
-    if current_user.vendedor?
-      @orders = current_user.orders.paid
-    else
+    # if current_user.vendedor?
+    #   @orders = current_user.orders.paid
+    # else
       @orders = Order.paid
-    end
+    # end
 
     if params[:from].present? and params[:to].present?
       @orders = @orders.where("created_at >= ? and created_at <= ?", params[:from], params[:to])
