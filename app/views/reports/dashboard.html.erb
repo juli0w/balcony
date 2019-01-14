@@ -19,7 +19,7 @@
         <% @orders.each do |user, orders| %>
 
         <tr>
-          <td width="70%"><%= user.name || user.username %></td>
+          <td width="70%"><%= (user.try(:name) || user.try(:username)) || "Não associado" %></td>
           <td width="15%"><%= orders.count %></td>
           <td width="15%"><%= number_to_currency orders.sum(&:total) %></td>
         </tr>
@@ -49,7 +49,7 @@
         <% @orders_by_month.each do |user, orders| %>
 
         <tr>
-          <td width="70%"><%= user.name || user.username %></td>
+          <td width="70%"><%= (user.try(:name) || user.try(:username)) || "Não associado" %></td>
           <td width="15%"><%= orders.count %></td>
           <td width="15%"><%= number_to_currency orders.sum(&:total) %></td>
         </tr>
