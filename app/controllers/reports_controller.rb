@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   before_action :authenticate_vendedor!, only: [:sales, :by_client]
 
   def dashboard
-    @orders = Order.paid.where(created_at: Date.today).group_by(&:user)
+    @orders = Order.paid.where("created_at > ? and created_at < ?", Time.zone.now.beginning_of_day, Time.zone.now.end_of_day).group_by(&:user)
     @orders_by_month = Order.paid.where("created_at > ? and created_at < ?", Date.today.at_beginning_of_month, Date.today.at_end_of_month).group_by(&:user)
   end
 
