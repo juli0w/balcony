@@ -18,8 +18,8 @@
             <%= link_to order_item_path(order_item, key: params[:key]), method: :delete, class: "red-text" do %>
             <i class="material-icons" style="vertical-align: bottom;">delete</i>
             <% end %>
-            <span style="display: block; font-size: .8em;"><%= order_item.item.family.name %></span>
-            <span style="display: block; font-size: .8em;"><%= order_item.item.group.name %> <%= order_item.item.subgroup.name %></span>
+            <span style="display: block; font-size: .8em;"><%= order_item.item.try(:family).try(:name) %></span>
+            <span style="display: block; font-size: .8em;"><%= order_item.item.try(:group).try(:name) %> <%= order_item.item.try(:subgroup).try(:name) %></span>
           </td>
           <td><%= number_to_currency(order_item.unit_price) %></td>
           <td><%= form_for order_item, remote: true do |f| %>
