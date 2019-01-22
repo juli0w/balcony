@@ -5,6 +5,10 @@ class ReportsController < ApplicationController
   def dashboard
     @orders = Order.paid.where("created_at > ? and created_at < ?", Time.zone.now.beginning_of_day, Time.zone.now.end_of_day).group_by(&:user)
     @orders_by_month = Order.paid.where("created_at > ? and created_at < ?", Date.today.at_beginning_of_month, Date.today.at_end_of_month).group_by(&:user)
+    @orders_seller_by_today = Order.paid.where("created_at > ? and created_at < ?", Time.zone.now.beginning_of_day, Time.zone.now.end_of_day).group_by(&:seller)
+    @orders_seller_by_month = Order.paid.where("created_at > ? and created_at < ?", Date.today.at_beginning_of_month, Date.today.at_end_of_month).group_by(&:seller)
+    @orders_client_by_today = Order.paid.where("created_at > ? and created_at < ?", Time.zone.now.beginning_of_day, Time.zone.now.end_of_day).group_by(&:client)
+    @orders_client_by_month = Order.paid.where("created_at > ? and created_at < ?", Date.today.at_beginning_of_month, Date.today.at_end_of_month).group_by(&:client)
   end
 
   def sales
