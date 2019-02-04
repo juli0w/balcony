@@ -28,6 +28,8 @@
         <li><%= link_to 'Pedidos', orders_path %></li>
         <% if current_user.vendedor? %>
           <li><%= link_to 'Clientes', clients_path %></li>
+        <% end %>
+        <% if current_user.admin? %>
           <li><%= link_to "#", 'data-activates' => "dropdown1", class: "dropdown-button" do %>
             Relatórios <i class="material-icons right">arrow_drop_down</i>
           <% end %></li>

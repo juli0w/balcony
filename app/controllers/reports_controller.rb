@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_vendedor!, only: [:sales, :by_client]
+  before_action :authenticate_admin!
 
   def dashboard
     @orders = Order.paid.where("created_at > ? and created_at < ?", Time.zone.now.beginning_of_day, Time.zone.now.end_of_day).group_by(&:user)

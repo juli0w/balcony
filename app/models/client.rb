@@ -10,8 +10,6 @@ class Client < ApplicationRecord
     attributes :company
     attributes :email
     attributes :city
-    attributes :address
-    attributes :district
     attributes :section => ["section.name"]
   end
 
