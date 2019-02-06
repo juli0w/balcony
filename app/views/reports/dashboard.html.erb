@@ -1,15 +1,15 @@
 <div class="row">
   <div class="col s12 m6">
     <div class="card-panel" style="margin-top: 20px;">
-      <h5 style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
+      <h5 onclick="$('.report1').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
         Vendas de hoje (por loja)
       </h5>
-      <p style="font-size: 11px; color: #aeaeae;">
+      <p style="font-size: 11px; color: #aeaeae;" class="report1">
         Mês anterior: <%= number_to_currency @orders_last_month %><br>
         <% @percent = (((@orders_total-@orders_last_month) / (@orders_total == 0 ? 1 : @orders_total ))*100).round(2) %>
-        Atual: <%= number_to_currency @orders_total %> ((<%= @percent > 0 ? '+' : '' %><%= @percent %>%)
+        Atual: <%= number_to_currency @orders_total %> (<%= @percent > 0 ? '+' : '' %><%= @percent %>%)
       </p>
-      <table class="striped bordered">
+      <table class="striped bordered report1">
         <thead>
           <tr>
               <th data-field="id"></th>
@@ -35,16 +35,16 @@
 
   <div class="col s12 m6">
     <div class="card-panel" style="margin-top: 20px;">
-      <h5 style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
+      <h5 onclick="$('.report2').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
         Vendas do mês (por loja)
       </h5>
 
-      <p style="font-size: 11px; color: #aeaeae;">
+      <p class="report2" style="font-size: 11px; color: #aeaeae;">
         Mês anterior: <%= number_to_currency @orders_by_last_month %><br>
         <% @percent = (((@orders_by_month_total-@orders_by_last_month) / (@orders_by_month_total == 0 ? 1 : @orders_by_month_total ))*100).round(2) %>
         Atual: <%= number_to_currency @orders_by_month_total %> (<%= @percent > 0 ? '+' : '' %><%= @percent %>%)
       </p>
-      <table class="striped bordered">
+      <table class="report2 striped bordered">
         <thead>
           <tr>
               <th data-field="id"></th>
@@ -70,10 +70,10 @@
 
   <div class="col s12 m6">
     <div class="card-panel" style="margin-top: 5px;">
-      <h5 style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
+      <h5 onclick="$('.report3').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
         Vendas do dia (por vendedor)
       </h5>
-      <table class="striped bordered">
+      <table class="report3 striped bordered">
         <thead>
           <tr>
               <th data-field="id"></th>
@@ -99,10 +99,10 @@
 
   <div class="col s12 m6">
     <div class="card-panel" style="margin-top: 5px;">
-      <h5 style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
+      <h5 onclick="$('.report4').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
         Vendas do mês (por vendedor)
       </h5>
-      <table class="striped bordered">
+      <table class="report4 striped bordered">
         <thead>
           <tr>
               <th data-field="id"></th>
@@ -128,10 +128,10 @@
 
   <div class="col s12 m6">
     <div class="card-panel" style="margin-top: 5px;">
-      <h5 style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
+      <h5 onclick="$('.report5').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
         Vendas do dia (por cliente)
       </h5>
-      <table class="striped bordered">
+      <table class="report5 striped bordered" style="display: none !important;">
         <thead>
           <tr>
               <th data-field="id"></th>
@@ -157,10 +157,10 @@
 
   <div class="col s12 m6">
     <div class="card-panel" style="margin-top: 5px;">
-      <h5 style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
+      <h5 onclick="$('.report6').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
         Vendas do mês (por cliente)
       </h5>
-      <table class="striped bordered">
+      <table class="report6 striped bordered" style="display: none !important;">
         <thead>
           <tr>
               <th data-field="id"></th>

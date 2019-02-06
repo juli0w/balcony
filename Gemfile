@@ -22,6 +22,7 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'roo'
+gem 'activerecord-session_store'
 
 gem 'mysql2'
 gem 'materialize-sass'
