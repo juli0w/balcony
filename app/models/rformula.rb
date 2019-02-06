@@ -44,12 +44,22 @@ class Rformula < ApplicationRecord
     return total_price(can, tprice) || 0
   end
 
-  def total_price can=nil, tprice=nil
-    pr = tprice * CAN[can]
-    rprod = Rproduct.where(can: can, base: base, code: rproduct.code).first
+  def g_base can=nil
+    Rproduct.where(can: can, base: base, code: rproduct.code).first
+  end
+
+  def price_base can=nil
+    rprod = g_base(can)
     rpr   = rprod.item.try(:price) || 0
     puts "Integrado com #{rprod.item.try(:name) || '[missing]'}"
-    unless rprod.item.nil?
+
+    return rpr
+  end
+
+  def total_price can=nil, tprice=nil
+    pr = tprice * CAN[can]
+    rpr   = price_base(can)
+    unless rpr.nil?
       total = pr + (pr * MARGIN/100) + rpr
     else
       total = 0

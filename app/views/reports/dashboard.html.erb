@@ -4,6 +4,11 @@
       <h5 style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
         Vendas de hoje (por loja)
       </h5>
+      <p style="font-size: 11px; color: #aeaeae;">
+        Mês anterior: <%= number_to_currency @orders_last_month %><br>
+        <% @percent = (((@orders_total-@orders_last_month) / (@orders_total == 0 ? 1 : @orders_total ))*100).round(2) %>
+        Atual: <%= number_to_currency @orders_total %> ((<%= @percent > 0 ? '+' : '' %><%= @percent %>%)
+      </p>
       <table class="striped bordered">
         <thead>
           <tr>
@@ -33,6 +38,12 @@
       <h5 style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
         Vendas do mês (por loja)
       </h5>
+
+      <p style="font-size: 11px; color: #aeaeae;">
+        Mês anterior: <%= number_to_currency @orders_by_last_month %><br>
+        <% @percent = (((@orders_by_month_total-@orders_by_last_month) / (@orders_by_month_total == 0 ? 1 : @orders_by_month_total ))*100).round(2) %>
+        Atual: <%= number_to_currency @orders_by_month_total %> (<%= @percent > 0 ? '+' : '' %><%= @percent %>%)
+      </p>
       <table class="striped bordered">
         <thead>
           <tr>
