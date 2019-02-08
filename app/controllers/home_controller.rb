@@ -62,7 +62,8 @@ class HomeController < ApplicationController
       @tintas = @tintas.where("rproducts.code" => params[:rp]) if !params[:rp].blank?
 
       @tintas = @tintas.reject { |t| (Rproduct.where(code: t.rproduct.code, base: t.base, can: params[:can]).count <= 0) }.first(30)
-      @tintas = @tintas.reject { |t| (t.calculate_price(params[:can]) <= 0) }.first(30)
+      @tintas = @tintas.reject { |t| (t.calculate_price(params[:can]) <= 0) }
+      @tintas = @tintas.reject { |t| (t.price_base(params[:can]) <= 0) }
     end
   end
 
