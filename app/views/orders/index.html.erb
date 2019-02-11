@@ -26,13 +26,14 @@
                 Filtrar
               </button>
 
-              <%= hidden_field_tag :type, params[:type] %>
+              <% if current_user.admin? %>
+                <%= hidden_field_tag :type, params[:type] %>
 
-
-              <%= link_to "Cancelados", orders_path(type: "canceled"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'canceled'}" %>
-              <%= link_to "Pagos", orders_path(type: "paid"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'paid'}" %>
-              <%= link_to "Abertos", orders_path(type: "opened"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
-              <%= link_to "Todos", orders_path, style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type].blank?}" %>
+                <%= link_to "Cancelados", orders_path(type: "canceled"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'canceled'}" %>
+                <%= link_to "Pagos", orders_path(type: "paid"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'paid'}" %>
+                <%= link_to "Abertos", orders_path(type: "opened"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
+                <%= link_to "Todos", orders_path, style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type].blank?}" %>
+              <% end %>
           </fieldset>
         <% end %>
       </div>

@@ -8,6 +8,7 @@
             <th data-field="name">RGB</th>
             <th data-field="name">Densidade</th>
             <th data-field="actions">Preço</th>
+            <th data-field="actions">Litro</th>
         </tr>
       </thead>
 
@@ -29,6 +30,7 @@
               </button>
             <% end %>
           </td>
+          <td><%= number_to_currency rbase.price/946*1000 %></td>
         </tr>
 
         <% end %>
