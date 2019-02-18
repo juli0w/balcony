@@ -1,8 +1,26 @@
-<div class="row">
+<div class="row" style="margin-top: -8px">
+  <div class="card-panel">
+    <div class="search-offers">
+      <%= form_tag dashboard_report_path, method: :get do %>
+        <fieldset style="border: none; margin: 0; padding: 0;">
+          <div class="row">
+            <div class="input-field col s12">
+              <%= label_tag :from, 'Data', class: "active" %>
+              <%= date_field_tag :date, (params[:date] || Date.today) %>
+            </div>
+          </div>
+            <button class="btn" type="submit" name="action">
+              Filtrar
+            </button>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+
   <div class="col s12 m6">
     <div class="card-panel" style="margin-top: 20px;">
       <h5 onclick="$('.report1').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
-        Vendas de hoje (por loja)
+        Vendas de <%= params[:date].blank? ? 'hoje' : params[:date] %> (por loja)
       </h5>
       <p style="font-size: 11px; color: #aeaeae;" class="report1">
         Mês anterior: <%= number_to_currency @orders_last_month %><br>
