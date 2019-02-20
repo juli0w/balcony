@@ -9,6 +9,22 @@ class ReportsController < ApplicationController
       date = params[:date].to_date
     end
 
+    @days = ((date-30.days).to_date..date.to_date).to_a
+    # @values = Order.paid.where("created_at >= ? and created_at <= ?", date-30.days, date).
+    # group_by(&:created_at)
+
+    @data = {
+      labels: @days.map{|v| l(v.to_date)},# @values.keys.map{|v| l(v.to_date)},
+      datasets: [
+        {
+            label: "Faturamento",
+            backgroundColor: "rgba(220,220,220,0.2)",
+            borderColor: "rgba(220,220,220,1)",
+            data: @days.map {|d| Order.paid.where("created_at >= ? and created_at <= ?", d.beginning_of_day, d.end_of_day).sum(&:total) }# @values.values.map{|o| o.sum(&:total) }
+        }
+      ]
+    }
+
     @orders = Order.paid.where("created_at > ? and created_at < ?", date.beginning_of_day, date.end_of_day).group_by(&:user)
     @orders_total = Order.paid.where("created_at > ? and created_at < ?",date.beginning_of_day, date.end_of_day).sum(&:total)
     @orders_last_month = Order.paid.where("created_at >= ? and created_at <= ?", (date - 1.month).beginning_of_day, (date - 1.month).end_of_day).sum{|o| o.total || 0 }

@@ -24,6 +24,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'roo'
 gem 'activerecord-session_store'
 
+gem 'chartjs-ror'
+
 gem 'mysql2'
 gem 'materialize-sass'
 gem 'material_icons'

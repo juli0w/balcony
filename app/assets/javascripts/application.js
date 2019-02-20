@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require materialize
+//= require Chart.min
 //= require_tree .
 
 $(document).ready(function() {
