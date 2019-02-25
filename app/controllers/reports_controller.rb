@@ -43,7 +43,7 @@ class ReportsController < ApplicationController
           label: (user.try(:name) || user.try(:email)),
           backgroundColor: "rgba(220,220,220,0.2)",
           borderColor: "rgba(220,220,220,1)",
-          data: @days.map {|d| Order.paid.where("created_at >= ? and created_at <= ? and user_id == ?", d.beginning_of_day, d.end_of_day, user.id).sum(&:total) }# @values.values.map{|o| o.sum(&:total) }
+          data: @days.map {|d| Order.paid.where("created_at >= ? and created_at <= ? and user_id = ?", d.beginning_of_day, d.end_of_day, user.id).sum(&:total) }# @values.values.map{|o| o.sum(&:total) }
       }
     end
   end
