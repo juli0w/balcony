@@ -129,21 +129,21 @@ ActiveRecord::Schema.define(version: 20190206110911) do
     t.string   "line"
     t.string   "rgb"
     t.integer  "c1"
-    t.decimal  "q1",          precision: 10, scale: 2
+    t.decimal  "q1",          precision: 8, scale: 2
     t.integer  "c2"
-    t.decimal  "q2",          precision: 10, scale: 2
+    t.decimal  "q2",          precision: 8, scale: 2
     t.integer  "c3"
-    t.decimal  "q3",          precision: 10, scale: 2
+    t.decimal  "q3",          precision: 8, scale: 2
     t.integer  "c4"
-    t.decimal  "q4",          precision: 10, scale: 2
+    t.decimal  "q4",          precision: 8, scale: 2
     t.integer  "c5"
-    t.decimal  "q5",          precision: 10, scale: 2
+    t.decimal  "q5",          precision: 8, scale: 2
     t.integer  "c6"
-    t.decimal  "q6",          precision: 10, scale: 2
+    t.decimal  "q6",          precision: 8, scale: 2
     t.string   "notes"
-    t.decimal  "price",       precision: 10, scale: 2
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.decimal  "price",       precision: 8, scale: 2
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "rcolor_id"
     t.integer  "rline_id"
     t.index ["rcolor_id"], name: "index_rformulas_on_rcolor_id"
