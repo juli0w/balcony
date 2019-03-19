@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  descricao: MyString
+  integracao_old: MyString
+  fabricante_id: 1
+
+two:
+  descricao: MyString
+  integracao_old: MyString
+  fabricante_id: 1

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190206110911) do
+ActiveRecord::Schema.define(version: 20190305123152) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(version: 20190206110911) do
     t.integer  "section_id"
     t.index ["order_id"], name: "index_clients_on_order_id"
     t.index ["section_id"], name: "index_clients_on_section_id"
+  end
+
+  create_table "fabricantes", force: :cascade do |t|
+    t.integer  "fabricante_id"
+    t.string   "name"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "families", force: :cascade do |t|
@@ -200,6 +207,74 @@ ActiveRecord::Schema.define(version: 20190206110911) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tinta_acabamentos", force: :cascade do |t|
+    t.integer  "tinta_acabamento_id"
+    t.string   "descricao"
+    t.integer  "tinta_produto_id"
+    t.string   "itnegracao_old"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["tinta_produto_id"], name: "index_tinta_acabamentos_on_tinta_produto_id"
+  end
+
+  create_table "tinta_bases", force: :cascade do |t|
+    t.integer  "tinta_base_id"
+    t.string   "descricao"
+    t.string   "integracao_old"
+    t.integer  "fabricante_id"
+    t.decimal  "preco",          precision: 10, scale: 2
+    t.integer  "item_id"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
+  create_table "tinta_cors", force: :cascade do |t|
+    t.integer  "tinta_cor_id"
+    t.string   "codigo"
+    t.string   "descricao"
+    t.integer  "tinta_acabamento_id"
+    t.integer  "tinta_base_id"
+    t.string   "observacao"
+    t.integer  "quantidade"
+    t.text     "formula"
+    t.integer  "fabricante_id"
+    t.string   "integracao_old"
+    t.decimal  "quantidade_old",      precision: 10, scale: 2
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.index ["fabricante_id"], name: "index_tinta_cors_on_fabricante_id"
+    t.index ["tinta_acabamento_id"], name: "index_tinta_cors_on_tinta_acabamento_id"
+    t.index ["tinta_base_id"], name: "index_tinta_cors_on_tinta_base_id"
+  end
+
+  create_table "tinta_embalagems", force: :cascade do |t|
+    t.integer  "tinta_embalagem_id"
+    t.string   "descricao"
+    t.decimal  "quantidade",         precision: 10, scale: 2
+    t.decimal  "quantidade_old",     precision: 10, scale: 2
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+  end
+
+  create_table "tinta_pigmentos", force: :cascade do |t|
+    t.integer  "tinta_pigmento_id"
+    t.string   "codigo"
+    t.string   "descricao"
+    t.string   "integracao_old"
+    t.integer  "fabricante_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "tinta_produtos", force: :cascade do |t|
+    t.integer  "tinta_produto_id"
+    t.string   "descricao"
+    t.integer  "integracao_id"
+    t.integer  "fabricante_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "users", force: :cascade do |t|

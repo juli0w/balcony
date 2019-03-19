@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  codigo: MyString
+  descricao: MyString
+  tinta_acabamento: one
+  tinta_base: one
+  observacao: MyString
+  quantidade: 1
+  formula: MyText
+  fabricante: one
+  integracao_old: MyString
+  quantidade_old: 9.99
+
+two:
+  codigo: MyString
+  descricao: MyString
+  tinta_acabamento: two
+  tinta_base: two
+  observacao: MyString
+  quantidade: 1
+  formula: MyText
+  fabricante: two
+  integracao_old: MyString
+  quantidade_old: 9.99

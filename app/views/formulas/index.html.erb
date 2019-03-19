@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel">
+        <h5>Importação Fórmulas</h5>
+        <%= form_tag import_path, multipart: true do %>
+        <div class="row">
+          <div class="input-field col s12">
+            Pigmentos<br />
+            <%= file_field_tag :tinta_pigmento, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            Embalagens<br />
+            <%= file_field_tag :tinta_embalagem, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            Bases<br />
+            <%= file_field_tag :tinta_base, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            Acabamentos<br />
+            <%= file_field_tag :tinta_acabamento, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            Produtos<br />
+            <%= file_field_tag :tinta_produto, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            Cores<br />
+            <%= file_field_tag :tinta_cor, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="section">
+          <%= button_tag type: "submit", name: "action", class: "btn" do %>
+            <i class="material-icons right">send</i>Importar
+          <% end %>
+
+          <%#= link_to "Limpar", reset_path, method: :post, class: "btn", data: { confirm: "Isso irá limpar os carrinhos. Continuar?" } %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

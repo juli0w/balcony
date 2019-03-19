@@ -1,0 +1,2 @@
+class TintaEmbalagem < ApplicationRecord
+end

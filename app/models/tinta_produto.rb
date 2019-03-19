@@ -1,0 +1,2 @@
+class TintaProduto < ApplicationRecord
+end

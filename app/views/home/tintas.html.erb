@@ -75,15 +75,20 @@
               <td><%= number_to_currency tinta.rbase(base.try(:code)).try(:price) %></td>
               <td><%= tinta.send("q#{n}") * Rformula::CAN[params[:can]] %></td>
               <td><%= number_to_currency ((tinta.rbase(base.try(:code)).try(:price) /946) *tinta.send("q#{n}")* Rformula::CAN[params[:can]]) %></td>
+              <td><%= number_to_currency ((tinta.rbase(base.try(:code)).try(:price) /946) *tinta.send("q#{n}")* Rformula::CAN[params[:can]] *1.5) %></td>
             </tr>
           <% end %>
         <% end %>
         <tr>
-          <td colspan="3"><%= tinta.g_base(params[:can]).item.try(:name) %></td>
+          <td colspan="4"></td>
+          <td><%= number_to_currency (tinta.calculate_price(params[:can]) - tinta.price_base(params[:can])) %></td>
+        </tr>
+        <tr>
+          <td colspan="4"><%= tinta.g_base(params[:can]).item.try(:name) %></td>
           <td><%= number_to_currency tinta.price_base(params[:can]) %></td>
         </tr>
         <tr>
-          <td colspan="3"></td>
+          <td colspan="4"></td>
           <td><%= number_to_currency tinta.calculate_price(params[:can]) %></td>
         </tr>
       </tbody>
