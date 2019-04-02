@@ -2,8 +2,13 @@ Rails.application.routes.draw do
   devise_for :users, :path => 'u'
 
   # formulas
-  get "import", to: "formulas#index", as: "formulas"
+  # get "import", to: "formulas#index", as: "formulas"
   post "import", to: "formulas#import"
+
+  get "pigmentos", to: "formulas#pigmentos", as: "pigmentos_formulas"
+  get "acabamentos", to: "formulas#acabamentos", as: "acabamentos_formulas"
+  get "integracao", to: "formulas#integracao", as: "integracao_formulas"
+  get "Fórmulas", to: "formulas#formulas", as: "list_formulas"
 
   # efator
   get "import", to: "efator#index"

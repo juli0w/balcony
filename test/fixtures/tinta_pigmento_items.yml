@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tinta_pigmento_id: 1
+  tinta_pigmento_item_id: 1
+  item_id: 1
+  codigo_numerico: 1
+
+two:
+  tinta_pigmento_id: 1
+  tinta_pigmento_item_id: 1
+  item_id: 1
+  codigo_numerico: 1

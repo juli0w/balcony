@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  TintaAcabamento: one
+  TintaBase: one
+  Item: one
+  TintaEmbalagem: one
+
+two:
+  TintaAcabamento: two
+  TintaBase: two
+  Item: two
+  TintaEmbalagem: two

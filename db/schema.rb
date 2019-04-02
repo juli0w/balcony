@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190305123152) do
+ActiveRecord::Schema.define(version: 20190402124457) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -209,6 +209,19 @@ ActiveRecord::Schema.define(version: 20190305123152) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tinta_acabamento_base_items", force: :cascade do |t|
+    t.integer  "tinta_acabamento_id"
+    t.integer  "tinta_base_id"
+    t.integer  "item_id"
+    t.integer  "tinta_embalagem_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["item_id"], name: "index_tinta_acabamento_base_items_on_item_id"
+    t.index ["tinta_acabamento_id"], name: "index_tinta_acabamento_base_items_on_tinta_acabamento_id"
+    t.index ["tinta_base_id"], name: "index_tinta_acabamento_base_items_on_tinta_base_id"
+    t.index ["tinta_embalagem_id"], name: "index_tinta_acabamento_base_items_on_tinta_embalagem_id"
+  end
+
   create_table "tinta_acabamentos", force: :cascade do |t|
     t.integer  "tinta_acabamento_id"
     t.string   "descricao"
@@ -244,6 +257,7 @@ ActiveRecord::Schema.define(version: 20190305123152) do
     t.decimal  "quantidade_old",      precision: 10, scale: 2
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.integer  "tinta_embalagem_id"
     t.index ["fabricante_id"], name: "index_tinta_cors_on_fabricante_id"
     t.index ["tinta_acabamento_id"], name: "index_tinta_cors_on_tinta_acabamento_id"
     t.index ["tinta_base_id"], name: "index_tinta_cors_on_tinta_base_id"
@@ -258,14 +272,24 @@ ActiveRecord::Schema.define(version: 20190305123152) do
     t.datetime "updated_at",                                  null: false
   end
 
+  create_table "tinta_pigmento_items", force: :cascade do |t|
+    t.integer  "tinta_pigmento_id"
+    t.integer  "tinta_pigmento_item_id"
+    t.integer  "item_id"
+    t.integer  "codigo_numerico"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "tinta_pigmentos", force: :cascade do |t|
     t.integer  "tinta_pigmento_id"
     t.string   "codigo"
     t.string   "descricao"
     t.string   "integracao_old"
     t.integer  "fabricante_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.decimal  "price",             precision: 10, scale: 2
   end
 
   create_table "tinta_produtos", force: :cascade do |t|

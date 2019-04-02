@@ -1,3 +1,5 @@
+<%= render "menu" %>
+
 <div class="container">
   <div class="row">
     <div class="col s12">
@@ -43,6 +45,20 @@
           <div class="input-field col s12">
             Cores<br />
             <%= file_field_tag :tinta_cor, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            Pigmento Item<br />
+            <%= file_field_tag :tinta_pigmento_item, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            Base Item<br />
+            <%= file_field_tag :tinta_base_item, class: "round full-width-input" %>
           </div>
         </div>
 

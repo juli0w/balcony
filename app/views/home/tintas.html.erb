@@ -29,25 +29,25 @@
       <%= form_tag tintas_path, method: :get do %>
         <fieldset style="border: none; margin: 0; padding: 0;">
           <div class="row" style="margin-bottom: 0;">
-            <div class="input-field col s12 m3">
-              <%= select_tag :marca, options_for_select([ "Resicolor" ], "Resicolor") %>
+            <div class="input-field col s12 m4">
+              <%= select_tag :fabricante_id, options_from_collection_for_select(Fabricante.all, :id, :name, params[:fabricante_id]) %>
             </div>
-            <div class="input-field col s12 m5">
+            <div class="input-field col s12 m8">
               <%= text_field_tag :color, params[:color], id: "search", class: "autocomplete" %>
               <%= label_tag :color, "Cor" %>
             </div>
-            <div class="input-field col s12 m4">
-              <%= select_tag :can, options_for_select({"Lata" => "LATA", "Galão" => "GALAO", "Quarto" => "QUARTO"}, params[:can]) %>
-            </div>
           </div>
           <div class="row">
-            <div class="input-field col s12 m3">
-              <%= select_tag(:line, options_from_collection_for_select(Rline.all, :id, :name, params[:line]), include_blank: true, prompt: "Linha") %>
+            <div class="input-field col s12 m7">
+              <%= select_tag :tinta_produto_id, options_from_collection_for_select(TintaProduto.all, :id, :descricao, params[:tinta_produto_id]), prompt: 'Linha', include_blank: false %>
             </div>
 
-            <div class="input-field col s12 m3">
-              <%= select_tag(:rp, options_for_select(Rproduct.all.map(&:code).uniq, params[:rp]), include_blank: true, prompt: "Cobertura") %>
+            <div class="input-field col s12 m5">
+              <%= select_tag :tinta_embalagem_id, options_from_collection_for_select(TintaEmbalagem.all, :id, :descricao, params[:tinta_embalagem_id]), include_blank: false %>
             </div>
+            <!-- <div class="input-field col s12 m3">
+              <%= select_tag :tinta_acabamento_id, options_from_collection_for_select(TintaAcabamento.all.uniq, :descricao, :descricao, params[:tinta_acabamento_id]), prompt: 'Acabamento', include_blank: false %>
+            </div> -->
           </div>
 
           <button class="btn" type="submit" name="action">
@@ -59,7 +59,7 @@
   </div>
 </div>
 
-<% if @tintas %>
+<% if false# @tintas %>
 <% @tintas.first(50).each do |tinta| %>
 <div id="rf-<%= tinta.id %>" class="modal">
   <div class="modal-content">
@@ -111,8 +111,9 @@
     <thead>
       <tr style="background-color: #efefef; border: 1px solid #dedede;">
           <th data-field="name">Cor</th>
+          <th data-field="name"></th>
+          <th data-field="name">Acabamento</th>
           <th data-field="name">Linha</th>
-          <th data-field="name">Cobertura</th>
           <th data-field="name">Preço</th>
           <th data-field="actions"></th>
       </tr>
@@ -122,10 +123,11 @@
       <% if @tintas %>
         <% @tintas.first(30).each do |tinta| %>
         <tr>
-          <td><%= tinta.rcolor.name.split("-").first %></td>
-          <td><%= tinta.rline.name.split("-")[1] %></td>
-          <td><%= tinta.rproduct.code.gsub("[NOVO]","") %></td>
-          <td><%= number_to_currency tinta.calculate_price(params[:can]) %></td>
+          <td><%= tinta.codigo %></td>
+          <td><%= tinta.descricao %></td>
+          <td><%= tinta.tinta_acabamento.descricao %></td>
+          <td><%= tinta.tinta_acabamento.tinta_produto.descricao %></td>
+          <td><%#= number_to_currency tinta.calculate_price(params[:can]) %></td>
           <td>
             <%= link_to "Fórmula", "#rf-#{tinta.id}", class: "modal-trigger" %> |
             <%= link_to "Adicionar", order_tintas_path(tinta_id: tinta.id, quantity: 1, can: params[:can]), method: :post, remote: true %>
