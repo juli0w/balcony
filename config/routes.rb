@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # formulas
   get "import_2", to: "formulas#index", as: "formulas"
-  post "import", to: "formulas#import"
+  post "import_2", to: "formulas#import"
 
   get "pigmentos", to: "formulas#pigmentos", as: "pigmentos_formulas"
   get "acabamentos", to: "formulas#acabamentos", as: "acabamentos_formulas"
