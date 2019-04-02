@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, :path => 'u'
 
   # formulas
-  # get "import", to: "formulas#index", as: "formulas"
+  get "import_2", to: "formulas#index", as: "formulas"
   post "import", to: "formulas#import"
 
   get "pigmentos", to: "formulas#pigmentos", as: "pigmentos_formulas"
