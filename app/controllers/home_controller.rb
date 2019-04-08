@@ -51,14 +51,19 @@ class HomeController < ApplicationController
       # redirect_to clients_path
     end
 
+    @tinta_embalagem = TintaEmbalagem.find_by_id(params[:tinta_embalagem_id])
+    @tinta_acabamento = TintaAcabamento.where(tinta_acabamento_id: params[:tinta_acabamento_id].to_i).first if !params[:tinta_acabamento_id].blank?
     @client = Client.find(session[:client])
     @tintas = TintaCor.joins(:tinta_base).
                        joins(:tinta_acabamento).
-                       where("codigo LIKE :color", color: "%#{params[:color]}%").
+                       where("tinta_cors.codigo LIKE :color OR tinta_cors.descricao LIKE :color", color: "%#{params[:color]}%").
                        where("fabricante_id" => params[:fabricante_id])
 
-    @tintas = @tintas.where(tinta_acabamento_id: params[:tinta_acabamento_id].to_i) if !params[:tinta_acabamento_id].blank?
+    @tintas = @tintas.where("tinta_acabamentos.descricao" => @tinta_acabamento.descricao) if !params[:tinta_acabamento_id].blank?
     @tintas = @tintas.where("tinta_acabamentos.tinta_produto_id" => params[:tinta_produto_id].to_i) if !params[:tinta_produto_id].blank?
+
+    @tintas = @tintas.reject {|t| t.base(@tinta_embalagem).nil? }
+    @tintas = @tintas.reject {|t| t.price_pigmentos(@tinta_embalagem) <= 0 }
 
     # @tintas = @tintas.reject { |t| (Rproduct.where(code: t.rproduct.code, base: t.base, can: params[:can]).count <= 0) }.first(30)
     # @tintas = @tintas.reject { |t| (t.calculate_price(params[:can]) <= 0) }

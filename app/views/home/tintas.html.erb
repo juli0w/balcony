@@ -30,7 +30,7 @@
         <fieldset style="border: none; margin: 0; padding: 0;">
           <div class="row" style="margin-bottom: 0;">
             <div class="input-field col s12 m4">
-              <%= select_tag :fabricante_id, options_from_collection_for_select(Fabricante.all, :id, :name, params[:fabricante_id]) %>
+              <%= select_tag :fabricante_id, options_from_collection_for_select(Fabricante.all.order('id desc'), :id, :name, params[:fabricante_id]) %>
             </div>
             <div class="input-field col s12 m8">
               <%= text_field_tag :color, params[:color], id: "search", class: "autocomplete" %>
@@ -59,43 +59,45 @@
   </div>
 </div>
 
-<% if false# @tintas %>
-<% @tintas.first(50).each do |tinta| %>
-<div id="rf-<%= tinta.id %>" class="modal">
+<% if @tintas %>
+<% @tintas.first(30).each do |tinta_cor| %>
+<div id="rf-<%= tinta_cor.id %>" class="modal">
   <div class="modal-content">
-    <h5 style="text-align: center;"><%= tinta.color.split("-").first.humanize %> (<%= params[:can] %>)</h5>
-    <h6 style="text-align: center; margin-bottom: 20px;"><%= "#{tinta.rline.name} - #{tinta.rproduct.code}" %></h5>
+    <h5 style="text-align: center;"><%= tinta_cor.codigo.humanize %> (<%= @tinta_embalagem.try(:descricao) %>)</h5>
+    <h6 style="text-align: center; margin-bottom: 20px;"><%= "#{tinta_cor.tinta_acabamento.descricao} - #{tinta_cor.tinta_acabamento.tinta_produto.descricao}" %></h5>
     <table class="striped bordered">
       <tbody>
-        <% (1..6).each do |n| %>
-          <% base = tinta.get_base(n) %>
-          <% if base %>
+        <% base = tinta_cor.base(@tinta_embalagem) %>
+        <% (0..5).each do |n| %>
+          <% unless tinta_cor.read_formula[n].blank? or tinta_cor.pigmento(n).blank? %>
+            <% quantidade = tinta_cor.read_formula[n].values[0].to_d * @tinta_embalagem.quantidade %>
+            <% preco = tinta_cor.pigmento(n).try(:tinta_pigmento_item).try(:item).try(:price) %>
             <tr>
-              <td><%= base.try(:name) %></td>
-              <td><%= number_to_currency tinta.rbase(base.try(:code)).try(:price) %></td>
-              <td><%= tinta.send("q#{n}") * Rformula::CAN[params[:can]] %></td>
-              <td><%= number_to_currency ((tinta.rbase(base.try(:code)).try(:price) /946) *tinta.send("q#{n}")* Rformula::CAN[params[:can]]) %></td>
-              <td><%= number_to_currency ((tinta.rbase(base.try(:code)).try(:price) /946) *tinta.send("q#{n}")* Rformula::CAN[params[:can]] *1.5) %></td>
+              <td><%= tinta_cor.pigmento(n).try(:descricao) %></td>
+              <td><%= quantidade %><%#= ((quantidade || 0).to_d) *946/1000 %></td>
+              <td><%= number_to_currency preco if tinta_cor.pigmento(n) %>/ml</td>
+              <td><%= number_to_currency ((quantidade || 0).to_d * (preco || 0).to_d) %></td>
+              <td style="color: green"><%= number_to_currency (tinta_cor.total_pigmento(n, @tinta_embalagem)) %></td>
             </tr>
           <% end %>
         <% end %>
         <tr>
           <td colspan="4"></td>
-          <td><%= number_to_currency (tinta.calculate_price(params[:can]) - tinta.price_base(params[:can])) %></td>
+          <td><%= number_to_currency (tinta_cor.price_pigmentos(@tinta_embalagem)) %></td>
         </tr>
         <tr>
-          <td colspan="4"><%= tinta.g_base(params[:can]).item.try(:name) %></td>
-          <td><%= number_to_currency tinta.price_base(params[:can]) %></td>
+          <td colspan="4"><%= base.try(:name) %></td>
+          <td><%= number_to_currency base.try(:price) %></td>
         </tr>
         <tr>
           <td colspan="4"></td>
-          <td><%= number_to_currency tinta.calculate_price(params[:can]) %></td>
+          <td><%= number_to_currency tinta_cor.total_price(@tinta_embalagem) %></td>
         </tr>
       </tbody>
     </table>
   </div>
   <div class="modal-footer">
-    <!-- <div style="background-color: #<%= tinta.rgb %>;
+    <!-- <div style="background-color: #<%#= tinta.rgb %>;
                 width: 80px; height: 40px;
                 border: 1px solid #dedede;
                 bottom: 20px; left: 20px; position: absolute;"><%#= tinta.rgb %></div> !-->
@@ -121,16 +123,16 @@
 
     <tbody>
       <% if @tintas %>
-        <% @tintas.first(30).each do |tinta| %>
+        <% @tintas.first(30).each do |tinta_cor| %>
         <tr>
-          <td><%= tinta.codigo %></td>
-          <td><%= tinta.descricao %></td>
-          <td><%= tinta.tinta_acabamento.descricao %></td>
-          <td><%= tinta.tinta_acabamento.tinta_produto.descricao %></td>
-          <td><%#= number_to_currency tinta.calculate_price(params[:can]) %></td>
+          <td><%= tinta_cor.codigo %></td>
+          <td><%= tinta_cor.descricao %></td>
+          <td><%= tinta_cor.tinta_acabamento.descricao %></td>
+          <td><%= tinta_cor.tinta_acabamento.tinta_produto.descricao %></td>
+          <td><%= number_to_currency tinta_cor.total_price(@tinta_embalagem) %></td>
           <td>
-            <%= link_to "Fórmula", "#rf-#{tinta.id}", class: "modal-trigger" %> |
-            <%= link_to "Adicionar", order_tintas_path(tinta_id: tinta.id, quantity: 1, can: params[:can]), method: :post, remote: true %>
+            <%= link_to "Fórmula", "#rf-#{tinta_cor.id}", class: "modal-trigger" %> |
+            <%= link_to "Adicionar", order_tintas_path(tinta_id: tinta_cor.id, quantity: 1, tinta_embalagem_id: @tinta_embalagem.id), method: :post, remote: true %>
           </td>
         </tr>
 

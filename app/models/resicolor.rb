@@ -81,54 +81,82 @@ private
         base  = row[6].to_s
         color = row[8].to_s
 
-        c1 = row[11].to_s
-        q1 = row[12].to_s.gsub(",", ".")
+        c = []
+        q = []
 
-        c2 = row[13].to_s
-        q2 = row[14].to_s.gsub(",", ".")
+        c[0] = row[11].to_s
+        q[0] = row[12].to_s.gsub(",", ".")
 
-        c3 = row[15].to_s
-        q3 = row[16].to_s.gsub(",", ".")
+        c[1] = row[13].to_s
+        q[1] = row[14].to_s.gsub(",", ".")
 
-        c4 = row[17].to_s
-        q4 = row[18].to_s.gsub(",", ".")
+        c[2] = row[15].to_s
+        q[2] = row[16].to_s.gsub(",", ".")
 
-        c5 = row[19].to_s
-        q5 = row[20].to_s.gsub(",", ".")
+        c[3] = row[17].to_s
+        q[3] = row[18].to_s.gsub(",", ".")
 
-        c6 = row[21].to_s
-        q6 = row[22].to_s.gsub(",", ".")
+        c[4] = row[19].to_s
+        q[4] = row[20].to_s.gsub(",", ".")
+
+        c[5] = row[21].to_s
+        q[5] = row[22].to_s.gsub(",", ".")
 
         rgb   = row[23].to_s
         notes = row[26].to_s
 
-        rproduct = Rproduct.find_by_code(pcode)
-        rformula = Rformula.where(line: line, base: base, color: color, rproduct_id: rproduct.id).first_or_create
+        tinta_produto = TintaProduto.where(descricao: line.split(' - ')[1]).first
 
-        rformula.rcolor = Rcolor.where(name: color).first_or_create
-        rformula.rline  = Rline.where(name: line).first_or_create
+        tinta_cor = TintaCor.joins(:tinta_acabamento).where({
+            descricao: color.split(" - ")[0],
+            'tinta_acabamentos.tinta_produto_id' => tinta_produto.id
+          }).where('tinta_acabamentos.descricao LIKE ?', "%#{TintaAcabamento::INTEGRATION[pcode]}%").first
 
-        rformula.c1 = c1
-        rformula.q1 = q1
+          puts "------------------_"
+          puts "------------------_"
+          puts c[0]
+          puts "------------------_"
+          puts "------------------_"
+        if tinta_cor
+          formula = "[#{TintaPigmento.find_by_codigo(c[0]).tinta_pigmento_id}:#{q[0]}]"
+          (1..5).each do |n|
+            unless c[n].blank?
+              formula << ";[#{TintaPigmento.find_by_codigo(c[n]).tinta_pigmento_id}:#{q[n]}]"
+            end
+          end
 
-        rformula.c2 = c2
-        rformula.q2 = q2
+          tinta_cor.update({
+            formula: formula
+          })
+        end
 
-        rformula.c3 = c3
-        rformula.q3 = q3
-
-        rformula.c4 = c4
-        rformula.q4 = q4
-
-        rformula.c5 = c5
-        rformula.q5 = q5
-
-        rformula.c6 = c6
-        rformula.q6 = q6
-
-        rformula.rgb   = rgb
-        rformula.notes = notes
-        rformula.save
+        # rproduct = Rproduct.find_by_code(pcode)
+        # rformula = Rformula.where(line: line, base: base, color: color, rproduct_id: rproduct.id).first_or_create
+        #
+        # rformula.rcolor = Rcolor.where(name: color).first_or_create
+        # rformula.rline  = Rline.where(name: line).first_or_create
+        #
+        # rformula.c1 = c1
+        # rformula.q1 = q1
+        #
+        # rformula.c2 = c2
+        # rformula.q2 = q2
+        #
+        # rformula.c3 = c3
+        # rformula.q3 = q3
+        #
+        # rformula.c4 = c4
+        # rformula.q4 = q4
+        #
+        # rformula.c5 = c5
+        # rformula.q5 = q5
+        #
+        # rformula.c6 = c6
+        # rformula.q6 = q6
+        #
+        # rformula.rgb   = rgb
+        # rformula.notes = notes
+        # rformula.save
       end
     end
   end
