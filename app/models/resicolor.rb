@@ -112,11 +112,6 @@ private
             'tinta_acabamentos.tinta_produto_id' => tinta_produto.id
           }).where('tinta_acabamentos.descricao LIKE ?', "%#{TintaAcabamento::INTEGRATION[pcode]}%").first
 
-          puts "------------------_"
-          puts "------------------_"
-          puts c[0]
-          puts "------------------_"
-          puts "------------------_"
         if tinta_cor
           formula = "[#{TintaPigmento.find_by_codigo(c[0]).tinta_pigmento_id}:#{q[0]}]"
           (1..5).each do |n|

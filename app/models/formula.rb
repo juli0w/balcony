@@ -88,7 +88,7 @@ private
   def self.import_tinta_cor file
     puts 'Importando Cores'
     count = 0
-    ActiveRecord::Base.transaction do
+    # ActiveRecord::Base.transaction do
       CSV.foreach(file.tempfile, headers: true, quote_char: "\"", col_sep: ';') do |row|
         # count += 1
         # break if count > 150200
@@ -125,7 +125,7 @@ private
 
         tinta_cor.save
       end
-    end
+    # end
   end
 
   def self.import_tinta_acabamento file
