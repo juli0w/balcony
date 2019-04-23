@@ -33,9 +33,54 @@ class Formula
     Formula.import_tinta_pigmento_item self.tinta_pigmento_item if self.tinta_pigmento_item
 
     Formula.update_base_prices!
+    # Formula.update_resicolor_2018!
   end
 
 private
+
+  def self.update_resicolor_2018
+    tinta_produto = TintaProduto.first_or_create(descricao: "RESICOLOR 2018", fabricante_id: 2)
+    Rformula.where(line: "A - COLEÇAO RESICOLOR 2018").each do |rformula|
+      t_a_d = TintaAcabamento.where('descricao LIKE ?', "%#{TintaAcabamento::INTEGRATION[rformula.rproduct.code]}%").first.descricao
+
+      TintaAcabamento.where(descricao: t_a_d,
+                            tinta_produto_id: tinta_produto.id)
+
+                c = []
+                q = []
+
+                c[0] = rformula.c1
+                q[0] = rformula.q1
+
+                c[1] = rformula.c2
+                q[1] = rformula.q2
+
+                c[2] = rformula.c3
+                q[2] = rformula.q3
+
+                c[3] = rformula.c4
+                q[3] = rformula.q4
+
+                c[4] = rformula.c5
+                q[4] = rformula.q5
+
+                c[5] = rformula.c6
+                q[5] = rformula.q6
+
+      # # #
+        formula = "[#{TintaPigmento.find_by_codigo(c[0]).tinta_pigmento_id}:#{q[0]}]"
+        (1..5).each do |n|
+          unless c[n].blank?
+            formula << ";[#{TintaPigmento.find_by_codigo(c[n]).tinta_pigmento_id}:#{q[n]}]"
+          end
+        end
+      # # #
+
+      TintaCor.first_or_create({
+          codigo: rformula.color.split(" - ")[0]
+        })
+    end
+  end
 
   def self.update_base_prices!
     Rbase.all.each do |rbase|

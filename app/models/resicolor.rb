@@ -105,12 +105,17 @@ private
         rgb   = row[23].to_s
         notes = row[26].to_s
 
-        tinta_produto = TintaProduto.where(descricao: line.split(' - ')[1]).first
+        tinta_produto = TintaProduto.where(fabricante_id: 2, descricao: line.split(' - ')[1]).first_or_create
+        tacabamento = TintaAcabamento.where('descricao LIKE ?', "%#{TintaAcabamento::INTEGRATION[pcode]}%").first
 
-        tinta_cor = TintaCor.joins(:tinta_acabamento).where({
+        tinta_acabamento = TintaAcabamento.where(descricao: tacabamento.descricao, fabricante_id: 2,
+                                                 tinta_produto_id: tinta_produto.id).first_or_create
+
+        tinta_cor = TintaCor.where({
+            fabricante_id: 2,
             descricao: color.split(" - ")[0],
-            'tinta_acabamentos.tinta_produto_id' => tinta_produto.id
-          }).where('tinta_acabamentos.descricao LIKE ?', "%#{TintaAcabamento::INTEGRATION[pcode]}%").first
+            tinta_acabamento_id: tinta_acabamento.id
+          }).first_or_create
 
         if tinta_cor
           formula = "[#{TintaPigmento.find_by_codigo(c[0]).tinta_pigmento_id}:#{q[0]}]"
