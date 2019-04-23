@@ -72,7 +72,7 @@ private
   def import_formulas formula
     puts 'Opening formulas'
     count = 0
-    ActiveRecord::Base.transaction do
+    # ActiveRecord::Base.transaction do
       CSV.foreach(formula.tempfile, headers: true) do |row|
         # return if (count+=1) >= 1550
 
@@ -108,7 +108,7 @@ private
         tinta_produto = TintaProduto.where(fabricante_id: 2, descricao: line.split(' - ')[1]).first_or_create
         tacabamento = TintaAcabamento.where('descricao LIKE ?', "%#{TintaAcabamento::INTEGRATION[pcode]}%").first
 
-        tinta_acabamento = TintaAcabamento.where(descricao: tacabamento.descricao, fabricante_id: 2,
+        tinta_acabamento = TintaAcabamento.where(descricao: tacabamento.descricao,
                                                  tinta_produto_id: tinta_produto.id).first_or_create
 
         tinta_cor = TintaCor.where({
@@ -158,7 +158,7 @@ private
         # rformula.notes = notes
         # rformula.save
       end
-    end
+    # end
   end
 
 
