@@ -111,10 +111,14 @@ private
         tinta_acabamento = TintaAcabamento.where(descricao: tacabamento.descricao,
                                                  tinta_produto_id: tinta_produto.id).first_or_create
 
+
+        tinta_base = TintaBase.where(descricao: base).first_or_create
+
         tinta_cor = TintaCor.where({
             fabricante_id: 2,
             descricao: color.split(" - ")[0],
-            tinta_acabamento_id: tinta_acabamento.id
+            tinta_acabamento_id: tinta_acabamento.id,
+            tinta_base_id: tinta_base.id
           }).first_or_create
 
         if tinta_cor
@@ -128,6 +132,20 @@ private
           tinta_cor.update({
             formula: formula
           })
+        end
+
+        Rproduct.where(code: pcode, base: tinta_base.descricao).each do |rproduct|
+          teid = TintaEmbalagem.where(descricao: TintaEmbalagem::OLD[rproduct.can])
+
+          if teid.any?
+            tabi = TintaAcabamentoBaseItem.where(
+              tinta_acabamento_id: tinta_acabamento.id,
+              tinta_base_id: tinta_base.id,
+              tinta_embalagem_id: teid.first.id
+            ).first_or_create
+
+            tabi.update(item_id: rproduct.item_id)
+          end
         end
 
         # rproduct = Rproduct.find_by_code(pcode)
