@@ -62,6 +62,8 @@ class HomeController < ApplicationController
     @tintas = @tintas.where("tinta_acabamentos.descricao" => @tinta_acabamento.descricao) if !params[:tinta_acabamento_id].blank?
     @tintas = @tintas.where("tinta_acabamentos.tinta_produto_id" => params[:tinta_produto_id].to_i) if !params[:tinta_produto_id].blank?
 
+    @tintas = @tintas.limit(20)
+
     @tintas = @tintas.reject {|t| t.base(@tinta_embalagem).nil? }
     @tintas = @tintas.reject {|t| t.price_pigmentos(@tinta_embalagem) <= 0 }
 
