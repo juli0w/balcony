@@ -63,7 +63,7 @@
 <% @tintas.first(30).each do |tinta_cor| %>
 <div id="rf-<%= tinta_cor.id %>" class="modal">
   <div class="modal-content">
-    <h5 style="text-align: center;"><%= tinta_cor.codigo.humanize %> (<%= @tinta_embalagem.try(:descricao) %>)</h5>
+    <h5 style="text-align: center;"><%= tinta_cor.codigo.try(:humanize) %> (<%= @tinta_embalagem.try(:descricao) %>)</h5>
     <h6 style="text-align: center; margin-bottom: 20px;"><%= "#{tinta_cor.tinta_acabamento.descricao} - #{tinta_cor.tinta_acabamento.tinta_produto.descricao}" %></h5>
     <table class="striped bordered">
       <tbody>
