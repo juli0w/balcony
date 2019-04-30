@@ -34,10 +34,10 @@ class OrderTintasController < ApplicationController
 private
 
   def order_params
-    params.permit(:quantity, :tinta_id, :can)
+    params.permit(:quantity, :tinta_id, :tinta_embalagem_id)
   end
 
   def order_tinta_params
-    params.require(:order_tinta).permit(:quantity, :tinta_id, :can)
+    params.require(:order_tinta).permit(:quantity, :tinta_id, :tinta_embalagem_id)
   end
 end

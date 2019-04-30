@@ -50,7 +50,7 @@
   <body>
     <div class="row rowed" style="margin-bottom: 3px; padding-bottom: 0; padding-top: 7px; border-bottom: 0;">
       <h5 style="font-size: 14px; font-weight: bold; float: left; display: none;">LOJA DO PINTOR</h5>
-      <img src="https://lojadopintor.net/wp-content/uploads/2018/04/logo-loja-do-pintor-2.png" width="80" />
+      <img src="http://www.lojadopintor.net/assets/img/logo.png" width="80" />
       <div style="float:right; width: 140px;">
         <span class="titled">Data:<br></span>
         <%= l(@order.created_at.to_date).split("-")[0] %>
@@ -123,9 +123,9 @@
             <tr>
               <td></td>
               <td>
-                <%= oi.rformula.color.split("-").first %> (<%= oi.can.try(:humanize) %>)
-                <span style="font-size: .8em; display: block;"><%= oi.rformula.rline.name.split("-")[1] %></span>
-                <span style="font-size: .8em; display: block;"><%= oi.rformula.rproduct.code %></span>
+                <%= oi.tinta_cor.codigo %> (<%= oi.tinta_embalagem.descricao %>)
+                <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.descricao %></span>
+                <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.tinta_produto.descricao %></span>
               </td>
               <td><%= number_to_currency oi.unit_price %></td>
               <td><%= oi.quantity %></td>

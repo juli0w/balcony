@@ -1,9 +1,13 @@
 class OrderTinta < ApplicationRecord
   belongs_to :order
-  belongs_to :rformula
+  belongs_to :tinta_cor
 
   def unit_price
-    rformula.calculate_price(can) || 0
+    tinta_cor.total_price(tinta_embalagem) || 0
+  end
+
+  def tinta_embalagem
+    TintaEmbalagem.find(can)
   end
 
   def total_price

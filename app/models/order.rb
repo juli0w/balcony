@@ -63,13 +63,13 @@ class Order < ApplicationRecord
   end
 
   def add_tinta params
-    order_tinta = order_tintas.where(rformula_id: params[:tinta_id].to_i, can: params[:can]).first
+    order_tinta = order_tintas.where(tinta_cor_id: params[:tinta_id].to_i, can: params[:tinta_embalagem_id]).first
     qty = (params[:quantity].to_d > 0) ? params[:quantity].to_d : 1
 
     unless order_tinta.blank?
       order_tinta.quantity += qty
     else
-      order_tinta = order_tintas.new(can: params[:can], rformula_id: params[:tinta_id], quantity: qty)
+      order_tinta = order_tintas.new(can: params[:tinta_embalagem_id], tinta_cor_id: params[:tinta_id], quantity: qty)
     end
 
     order_tinta.save

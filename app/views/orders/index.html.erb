@@ -129,9 +129,9 @@
               <% order.order_tintas.each do |oi| %>
                 <tr>
                   <td>
-                    <%= oi.rformula.color.split("-").first %> (<%= oi.can.try(:humanize) %>)
-                    <span style="font-size: .8em; display: block;"><%= oi.rformula.rline.name %></span>
-                    <span style="font-size: .8em; display: block;"><%= oi.rformula.rproduct.code %></span>
+                    <%= oi.tinta_cor.codigo %> (<%= oi.tinta_embalagem.descricao %>)
+                    <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.descricao %></span>
+                    <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.tinta_produto.descricao %></span>
                   </td>
                   <td><%= number_to_currency oi.unit_price %></td>
                   <td><%= oi.quantity %></td>
