@@ -50,6 +50,12 @@ class ReportsController < ApplicationController
     end
   end
 
+  def items
+    if params[:item].present?
+      @orders = OrderItem.joins(:item).where("items.name LIKE ?", "%#{params[:item]}%").collect(&:order).uniq
+    end
+  end
+
   def sales
     # if current_user.vendedor?
     #   @orders = current_user.orders.paid

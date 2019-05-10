@@ -1,19 +1,18 @@
 <div class="row">
   <div class="col s12 m12 l12">
-    <h4 style="margin-top: 40px;">Vendas x Vendedor</h4>
+    <h4 style="margin-top: 40px;">Itens</h4>
   </div>
 </div>
 
 <div class="row">
   <div class="card-panel">
     <div class="search-offers">
-      <%= form_tag sales_report_path, method: :get do %>
+      <%= form_tag items_report_path, method: :get do %>
         <fieldset style="border: none; margin: 0; padding: 0;">
           <div class="row">
             <div class="input-field col s12">
-              <%= label_tag :from, 'Período', class: "active" %>
-              <%= date_field_tag :from, params[:from] %>
-              <%= date_field_tag :to, params[:to] %>
+              <%= label_tag :item, 'Item', class: "active" %>
+              <%= text_field_tag :item, params[:item] %>
             </div>
           </div>
             <button class="btn" type="submit" name="action">
@@ -37,7 +36,7 @@
       </thead>
 
       <tbody>
-        <% if @orders.any? %>
+        <% if @orders %>
           <% @orders.each do |order| %>
             <tr>
               <td><%= order.id %></td>
