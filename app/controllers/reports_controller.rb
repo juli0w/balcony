@@ -66,6 +66,8 @@ class ReportsController < ApplicationController
     if params[:from].present? and params[:to].present?
       @orders = @orders.where("created_at >= ? and created_at <= ?", params[:from], params[:to])
     end
+
+    @orders = @orders.first(50)
   end
 
   def by_client
