@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :client, optional: true
 
-  default_scope { where("created_at > ?", 1.month.ago) }
+  default_scope { where("orders.created_at > ?", 1.month.ago) }
 
   scope :opened, -> { where(state: "open") }
   scope :paid, -> { where(state: "paid") }
