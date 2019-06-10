@@ -82,7 +82,8 @@
           <% end %>
         <% end %>
         <tr>
-          <td colspan="4"></td>
+          <td colspan="3"></td>
+          <td><%= number_to_currency (tinta_cor.no_margin_price_pigmentos(@tinta_embalagem)) %></td>
           <td><%= number_to_currency (tinta_cor.price_pigmentos(@tinta_embalagem)) %></td>
         </tr>
         <tr>
@@ -90,7 +91,8 @@
           <td><%= number_to_currency base.try(:price) %></td>
         </tr>
         <tr>
-          <td colspan="4"></td>
+          <td colspan="3"></td>
+          <td><%= number_to_currency (tinta_cor.no_margin_price_pigmentos(@tinta_embalagem) + base.try(:price)) %></td>
           <td><%= number_to_currency tinta_cor.total_price(@tinta_embalagem) %></td>
         </tr>
       </tbody>

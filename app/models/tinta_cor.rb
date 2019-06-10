@@ -29,6 +29,20 @@ class TintaCor < ApplicationRecord
                                             tinta_embalagem_id: tinta_embalagem.id).first.try(:item)
   end
 
+  def no_margin_price_pigmentos tinta_embalagem
+    total = 0
+    (0..5).each do |n|
+      unless read_formula[n].blank? or pigmento(n).blank?
+        quantidade = read_formula[n].values[0]
+        preco = pigmento(n).tinta_pigmento_item.item.price
+
+        total += no_margin_total_pigmento(n, tinta_embalagem)
+      end
+    end
+
+    return total
+  end
+
   def price_pigmentos tinta_embalagem
     total = 0
     (0..5).each do |n|
@@ -52,6 +66,14 @@ class TintaCor < ApplicationRecord
     return 0 if base(tinta_embalagem).nil?
 
     price_pigmentos(tinta_embalagem) + base(tinta_embalagem).try(:price)
+  end
+
+  def no_margin_total_pigmento n, tinta_embalagem
+    if pigmento(n)
+      quantidade = read_formula[n].values[0]
+      preco = pigmento(n).tinta_pigmento_item.item.price
+      (quantidade.to_d * preco.to_d * tinta_embalagem.quantidade)
+    end
   end
 
   def total_pigmento n, tinta_embalagem
