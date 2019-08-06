@@ -38,11 +38,15 @@
             </div>
           </div>
           <div class="row">
-            <div class="input-field col s12 m7">
+            <div class="input-field col s12 m6">
               <%= select_tag :tinta_produto_id, options_from_collection_for_select(TintaProduto.all, :id, :descricao, params[:tinta_produto_id]), prompt: 'Linha', include_blank: false %>
             </div>
 
-            <div class="input-field col s12 m5">
+            <div class="input-field col s12 m3">
+              <%= text_field_tag :acabamento, params[:acabamento], id: "acabamento", class: "autocomplete" %>
+            </div>
+
+            <div class="input-field col s12 m3">
               <%= select_tag :tinta_embalagem_id, options_from_collection_for_select(TintaEmbalagem.all, :id, :descricao, params[:tinta_embalagem_id]), include_blank: false %>
             </div>
             <!-- <div class="input-field col s12 m3">
