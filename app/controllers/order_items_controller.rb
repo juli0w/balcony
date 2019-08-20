@@ -72,7 +72,8 @@ class OrderItemsController < ApplicationController
     @order.open!
     @order.update(obs: params[:obs],
                   client_id: session[:client],
-                  seller: params[:seller])
+                  seller: params[:seller],
+                  created_at: Time.now)
 
     # @client = @order.clienting(client_params)
 
