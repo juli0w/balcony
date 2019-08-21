@@ -32,6 +32,7 @@
                 <%= link_to "Cancelados", orders_path(type: "canceled"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'canceled'}" %>
                 <%= link_to "Pagos", orders_path(type: "paid"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'paid'}" %>
                 <%= link_to "Abertos", orders_path(type: "opened"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
+                <%= link_to "Orçamentos", orders_path(type: "quote"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
                 <%= link_to "Todos", orders_path, style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type].blank?}" %>
               <% end %>
           </fieldset>
@@ -153,6 +154,10 @@
 
             <%= link_to open_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
               <i class="material-icons left">settings</i> Abrir
+            <% end %>
+
+            <%= link_to quote_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
+              <i class="material-icons left">assignment</i> Orçamento
             <% end %>
 
             <%= link_to edit_order_path(order), class: "btn grey darken-2" do %>

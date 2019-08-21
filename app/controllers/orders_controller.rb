@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :set_order, only: [:destroy, :print, :pay, :cancel, :open]
+  before_filter :set_order, only: [:destroy, :print, :pay, :cancel, :open, :quote]
   before_action :authenticate_user!
   # before_action :authenticate_vendedor!
 
@@ -37,6 +37,12 @@ class OrdersController < ApplicationController
     @order.pay!
 
     redirect_to orders_path(type: params[:type]), notice: "Pagamento confirmado."
+  end
+
+  def quote
+    @order.quote!
+
+    redirect_to orders_path(type: params[:type]), notice: "Orçamento confirmado."
   end
 
   def cancel

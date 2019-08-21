@@ -91,6 +91,13 @@ class OrderItemsController < ApplicationController
     redirect_to caixa_path, notice: "Pagamento confirmado. Despachar produtos."
   end
 
+  def quote
+    @order = Order.find(params[:id])
+    @order.quote!
+
+    redirect_to caixa_path, notice: "Orçamento confirmado."
+  end
+
   def cancel
     @order = Order.find(params[:id])
     @order.cancel!

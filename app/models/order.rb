@@ -4,10 +4,11 @@ class Order < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :client, optional: true
 
-  default_scope { where("orders.created_at > ?", 1.month.ago) }
+  default_scope { where("orders.created_at > ?", 1.day.ago) }
 
   scope :opened, -> { where(state: "open") }
   scope :paid, -> { where(state: "paid") }
+  scope :quote, -> { where(state: "quote") }
   scope :canceled, -> { where(state: "canceled") }
 
   scope :not_empty, -> { where.not(state: "") }
@@ -23,6 +24,7 @@ class Order < ApplicationRecord
   def get_state
     {"open" => "Aberto",
      "paid" => "Pago",
+     "quote" => "Orçamento",
      "canceled" => "Cancelado"}[self.state]
   end
 
@@ -37,6 +39,10 @@ class Order < ApplicationRecord
 
   def pay!
     update(state: "paid")
+  end
+
+  def quote!
+    update(state: "quote")
   end
 
   def cancel!
