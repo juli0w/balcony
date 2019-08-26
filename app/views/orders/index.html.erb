@@ -34,7 +34,7 @@
                     <%= link_to "Pagos", orders_path(type: "paid"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'paid'}" %>
                   <% end %>
                   <%= link_to "Abertos", orders_path(type: "opened"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
-                  <%= link_to "Orçamentos", orders_path(type: "quote"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
+                  <%= link_to "Orçamentos", orders_path(type: "quote"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'quote'}" %>
               </fieldset>
             <% end %>
           </div>
