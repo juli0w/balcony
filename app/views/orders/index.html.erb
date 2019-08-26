@@ -1,183 +1,183 @@
-<div class="row five-margin-bot breads">
-  <div class="col s12">
-    <h5 class="left">Pedidos</h5>
-  </div>
-</div>
-<style>
-.titled {
-  color: #767676; font-size: 8px;
-  text-transform: uppercase;
-}
-.rowed {
-  padding: 0 0px;
-  padding-bottom: 0px;
-  margin: 0;
-  font-size: 12px;
-}
-</style>
-<div class="row">
-  <div class="col s12">
-    <div class="card-panel" style="padding: 20px;">
-      <div class="search-offers">
-        <%= form_tag orders_path, method: :get do %>
-            <fieldset style="border: none; margin: 0; padding: 0;">
-              <input name="keyword" id="icon_local" style="display: inline;" type="search" placeholder="Filtrar pedidos" value='<%= params[:keyword] %>'>
-              <button class="btn" type="submit" name="action">
-                Filtrar
-              </button>
-
-              <% if current_user.admin? %>
-                <%= hidden_field_tag :type, params[:type] %>
-
-                <%= link_to "Cancelados", orders_path(type: "canceled"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'canceled'}" %>
-                <%= link_to "Pagos", orders_path(type: "paid"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'paid'}" %>
-                <%= link_to "Abertos", orders_path(type: "opened"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
-                <%= link_to "Orçamentos", orders_path(type: "quote"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
-                <%= link_to "Todos", orders_path, style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type].blank?}" %>
-              <% end %>
-          </fieldset>
-        <% end %>
+    <div class="row five-margin-bot breads">
+      <div class="col s12">
+        <h5 class="left">Pedidos</h5>
       </div>
     </div>
-    <% @orders.where.not(client: nil).each do |order| %>
-    <% begin %>
-      <div class="card-panel" style="padding: 10px 20px;">
-        <h5 class="order" style="font-size: 16px;" id="<%= order.id %>" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %>
-          <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; margin-top: -7px;", class: "white-text grey lighten-1 right", method: :post do %>
-          <i class="material-icons">print</i>
-          <% end %>
-        </h5>
+    <style>
+    .titled {
+      color: #767676; font-size: 8px;
+      text-transform: uppercase;
+    }
+    .rowed {
+      padding: 0 0px;
+      padding-bottom: 0px;
+      margin: 0;
+      font-size: 12px;
+    }
+    </style>
+    <div class="row">
+      <div class="col s12">
+        <div class="card-panel" style="padding: 20px;">
+          <div class="search-offers">
+            <%= form_tag orders_path, method: :get do %>
+                <fieldset style="border: none; margin: 0; padding: 0;">
+                  <input name="keyword" id="icon_local" style="display: inline;" type="search" placeholder="Filtrar pedidos" value='<%= params[:keyword] %>'>
+                  <button class="btn" type="submit" name="action">
+                    Filtrar
+                  </button>
 
+                  <%= hidden_field_tag :type, params[:type] %>
+                  <%= link_to "Todos", orders_path, style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type].blank?}" %>
+                  <% if current_user.admin? %>
 
-        <div class="divider"></div>
-        <div style="padding-top: 10px">
-          <div class="row rowed">
-            <div style="float: left;">
-              <div style="width: 140px; float: left">
-                <span class="titled">Total:<br></span>
-                <%= number_to_currency(order.total) %>
-              </div>
-              <div style="width: 140px; float: left">
-                <span class="titled">Data:<br></span>
-                <%= l(order.created_at.to_date).split("-")[0] %>
-              </div>
-            </div>
-            <div style="float:right; width: 180px;">
-              <span class="titled">Vendedor:<br></span>
-              <%= order.seller || order.user.try(:email) %>
-            </div>
+                    <%= link_to "Cancelados", orders_path(type: "canceled"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'canceled'}" %>
+                    <%= link_to "Pagos", orders_path(type: "paid"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'paid'}" %>
+                  <% end %>
+                  <%= link_to "Abertos", orders_path(type: "opened"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
+                  <%= link_to "Orçamentos", orders_path(type: "quote"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
+              </fieldset>
+            <% end %>
           </div>
-          <div class="row rowed">
-            <div style="float: left;">
-              <span class="titled">Cliente:<br></span>
-              <%= order.client.try(:company) || "Não informado" %>
-            </div>
-            <div style="float:right; width: 180px;">
-              <span class="titled">Telefone:<br></span>
-              <%= order.client.try(:phone) || "Não informado" %>
-            </div>
-            <div style="float:right; width: 140px;">
-              <span class="titled">CNPJ:<br></span>
-              <%= order.client.try(:cpf) || "Não informado" %>
-            </div>
-          </div>
-          <div class="row rowed">
-            <div style="float: left;">
-              <span class="titled">Endereço:<br></span>
-              <%= order.client.try(:address) || 'Não informado' %>
-              <%= ", #{order.client.try(:district)}" unless order.client.try(:district).blank? %>
-            </div>
-            <div style="float:right; width: 180px;">
-              <span class="titled">Município:<br></span>
-              <%= order.client.try(:city) || "Não informado" %> <%= order.client.try(:uf) %>
-            </div>
-            <div style="float:right; width: 140px;">
-              <span class="titled">CEP:<br></span>
-              <%= order.client.try(:cep) || "Não informado" %>
-            </div>
-          </div>
-          <% unless order.obs.blank? %>
-          <div class="row rowed">
-            <div style="float: left;">
-              <span class="titled">Observação:<br></span>
-              <%= order.obs %>
-            </div>
-          </div>
-          <% end %>
-
-          <span class="badge green white-text" style="margin-top: -30px; font-size: 9px; font-weight: bold; text-transform: uppercase;"><%= order.get_state %></span>
         </div>
-        <div class="orders" id="order-<%= order.id %>">
-          <table class="bordered striped highlight" style="margin-top: 20px;">
-            <thead>
-              <tr class="grey  white-text">
-                  <th data-field="item" width="">Produto</th>
-                  <th data-field="unit" width="">Valor</th>
-                  <th data-field="quantity" width="">Quantidade</th>
-                  <th data-field="total" width="">Total</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% order.order_items.each do |oi| %>
-                <tr>
-                  <td><%= oi.item.name %></td>
-                  <td><%= number_to_currency(oi.unit_price) || 0 %></td>
-                  <td><%= oi.quantity %></td>
-                  <td><%= number_to_currency oi.total_price %></td>
-                </tr>
+        <% @orders.where.not(client: nil).each do |order| %>
+        <% begin %>
+          <div class="card-panel" style="padding: 10px 20px;">
+            <h5 class="order" style="font-size: 16px;" id="<%= order.id %>" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %>
+              <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; margin-top: -7px;", class: "white-text grey lighten-1 right", method: :post do %>
+              <i class="material-icons">print</i>
               <% end %>
-              <% order.order_tintas.each do |oi| %>
-                <tr>
-                  <td>
-                    <%= oi.tinta_cor.codigo %> (<%= oi.tinta_embalagem.descricao %>)
-                    <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.descricao %></span>
-                    <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.tinta_produto.descricao %></span>
-                  </td>
-                  <td><%= number_to_currency oi.unit_price %></td>
-                  <td><%= oi.quantity %></td>
-                  <td><%= number_to_currency oi.total_price %></td>
-                </tr>
+            </h5>
+
+
+            <div class="divider"></div>
+            <div style="padding-top: 10px">
+              <div class="row rowed">
+                <div style="float: left;">
+                  <div style="width: 140px; float: left">
+                    <span class="titled">Total:<br></span>
+                    <%= number_to_currency(order.total) %>
+                  </div>
+                  <div style="width: 140px; float: left">
+                    <span class="titled">Data:<br></span>
+                    <%= l(order.created_at.to_date).split("-")[0] %>
+                  </div>
+                </div>
+                <div style="float:right; width: 180px;">
+                  <span class="titled">Vendedor:<br></span>
+                  <%= order.seller || order.user.try(:email) %>
+                </div>
+              </div>
+              <div class="row rowed">
+                <div style="float: left;">
+                  <span class="titled">Cliente:<br></span>
+                  <%= order.client.try(:company) || "Não informado" %>
+                </div>
+                <div style="float:right; width: 180px;">
+                  <span class="titled">Telefone:<br></span>
+                  <%= order.client.try(:phone) || "Não informado" %>
+                </div>
+                <div style="float:right; width: 140px;">
+                  <span class="titled">CNPJ:<br></span>
+                  <%= order.client.try(:cpf) || "Não informado" %>
+                </div>
+              </div>
+              <div class="row rowed">
+                <div style="float: left;">
+                  <span class="titled">Endereço:<br></span>
+                  <%= order.client.try(:address) || 'Não informado' %>
+                  <%= ", #{order.client.try(:district)}" unless order.client.try(:district).blank? %>
+                </div>
+                <div style="float:right; width: 180px;">
+                  <span class="titled">Município:<br></span>
+                  <%= order.client.try(:city) || "Não informado" %> <%= order.client.try(:uf) %>
+                </div>
+                <div style="float:right; width: 140px;">
+                  <span class="titled">CEP:<br></span>
+                  <%= order.client.try(:cep) || "Não informado" %>
+                </div>
+              </div>
+              <% unless order.obs.blank? %>
+              <div class="row rowed">
+                <div style="float: left;">
+                  <span class="titled">Observação:<br></span>
+                  <%= order.obs %>
+                </div>
+              </div>
               <% end %>
-              <tr>
-                <td colspan='3' class="right-align">Total:</td>
-                <td><%= number_to_currency order.calculate_total %></td>
-              </tr>
-            </tbody>
-          </table>
-          <br>
 
-          <% if current_user.vendedor? %>
-            <%= link_to pay_order_path(order, type: params[:type]), class: "btn light-green", method: :post do %>
-              <i class="material-icons left">payment</i> Pago
-            <% end %>
+              <span class="badge green white-text" style="margin-top: -30px; font-size: 9px; font-weight: bold; text-transform: uppercase;"><%= order.get_state %></span>
+            </div>
+            <div class="orders" id="order-<%= order.id %>">
+              <table class="bordered striped highlight" style="margin-top: 20px;">
+                <thead>
+                  <tr class="grey  white-text">
+                      <th data-field="item" width="">Produto</th>
+                      <th data-field="unit" width="">Valor</th>
+                      <th data-field="quantity" width="">Quantidade</th>
+                      <th data-field="total" width="">Total</th>
+                  </tr>
+                </thead>
 
-            <%= link_to open_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
-              <i class="material-icons left">settings</i> Abrir
-            <% end %>
+                <tbody>
+                  <% order.order_items.each do |oi| %>
+                    <tr>
+                      <td><%= oi.item.name %></td>
+                      <td><%= number_to_currency(oi.unit_price) || 0 %></td>
+                      <td><%= oi.quantity %></td>
+                      <td><%= number_to_currency oi.total_price %></td>
+                    </tr>
+                  <% end %>
+                  <% order.order_tintas.each do |oi| %>
+                    <tr>
+                      <td>
+                        <%= oi.tinta_cor.codigo %> (<%= oi.tinta_embalagem.descricao %>)
+                        <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.descricao %></span>
+                        <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.tinta_produto.descricao %></span>
+                      </td>
+                      <td><%= number_to_currency oi.unit_price %></td>
+                      <td><%= oi.quantity %></td>
+                      <td><%= number_to_currency oi.total_price %></td>
+                    </tr>
+                  <% end %>
+                  <tr>
+                    <td colspan='3' class="right-align">Total:</td>
+                    <td><%= number_to_currency order.calculate_total %></td>
+                  </tr>
+                </tbody>
+              </table>
+              <br>
 
-            <%= link_to quote_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
-              <i class="material-icons left">assignment</i> Orçamento
-            <% end %>
+              <% if current_user.vendedor? %>
+                <%= link_to pay_order_path(order, type: params[:type]), class: "btn light-green", method: :post do %>
+                  <i class="material-icons left">payment</i> Pago
+                <% end %>
 
-            <%= link_to edit_order_path(order), class: "btn grey darken-2" do %>
-              <i class="material-icons left">edit</i> Editar
-            <% end %>
+                <%= link_to open_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
+                  <i class="material-icons left">settings</i> Abrir
+                <% end %>
+
+                <%= link_to quote_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
+                  <i class="material-icons left">assignment</i> Orçamento
+                <% end %>
+
+                <%= link_to edit_order_path(order), class: "btn grey darken-2" do %>
+                  <i class="material-icons left">edit</i> Editar
+                <% end %>
+              <% end %>
+
+              <%= link_to cancel_order_path(order, type: params[:type]), class: "btn grey darken-2", method: :post do %>
+                <i class="material-icons left">delete</i> Cancelar
+              <% end %>
+
+              <%= link_to print_order_path(order), target: "_blank", class: "right btn grey darken-2", method: :post do %>
+                <i class="material-icons right">print</i> Imprimir
+              <% end %>
+            </div>
+          </div>
+          <% rescue => e %>
+            <%= order.cancel! %>
           <% end %>
-
-          <%= link_to cancel_order_path(order, type: params[:type]), class: "btn grey darken-2", method: :post do %>
-            <i class="material-icons left">delete</i> Cancelar
-          <% end %>
-
-          <%= link_to print_order_path(order), target: "_blank", class: "right btn grey darken-2", method: :post do %>
-            <i class="material-icons right">print</i> Imprimir
-          <% end %>
-        </div>
+        <% end %>
+        <%= paginate @orders %>
       </div>
-      <% rescue => e %>
-        <%= order.cancel! %>
-      <% end %>
-    <% end %>
-    <%= paginate @orders %>
-  </div>
-</div>
+    </div>
