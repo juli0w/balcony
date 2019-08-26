@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
     if current_user.admin?
       @orders = Order.not_empty
     else
-      @orders = current_user.orders.not_empty.opened
+      @orders = current_user.orders.not_empty.opened_and_quote
     end
 
     if params[:type].present?
