@@ -10,7 +10,7 @@ class Order < ApplicationRecord
   scope :paid, -> { where(state: "paid") }
   scope :quote, -> { where(state: "quote") }
   scope :canceled, -> { where(state: "canceled") }
-  scope :opened_and_quote, -> { where("state == ? or state == ?", "open", "quote") }
+  scope :opened_and_quote, -> { where("state == '?' or state == '?'", "open", "quote") }
 
   scope :not_empty, -> { where.not(state: "") }
 
