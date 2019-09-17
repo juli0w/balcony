@@ -116,7 +116,7 @@ private
 
         tinta_cor = TintaCor.where({
             fabricante_id: 2,
-            descricao: color.split(" - ")[0],
+            codigo: color.split(" - ")[0],
             tinta_acabamento_id: tinta_acabamento.id,
             tinta_base_id: tinta_base.id
           }).first_or_create
