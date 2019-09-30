@@ -2,8 +2,8 @@
       <div class="col s12">
         <h5 class="left">Pedidos</h5>
         <% if current_user.admin? %>
-          <p>Total do dia (pagos): <%= number_to_currency Order.paid.where("created_at > ? and created_at < ?",Date.today.beginning_of_day, Date.today.end_of_day).sum(&:total) %></p>
-          <p>Em aberto: <%= number_to_currency Order.opened.where("created_at > ? and created_at < ?",Date.today.beginning_of_day, Date.today.end_of_day).sum(&:total) %></p>
+          <br><p>Total do dia (pagos): <%= number_to_currency Order.paid.where("created_at > ? and created_at < ?",Date.today.beginning_of_day, Date.today.end_of_day).sum(&:total) %><br>
+          Em aberto: <%= number_to_currency Order.opened.where("created_at > ? and created_at < ?",Date.today.beginning_of_day, Date.today.end_of_day).sum(&:total) %></p>
         <% end %>
       </div>
     </div>
