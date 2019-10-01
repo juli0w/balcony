@@ -90,8 +90,10 @@ private
     xml = Nokogiri::XML(File.open(file.tempfile))
     xml.xpath("grupos/grupo").each do |item|
       family = Family.where(code: item.xpath("familia").text.to_i).first
-      family.groups.create(code: item['id'].to_i,
+      if family
+        family.groups.create(code: item['id'].to_i,
                            name: item.xpath("descricao").text)
+      end
     end
   end
 
