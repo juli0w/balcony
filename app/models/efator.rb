@@ -68,8 +68,8 @@ private
 
       # update item values
       item.name      = i.xpath("descricao").text
-      item.family_id = family.id
-      item.group_id  = group.id
+      item.family_id = family.try(:id)
+      item.group_id  = group.try(:id)
       item.subgroup_id = subgroup.try(:id)
       item.price  = i.xpath("precovenda").text
       item.active = (i.xpath("ativo").text == "true")
