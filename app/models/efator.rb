@@ -81,7 +81,7 @@ private
   def self.import_family file
     xml = Nokogiri::XML(File.open(file.tempfile))
     xml.xpath("familias/familia").each do |item|
-      Family.create(code: item['id'].to_i,
+      Family.first_or_create(code: item['id'].to_i,
                     name: item.xpath("descricao").text)
     end
   end
@@ -91,7 +91,7 @@ private
     xml.xpath("grupos/grupo").each do |item|
       family = Family.where(code: item.xpath("familia").text.to_i).first
       if family
-        family.groups.create(code: item['id'].to_i,
+        family.groups.first_or_create(code: item['id'].to_i,
                            name: item.xpath("descricao").text)
       end
     end
@@ -100,7 +100,7 @@ private
   def self.import_subgroup file
     xml = Nokogiri::XML(File.open(file.tempfile))
     xml.xpath("subgrupos/subgrupo").each do |item|
-      Subgroup.create(code: item['id'].to_i,
+      Subgroup.first_or_create(code: item['id'].to_i,
                       name: item.xpath("descricao").text)
     end
   end
