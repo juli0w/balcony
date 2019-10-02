@@ -25,7 +25,7 @@ $(document).ready(function() {
 
   $(".coupon_check").change(function() {
     $.get("/order_check/" + $(this).data("coupon") + "?value=" $(this).attr('checked'));
-  })
+  });
 
   // function updateCaixa() {
   //   $(".caixa-update").load("/caixa_update");
