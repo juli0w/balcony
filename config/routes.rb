@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get "import_2", to: "formulas#index", as: "formulas"
   post "import_2", to: "formulas#import"
 
+  get "order_check/:id", to: "orders#check_order"
+
   get "pigmentos", to: "formulas#pigmentos", as: "pigmentos_formulas"
   get "acabamentos", to: "formulas#acabamentos", as: "acabamentos_formulas"
   get "integracao", to: "formulas#integracao", as: "integracao_formulas"

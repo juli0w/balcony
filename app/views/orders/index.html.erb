@@ -105,6 +105,13 @@
               </div>
               <% end %>
 
+              <div class='switch'>
+                <label>Cupom retirado
+                  <input class="coupon_check" data-order="<%= order.id %>" type="checkbox" <%= "checked" if order.coupon? %>>
+                  <span class="lever"></span>
+                </label>
+              </div>
+
               <span class="badge green white-text" style="margin-top: -30px; font-size: 9px; font-weight: bold; text-transform: uppercase;"><%= order.get_state %></span>
             </div>
             <div class="orders" id="order-<%= order.id %>">

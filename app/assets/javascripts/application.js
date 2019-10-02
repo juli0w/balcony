@@ -23,6 +23,10 @@ $(document).ready(function() {
   $('select').material_select();
   $(".dropdown-button").dropdown();
 
+  $(".coupon_check").change(function() {
+    $.get("/order_check/" + $(this).data("coupon") + "?value=" + $(this).attr('checked'), function() { alert("sucesso"); });
+  });
+
   // function updateCaixa() {
   //   $(".caixa-update").load("/caixa_update");
   //   setTimeout(updateCaixa, 5000);
