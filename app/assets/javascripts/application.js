@@ -24,6 +24,8 @@ $(document).ready(function() {
   $(".dropdown-button").dropdown();
 
   $(".coupon_check").change(function() {
+    alert($(this).data("coupon"));
+    alert($(this).attr("checked"));
     $.get("/order_check/" + $(this).data("coupon") + "?value=" + $(this).attr('checked'), function() { alert("sucesso"); });
   });
 
