@@ -4,6 +4,9 @@ class Order < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :client, optional: true
 
+  has_many :items, through: :order_items
+  # delegate :items, :to => :order_items, :allow_nil => true
+
   # default_scope { where("orders.created_at > ?", 1.day.ago) }
 
   scope :opened, -> { where(state: "open") }
@@ -18,8 +21,9 @@ class Order < ApplicationRecord
 
   search_scope :search do
     attributes :state
-    attributes :user => ["user.email"]
+    attributes :user => ["user.email", "user.username"]
     attributes :client => ["client.name", "client.email"]
+    attributes :items => ["items.name"]
   end
 
   def get_state
