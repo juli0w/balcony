@@ -21,6 +21,7 @@ class Order < ApplicationRecord
 
   search_scope :search do
     attributes :state
+    attributes :seller
     attributes :user => ["user.email", "user.username"]
     attributes :client => ["client.name", "client.email"]
     attributes :items => ["items.name"]
