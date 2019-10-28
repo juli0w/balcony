@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <h4 style="margin-top: 40px;">Movimentação de estoque</h4>
+      <h5 style=""><%= @item.name %></h5>
+      <% Stock.all.each do |stock| %>
+        <p><%= "#{stock.name}: #{stock.of_item(@item.id)}" %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="card-panel">
+      <%= render "form" %>
+    </div>
+  </div>
+</div>

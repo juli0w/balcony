@@ -22,6 +22,7 @@ $(document).ready(function() {
   $(".button-collapse").sideNav();
   $('select').material_select();
   $(".dropdown-button").dropdown();
+  $('.tabs').tabs();
 
   $(".coupon_check").change(function() {
     $.get("/order_check/" + $(this).attr("data-order") + "?value=" + $(this).prop('checked'), function() { alert("sucesso"); });

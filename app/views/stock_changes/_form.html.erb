@@ -1,0 +1,40 @@
+<%#= render "layouts/flash" %>
+<%= form_for @stock_change do |f| %>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.collection_select :stock_id, Stock.all, :id, :name %>
+      <%= f.label :stock, "Loja" %>
+    </div>
+  </div>
+
+  <%= f.hidden_field :item_id %>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.select :state, StockChange::STATES %>
+      <%= f.label :state, "Tipo" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :quantity, "Quantidade" %>
+      <%= f.number_field :quantity %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :observation, "Observação" %>
+      <%= f.text_area :observation, class: "materialize-textarea" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <button class="btn waves-effect waves-light" type="submit" name="action">Salvar
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+<% end %>

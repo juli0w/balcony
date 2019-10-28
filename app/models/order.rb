@@ -45,6 +45,14 @@ class Order < ApplicationRecord
 
   def pay!
     update(state: "paid")
+
+    order_items.each do |order_item|
+      StockChange.create(item_id: order_item.item_id,
+        stock_id: user.try(:stock_id),
+        quantity: order_item.quantity,
+        state: "out",
+        observation: "PDV: Pedido ##{self.id}").push!
+    end
   end
 
   def quote!

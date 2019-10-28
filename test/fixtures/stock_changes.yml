@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stock_item: one
+  state: MyString
+  observation: MyString
+  quantity: 9.99
+
+two:
+  stock_item: two
+  state: MyString
+  observation: MyString
+  quantity: 9.99

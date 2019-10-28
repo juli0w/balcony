@@ -54,6 +54,9 @@ Rails.application.routes.draw do
 
   #
 
+  resources :stocks
+  resources :stock_changes
+
   resources :listings
   resources :items do
     collection do

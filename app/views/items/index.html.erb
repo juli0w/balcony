@@ -21,9 +21,9 @@
           </fieldset>
         <% end %>
       </div>
-    </div>
+    <div>
 
-    <div class="card-panel">
+    <div>
       <table class="striped bordered">
         <thead>
           <tr>
@@ -31,6 +31,7 @@
             <th data-field="id"></th>
             <th data-field="name">Nome</th>
             <th data-field="name">Categoria</th>
+            <th data-field="name">Estoque</th>
             <th data-field="actions"></th>
           </tr>
         </thead>
@@ -42,7 +43,11 @@
               <td><%= image_tag item.image, class: "circle materialboxed", style: "width: 60px; height: 60px; border-radius: 0% !important;" %></td>
               <td><%= item.code %></td>
               <td><%= item.name %></td>
-              <td><%= item.subgroup.name %></td>
+              <td><%= item.subgroup.try(:name) %></td>
+              <td><% Stock.all.each do |stock| %>
+                  <p><%= "#{stock.name}: #{stock.of_item(item.id)}" %></p>
+                <% end %>
+              </td>
               <td>
                 <%= link_to "Editar", [:edit, item] %>
               </td>

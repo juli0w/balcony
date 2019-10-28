@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <h4 style="margin-top: 40px;">Estoques</h4>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="card-panel">
+      <table class="striped bordered">
+        <thead>
+          <tr>
+              <th data-field="id"></th>
+              <th data-field="name">Nome</th>
+              <th data-field="name">Loja</th>
+              <th data-field="actions"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @stocks.each do |stock| %>
+
+          <tr>
+            <td>#<%= stock.id %></td>
+            <td><%= stock.name %></td>
+            <td><%= stock.user.try(:username) %></td>
+            <td>
+              <%= link_to "Editar", [:edit, stock] %>
+            </td>
+          </tr>
+
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="card-panel">
+      <%= link_to "Novo Estoque", new_stock_path, class: "btn large" %>
+    </div>
+</div>

@@ -14,6 +14,15 @@ class User < ApplicationRecord
 
   has_many :orders
 
+
+  def stock
+    Stock.where(user_id: self.id).first
+  end
+
+  def stock_id
+    stock.id
+  end
+
   include SearchCop
 
   search_scope :search do

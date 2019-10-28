@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191002130436) do
+ActiveRecord::Schema.define(version: 20191021134134) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -202,6 +202,36 @@ ActiveRecord::Schema.define(version: 20191002130436) do
     t.datetime "updated_at"
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "stock_changes", force: :cascade do |t|
+    t.integer  "stock_id"
+    t.integer  "item_id"
+    t.string   "state"
+    t.string   "observation"
+    t.decimal  "quantity",    precision: 8, scale: 2
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["item_id"], name: "index_stock_changes_on_item_id"
+    t.index ["stock_id"], name: "index_stock_changes_on_stock_id"
+  end
+
+  create_table "stock_items", force: :cascade do |t|
+    t.integer  "stock_id"
+    t.integer  "item_id"
+    t.decimal  "quantity",   precision: 8, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["item_id"], name: "index_stock_items_on_item_id"
+    t.index ["stock_id"], name: "index_stock_items_on_stock_id"
+  end
+
+  create_table "stocks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_stocks_on_user_id"
   end
 
   create_table "subgroups", force: :cascade do |t|

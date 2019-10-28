@@ -30,6 +30,9 @@
           <li><%= link_to 'Clientes', clients_path %></li>
         <% end %>
         <% if current_user.admin? %>
+        <li><%= link_to "#", 'data-activates' => "dropdown4", class: "dropdown-button" do %>
+          Estoque <i class="material-icons right">arrow_drop_down</i>
+        <% end %></li>
           <li><%= link_to "#", 'data-activates' => "dropdown1", class: "dropdown-button" do %>
             Relatórios <i class="material-icons right">arrow_drop_down</i>
           <% end %></li>
@@ -44,6 +47,11 @@
         <% end %>
         <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
       <% end %>
+    </ul>
+
+    <ul id="dropdown4" class="dropdown-content">
+      <li><%= link_to 'Lojas', stocks_path %></li>
+      <li><%= link_to 'Movimentação', "" %></li>
     </ul>
 
     <ul id="dropdown3" class="dropdown-content">
