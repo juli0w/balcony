@@ -54,8 +54,9 @@
         <% end %>
       </tbody>
       <tr>
-        <td colspan="3" class="right-align"><strong>Total:</strong></td>
-        <td colspan="2"><strong><%= number_to_currency(current_cart.calculate_total) %></strong></td>
+        <td colspan="2" class="right-align"><strong>Total:</strong></td>
+        <td><strong><%= (current_cart.calculate_qtd) %></strong></td>
+        <td><strong><%= number_to_currency(current_cart.calculate_total) %></strong></td>
       </tr>
     </table>
   </div>

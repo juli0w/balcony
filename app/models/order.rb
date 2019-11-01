@@ -103,4 +103,10 @@ class Order < ApplicationRecord
     @total_t = order_tintas.collect { |oi| oi.valid? ? (oi.quantity * oi.unit_price) : 0 }.sum
     @total = @total_i + @total_t
   end
+
+  def calculate_qtd
+    @total_i = order_items.collect  { |oi| oi.valid? ? (oi.quantity) : 0 }.sum
+    @total_t = order_tintas.collect { |oi| oi.valid? ? (oi.quantity) : 0 }.sum
+    @total = @total_i + @total_t
+  end
 end
