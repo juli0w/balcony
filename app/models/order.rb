@@ -40,11 +40,12 @@ class Order < ApplicationRecord
 
   def open!
     update(state: "open",
-           total: calculate_total)
+           total: calculate_total,
+           submited_at: DateTime.now)
   end
 
   def pay!
-    update(state: "paid")
+    update(state: "paid", paid_at: DateTime.now)
 
     order_items.each do |order_item|
       StockChange.create(item_id: order_item.item_id,

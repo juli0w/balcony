@@ -96,6 +96,22 @@
                   <%= order.client.try(:cep) || "Não informado" %>
                 </div>
               </div>
+              <% unless order.submited_at.blank? %>
+              <div class="row rowed">
+                <div style="float: left;">
+                  <span class="titled">Criado em:<br></span>
+                  <%= l order.submited_at %>
+                </div>
+              </div>
+              <% end %>
+              <% unless order.paid_at.blank? %>
+              <div class="row rowed">
+                <div style="float: left;">
+                  <span class="titled">Pago em:<br></span>
+                  <%= l order.paid_at %>
+                </div>
+              </div>
+              <% end %>
               <% unless order.obs.blank? %>
               <div class="row rowed">
                 <div style="float: left;">
