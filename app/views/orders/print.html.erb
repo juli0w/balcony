@@ -25,7 +25,7 @@
       body {
         max-width: 1200px;
       }
-      .row { font-size: 10px; }
+      .row { font-size: 10pstrftime("posted on %b, %m %Y - %H:%M")x; }
       td { padding: 5px !important; }
       .titled {
         color: #767676; font-size: 8px;
@@ -55,16 +55,28 @@
         <span class="titled">Data:<br></span>
         <%= l(@order.created_at.to_date).split("-")[0] %>
       </div>
-    </div>
-    <div class="row rowed">
-      <div style="float: left;">
-        <span class="titled">Pedido:<br></span>
-        <%= @order.id %>
-      </div>
       <div style="float:right; width: 140px;">
         <span class="titled">Vendedor:<br></span>
         <%= @order.seller || @order.user.try(:email) %>
       </div>
+    </div>
+    <div class="row rowed">
+      <div style="float: left; width: 100px;">
+        <span class="titled">Pedido:<br></span>
+        <%= @order.id %>
+      </div>
+      <% unless @order.submited_at.blank? %>
+      <div style="float: right; width: 140px;">
+        <span class="titled">Criado em:<br></span>
+        <%= @order.submited_at.strftime("%d/%m/%Y %H:%M") %>
+      </div>
+      <% end %>
+      <% unless @order.paid_at.blank? %>
+      <div style="float: right; width: 140px;">
+        <span class="titled">Pago em:<br></span>
+        <%= @order.paid_at.strftime("%d/%m/%Y %H:%M") %>
+      </div>
+      <% end %>
     </div>
     <div class="row rowed">
       <div style="float: left;">
