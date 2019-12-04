@@ -71,7 +71,7 @@
                 <div style="float: left;">
                   <span class="titled">Cliente:<br></span>
                   <%= order.client.try(:company) || "Não informado" %>
-                  <% if order.client.cash.to_d > 0 %>
+                  <% if order.client.cash.to_f > 0 %>
                     <span class="light-green white-text" style="margin-left: 10px; padding: 3px; font-size: 10px;">Saldo: <%= number_to_currency order.client.cash %></span>
                   <% end %>
                 </div>
@@ -192,7 +192,7 @@
                 <% end %>
                 <% end %>
 
-                <% if (order.client.cash.to_d > order.calculate_total) and (order.state != "paid") %>
+                <% if (order.client.cash.to_f > order.calculate_total) and (order.state != "paid") %>
                   <%= link_to pay_with_cash_order_path(order, type: params[:type]), class: "btn light-green", method: :post do %>
                     <i class="material-icons left">attach_money</i> Pagar com saldo
                   <% end %>
