@@ -71,6 +71,9 @@
                 <div style="float: left;">
                   <span class="titled">Cliente:<br></span>
                   <%= order.client.try(:company) || "Não informado" %>
+                  <% if order.client.cash > 0 %>
+                    <span class="light-green white-text" style="margin-left: 10px; padding: 3px; font-size: 10px;">Saldo: <%= number_to_currency order.client.cash %></span>
+                  <% end %>
                 </div>
                 <div style="float:right; width: 180px;">
                   <span class="titled">Telefone:<br></span>
@@ -169,18 +172,42 @@
                 </tbody>
               </table>
               <br>
-
+              <style>
+              .orders .btn {
+                line-height: 20px;
+                padding: 6px !important;
+                padding-right: 8px !important;
+                font-size: 10px;
+                height: auto !important;
+              }
+              .orders .btn i {
+                margin-right: 4px;
+                margin-left: 4px;
+              }
+                </style>
               <% if current_user.vendedor? %>
+                <% if (order.state != "paid") %>
                 <%= link_to pay_order_path(order, type: params[:type]), class: "btn light-green", method: :post do %>
                   <i class="material-icons left">payment</i> Pago
                 <% end %>
+                <% end %>
 
+                <% if (order.client.cash > order.calculate_total) and (order.state != "paid") %>
+                  <%= link_to pay_with_cash_order_path(order, type: params[:type]), class: "btn light-green", method: :post do %>
+                    <i class="material-icons left">attach_money</i> Pagar com saldo
+                  <% end %>
+                <% end %>
+
+                <% if (order.state != "open") %>
                 <%= link_to open_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
                   <i class="material-icons left">settings</i> Abrir
                 <% end %>
+                <% end %>
 
+                <% if (order.state != "quote") %>
                 <%= link_to quote_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
                   <i class="material-icons left">assignment</i> Orçamento
+                <% end %>
                 <% end %>
 
                 <%= link_to edit_order_path(order), class: "btn grey darken-2" do %>
@@ -188,12 +215,14 @@
                 <% end %>
               <% end %>
 
+              <% if (order.state != "canceled") %>
               <%= link_to cancel_order_path(order, type: params[:type]), class: "btn grey darken-2", method: :post do %>
                 <i class="material-icons left">delete</i> Cancelar
               <% end %>
+              <% end %>
 
-              <%= link_to print_order_path(order), target: "_blank", class: "right btn grey darken-2", method: :post do %>
-                <i class="material-icons right">print</i> Imprimir
+              <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; line-height: 0; margin-top: -7px;", class: "white-text grey darken-2 right", method: :post do %>
+                <i class="material-icons">print</i>
               <% end %>
             </div>
           </div>

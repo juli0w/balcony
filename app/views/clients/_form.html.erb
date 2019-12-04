@@ -1,9 +1,13 @@
 <%= form_for @client do |f| %>
   <div class="card-content">
     <div class="row">
-      <div class="input-field col s12 m6">
+      <div class="input-field col s12 m4">
         <%= f.label :email, "Identificador único" %>
         <%= f.text_field :email, id: "email" %>
+      </div>
+      <div class="input-field col s12 m2" style="float:right;">
+        <%= f.label :cash, "Saldo" %>
+        <%= f.number_field :cash, step: 0.1 %>
       </div>
     </div>
     <div class="row">

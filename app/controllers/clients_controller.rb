@@ -88,6 +88,6 @@ private
   end
 
   def client_params
-    params.require(:client).permit(:email, :section_id, :name, :address, :city, :uf, :cpf, :birthday, :phone, :cep, :line, :company, :district)
+    params.require(:client).permit(:cash, :email, :section_id, :name, :address, :city, :uf, :cpf, :birthday, :phone, :cep, :line, :company, :district)
   end
 end

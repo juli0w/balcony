@@ -44,7 +44,7 @@ class Order < ApplicationRecord
            submited_at: DateTime.now)
   end
 
-  def pay!
+  def pay! ob=nil
     update(state: "paid", paid_at: DateTime.now)
 
     order_items.each do |order_item|
@@ -52,8 +52,13 @@ class Order < ApplicationRecord
         stock_id: user.try(:stock_id),
         quantity: order_item.quantity,
         state: "out",
-        observation: "PDV: Pedido ##{self.id}").push!
+        observation: "PDV: Pedido ##{self.id} #{'- Pago com saldo' if ob == 'cash'}").push!
     end
+  end
+
+  def pay_with_cash!
+    pay! "cash"
+    client.update(cash: (client.cash - calculate_total))
   end
 
   def quote!

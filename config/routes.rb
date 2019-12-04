@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   get "get_clients", to: "order_items#clients"
   get "caixa", to: "home#caixa"
   post "pay", to: "order_items#pay"
+
   post "quote", to: "order_items#quote"
   post "cancel", to: "order_items#cancel"
   get "caixa_update", to: "home#caixa_update"
@@ -70,6 +71,7 @@ Rails.application.routes.draw do
       post :cancel
       post :open
       post :quote
+      post :pay_with_cash
       post :print
       get  :print
     end
