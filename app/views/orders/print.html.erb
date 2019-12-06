@@ -82,6 +82,9 @@
       <div style="float: left;">
         <span class="titled">Cliente:<br></span>
         <%= @order.client.try(:company) || "Não informado" %>
+        <% if @order.client.cash.to_f > 0 %>
+          <span class="light-green white-text" style="margin-left: 10px; padding: 3px; font-size: 10px;">Saldo: <%= number_to_currency @order.client.cash %></span>
+        <% end %>
       </div>
       <div style="float:right; width: 140px;">
         <span class="titled">Telefone:<br></span>
