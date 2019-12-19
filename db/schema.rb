@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191204124110) do
+ActiveRecord::Schema.define(version: 20191212134538) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -212,9 +212,10 @@ ActiveRecord::Schema.define(version: 20191204124110) do
     t.integer  "item_id"
     t.string   "state"
     t.string   "observation"
-    t.decimal  "quantity",    precision: 8, scale: 2
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.decimal  "quantity",          precision: 8, scale: 2
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.integer  "stock_transfer_id"
     t.index ["item_id"], name: "index_stock_changes_on_item_id"
     t.index ["stock_id"], name: "index_stock_changes_on_stock_id"
   end
@@ -227,6 +228,15 @@ ActiveRecord::Schema.define(version: 20191204124110) do
     t.datetime "updated_at",                         null: false
     t.index ["item_id"], name: "index_stock_items_on_item_id"
     t.index ["stock_id"], name: "index_stock_items_on_stock_id"
+  end
+
+  create_table "stock_transfers", force: :cascade do |t|
+    t.integer  "from_id"
+    t.integer  "to_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_stock_transfers_on_user_id"
   end
 
   create_table "stocks", force: :cascade do |t|

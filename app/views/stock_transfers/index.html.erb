@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <h4 style="margin-top: 40px;">Clientes</h4>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="card-panel">
+      <%= link_to "Novo Cliente", new_client_path, class: "btn" %>
+      <%= link_to "Exportar", clients_path(format: "xls"), class: "btn" %>
+
+      <div class="search-offers" style="margin-top: 20px;">
+        <%= form_tag clients_path, method: :get do %>
+            <fieldset style="border: none; margin: 0; padding: 0;">
+              <input name="keyword" id="icon_local" style="display: inline;" type="search" placeholder="Filtrar clientes" value='<%= params[:keyword] %>'>
+              <button class="btn" type="submit" name="action">
+                Filtrar
+              </button>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card-panel">
+      <table class="striped bordered">
+        <thead>
+          <tr>
+              <th data-field="id"></th>
+              <th data-field="name">Nome</th>
+              <th data-field="name">Contato</th>
+              <th data-field="actions"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @clients.each do |client| %>
+
+          <tr>
+            <td><%= client.id %></td>
+            <td><%= client.company %></td>
+            <td><%= client.name %></td>
+            <td>
+            <%= link_to "Fazer pedido", [:select, client] %>
+            | <%= link_to "Editar", [:edit, client] %>
+            <% if current_user.admin? %>
+              | <%= link_to "Remover", client, method: :delete, data: { confirm: "Tem certeza?" } %>
+            <% end %>
+            </td>
+          </tr>
+
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @clients %>
+
+    </div>
+  </div>
+</div>

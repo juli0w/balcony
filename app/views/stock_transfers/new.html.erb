@@ -1,0 +1,63 @@
+<div class="row five-margin-bot">
+  <div class="col s12 caixa">
+    <h5>CONFIRMAR TRANSFERÊNCIA</h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <div class="card" style="padding: 0 15px;">
+      <table class="bordered">
+        <thead>
+          <tr>
+              <th data-field="name" width="55%">Produto</th>
+              <th data-field="qtd" width="15%">Qtd</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% current_cart.order_items.order("id desc").each do |order_item| %>
+          <tr>
+            <td>
+              <strong><%= order_item.item.try(:name) %></strong>
+              <span style="display: block; font-size: .8em;"><%= order_item.item.try(:family).try(:name) %></span>
+              <span style="display: block; font-size: .8em;"><%= order_item.item.try(:group).try(:name) %> <%= order_item.item.try(:subgroup).try(:name) %></span>
+            </td>
+            <td><%= order_item.quantity %></td>
+          <% end %>
+        </tbody>
+        <tr>
+          <td class="right-align"><strong>Total:</strong></td>
+          <td><strong><%= (current_cart.calculate_qtd) %></strong></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-top: -25px !important">
+  <div class="col s12">
+    <div class="card" style="padding: 15px;">
+      <%= form_for @stock_transfer do |f| %>
+            <div class="input-field col s6">
+              <%= f.collection_select :from_id, Stock.all, :id, :name %>
+              <%= f.label :from_id, "Origem" %>
+            </div>
+            <div class="input-field col s6">
+              <%= f.collection_select :to_id, Stock.all, :id, :name %>
+              <%= f.label :from_id, "Destino" %>
+            </div>
+
+        <div>
+          <%= link_to root_path, class: "btn grey darken-2" do %>
+            <%= material_icon.chevron_left.css_class("left") %> Voltar
+          <% end %>
+
+          <button id="submit" class="btn waves-effect waves-light right light-green" type="submit" name="action">
+            <%= material_icon.check.css_class("left") %> Confirmar
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

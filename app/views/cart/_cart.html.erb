@@ -29,7 +29,7 @@
                 </button>
               <% end %></td>
           <td><%= number_to_currency(order_item.total_price) %></td>
-        </li>
+        </tr>
         <% end %>
 
         <% current_cart.order_tintas.order("id desc").each do |order_tinta| %>
@@ -50,7 +50,7 @@
                 </button>
               <% end %></td>
           <td><%= number_to_currency(order_tinta.total_price) %></td>
-        </li>
+        </tr>
         <% end %>
       </tbody>
       <tr>
@@ -66,8 +66,15 @@
       <%= material_icon.delete.css_class("left") %> Limpar
     <% end %>
 
-    <%= link_to shipping_order_path, class: "btn light-green", method: :post do %>
+    <% if current_user.admin? %>
+      <%= link_to new_stock_transfer_path, class: "btn blue darken-3" do %>
+        <%= material_icon.send.css_class("left") %> Transferência
+      <% end %>
+    <% end %>
+
+    <%= link_to shipping_order_path, class: "btn right light-green", method: :post do %>
       <%= material_icon.shopping_cart.css_class("left") %> Finalizar
     <% end %>
+
   </div>
 </div>
