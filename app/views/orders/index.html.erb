@@ -57,6 +57,13 @@
                     <span class="titled">Total:<br></span>
                     <%= number_to_currency(order.total) %>
                   </div>
+
+                  <% if order.cc_value.to_f > 0 %>
+                    <div style="width: 90px; float: left">
+                      <span class="titled">No cartão:<br></span>
+                      <%= number_to_currency(order.cc_value) %>
+                    </div>
+                  <% end %>
                   <div style="width: 140px; float: left">
                     <span class="titled">Data:<br></span>
                     <%= l(order.created_at.to_date).split("-")[0] %>
@@ -103,7 +110,7 @@
               <div class="row rowed">
                 <div style="float: left;">
                   <span class="titled">Criado em:<br></span>
-                  <%= l order.submited_at %>
+                  <%= (l order.submited_at).split("-")[0] %>
                 </div>
               </div>
               <% end %>
@@ -111,7 +118,7 @@
               <div class="row rowed">
                 <div style="float: left;">
                   <span class="titled">Pago em:<br></span>
-                  <%= l order.paid_at %>
+                  <%= (l order.paid_at).split("-")[0] %>
                 </div>
               </div>
               <% end %>
@@ -124,7 +131,7 @@
               </div>
               <% end %>
 
-              <div class='switch'>
+              <div class='switch' style="display:none;">
                 <label>Cupom retirado
                   <input class="coupon_check" data-order="<%= order.id %>" type="checkbox" <%= "checked" if order.coupon? %>>
                   <span class="lever"></span>
@@ -134,9 +141,9 @@
               <span class="badge green white-text" style="margin-top: -30px; font-size: 9px; font-weight: bold; text-transform: uppercase;"><%= order.get_state %></span>
             </div>
             <div class="orders" id="order-<%= order.id %>">
-              <table class="bordered striped highlight" style="margin-top: 20px;">
+              <table class="bordered striped highlight" style="margin-top: 20px; font-size: 12px">
                 <thead>
-                  <tr class="grey  white-text">
+                  <tr class="grey white-text">
                       <th data-field="item" width="">Produto</th>
                       <th data-field="unit" width="">Valor</th>
                       <th data-field="quantity" width="">Quantidade</th>
@@ -224,10 +231,31 @@
               <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; line-height: 0; margin-top: -7px;", class: "white-text grey darken-2 right", method: :post do %>
                 <i class="material-icons">print</i>
               <% end %>
+
+              <% if current_user.admin? %>
+                <%= link_to 'javascript:void();', onclick: "javascript:$('#order-cc-#{order.id}').slideToggle();", style: "margin-right: 4px; padding: 4px; line-height: 0; margin-top: -7px;", class: "white-text blue right", method: :post do %>
+                  <i class="material-icons">credit_card</i>
+                <% end %>
+                <div id="order-cc-<%= order.id %>" style="display:none;">
+                  <hr style="margin: 20px 0; border: none; border-bottom: 1px solid #dedede !important;" />
+                  <div class="card-panel ccvalue" style="padding: 10px 20px; margin: 10px 0;">
+                    <i class="material-icons left blue-text" style="padding: 8px 0;">credit_card</i> <h5 style="font-size: 16px;">Valor no cartão:</h5>
+                    <%= form_for [:setcc, order], method: :put do |f| %>
+                      R$ <%= f.number_field :cc_value, step: 0.01, style: "width: 60px;", value: (order.cc_value.to_f > 0 ? order.cc_value : order.total) %>
+                      <button class="btn waves-effect waves-light light-green" type="submit" name="action">
+                        <i class="material-icons left">save</i> Salvar
+                      </button>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
             </div>
           </div>
+
           <% rescue => e %>
-            <%= order.cancel! %>
+            <% order.cancel! %>
+            <%= e.inspect %>
+            </div></div></div>
           <% end %>
         <% end %>
         <%= paginate @orders %>

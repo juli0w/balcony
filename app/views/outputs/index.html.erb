@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <h4 style="margin-top: 40px;">Retiradas</h4>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="card-panel">
+      <%= link_to "Nova Retirada", new_output_path, class: "btn large" %>
+    </div>
+
+    <div class="card-panel">
+      <table class="striped bordered">
+        <thead>
+          <tr>
+              <th data-field="name">Responsável</th>
+              <th data-field="name">Loja</th>
+              <th data-field="name">Valor</th>
+              <th data-field="name">Data</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @outputs.each do |output| %>
+
+          <tr>
+            <td><%= output.user.name %></td>
+            <td><%= output.stock.name %></td>
+            <td><%= number_to_currency output.value %></td>
+            <td><%= l output.created_at.to_date %></td>
+            </td>
+          </tr>
+
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @outputs %>
+
+    </div>
+</div>

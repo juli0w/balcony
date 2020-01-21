@@ -55,6 +55,7 @@ Rails.application.routes.draw do
 
   #
 
+  resources :outputs
   resources :stocks
   resources :stock_changes
   resources :stock_transfers
@@ -68,6 +69,7 @@ Rails.application.routes.draw do
   resources :sections
   resources :orders do
     member do
+      put :setcc
       post :pay
       post :cancel
       post :open

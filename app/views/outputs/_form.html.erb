@@ -1,0 +1,31 @@
+<%#= render "layouts/flash" %>
+<%= form_for @output do |f| %>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.collection_select :stock_id, Stock.all, :id, :name %>
+      <%= f.label :stock, "Loja" %>
+    </div>
+  </div>
+
+<div class="row">
+    <div class="input-field col s12">
+      <%= f.collection_select :user_id, User.all, :id, :name %>
+      <%= f.label :user, "Responsável" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :value, "Valor" %>
+      <%= f.number_field :value, step: 0.01 %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <button class="btn waves-effect waves-light" type="submit" name="action">Salvar
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+<% end %>

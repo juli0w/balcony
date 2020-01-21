@@ -1,6 +1,10 @@
 <% if user_signed_in? %>
   <div class="row grey darken-3 white-text" style="margin: 0; padding: 5px;">
-    <span class="right" style="padding-right: 10px;"><%= current_user.username %> (<%= current_user.role_name %>)</span>
+    <span class="nav-top-menu right" style="padding-right: 10px;">
+      <%= current_user.username %>
+      <% if current_user.role_name.present? %>(<%= current_user.role_name %>)<% end %>
+      <%= link_to 'Sair', destroy_user_session_path, method: :delete, class: "nav-sair-btn" %>  
+    </span>
   </div>
 <% end %>
 
@@ -30,28 +34,26 @@
           <li><%= link_to 'Clientes', clients_path %></li>
         <% end %>
         <% if current_user.admin? %>
-        <li><%= link_to "#", 'data-activates' => "dropdown4", class: "dropdown-button" do %>
-          Estoque <i class="material-icons right">arrow_drop_down</i>
-        <% end %></li>
-          <li><%= link_to "#", 'data-activates' => "dropdown1", class: "dropdown-button" do %>
-            Relatórios <i class="material-icons right">arrow_drop_down</i>
-          <% end %></li>
-        <% end %>
-        <% if current_user.admin? %>
         <li><%= link_to "#", 'data-activates' => "dropdown2", class: "dropdown-button" do %>
           Cadastros <i class="material-icons right">arrow_drop_down</i>
+        <% end %></li>
+        <li><%= link_to "#", 'data-activates' => "dropdown4", class: "dropdown-button" do %>
+          Financeiro <i class="material-icons right">arrow_drop_down</i>
         <% end %></li>
         <li><%= link_to "#", 'data-activates' => "dropdown3", class: "dropdown-button" do %>
           Integrações <i class="material-icons right">arrow_drop_down</i>
         <% end %></li>
+          <li><%= link_to "#", 'data-activates' => "dropdown1", class: "dropdown-button" do %>
+            Relatórios <i class="material-icons right">arrow_drop_down</i>
+          <% end %></li>
+
         <% end %>
-        <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
       <% end %>
     </ul>
 
     <ul id="dropdown4" class="dropdown-content">
-      <li><%= link_to 'Lojas', stocks_path %></li>
-      <li><%= link_to 'Movimentação', "" %></li>
+      <li><%= link_to 'Retiradas', outputs_path %></li>
+      <li><%= link_to 'Fechamento', 'close_path' %></li>
     </ul>
 
     <ul id="dropdown3" class="dropdown-content">
@@ -64,6 +66,7 @@
       <li><%= link_to 'Usuários', users_path %></li>
       <li><%= link_to 'Itens', items_path %></li>
       <li><%= link_to 'Ramos', sections_path %></li>
+      <li><%= link_to 'Lojas', stocks_path %></li>
     </ul>
 
     <ul id="dropdown1" class="dropdown-content">

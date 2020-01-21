@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
-  before_filter :set_order, only: [:check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
+  before_filter :set_order, only: [:setcc, :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
   before_action :authenticate_user!
+  before_action :authenticate_admin!, only: [:setcc]
   # before_action :authenticate_vendedor!
 
   def check_order
@@ -36,6 +37,14 @@ class OrdersController < ApplicationController
 
   def print
     render layout: nil
+  end
+
+  def setcc
+    ccvalue = params.require(:order).permit(:cc_value)[:cc_value]
+    @order.update(cc_value: ccvalue)
+
+    flash[:success] = "Pedido alterado"
+    redirect_to orders_path
   end
 
   def pay
