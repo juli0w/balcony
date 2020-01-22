@@ -21,7 +21,7 @@
     <% @orders.each do |user, orders| %>
     <div class="card-panel">
       <h5 onclick="$('.report1').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
-        Vendas de <%= params[:day].blank? ? 'hoje' : l(@day) %> (<%= Stock.find_by_user_id(user.id) || user.try(:name) %>)
+        Vendas de <%= params[:day].blank? ? 'hoje' : l(@day) %> (<%= Stock.find_by_user_id(user.id).name || user.try(:name) %>)
       </h5>
         <table class="bordered report1">
             <thead>
@@ -67,6 +67,6 @@
             </tbody>
         </table>
     </div>
+    <% end %>
   </div>
-<% end %>
 </div>
