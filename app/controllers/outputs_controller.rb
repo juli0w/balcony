@@ -25,7 +25,7 @@ class OutputsController < ApplicationController
   def close_day
     @day = params[:day].blank? ? Date.today : params[:day].to_date
     
-    @user_id = params[:user_id] || current_user.id
+    @user_id = params[:user_id].blank? ? current_user.id : params[:user_id]
     @user = User.find(@user_id)
     @stock = Stock.find_by_user_id(@user_id)
 

@@ -20,7 +20,7 @@
   <div class="col s12 m6">
     <div class="card-panel">
       <h5 onclick="$('.report1').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
-        Vendas de <%= params[:day].blank? ? 'hoje' : l(@day) %> (<%= @stock.try(:name) || order.user.try(:name) %>)
+        Vendas de <%= params[:day].blank? ? 'hoje' : l(@day) %> (<%= @stock.try(:name) || @user.try(:name) %>)
       </h5>
       <% @orders.each do |user, orders| %>
         <table class="bordered report1">
