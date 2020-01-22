@@ -23,6 +23,11 @@
 html {
   background-color: color("grey", "lighten-4");
 }
+.btn {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
 .dropdown-content {
   background-color: color("red", "darken-1");
   a { color: white !important; }

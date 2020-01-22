@@ -22,6 +22,27 @@ class OutputsController < ApplicationController
     end
   end
 
+  def close_day
+    @day = params[:day].to_date || Time.zone.now
+    
+    @user_id = params[:user_id] || current_user.id
+    @user = User.find(@user_id)
+    @stock = Stock.find_by_user_id(@user_id)
+
+    @outputs = Output.where(
+      "created_at > ? and created_at < ?",
+      @day.beginning_of_day,
+      @day.end_of_day)
+
+    @orders = Order.
+      paid.
+      where(
+        "created_at > ? and created_at < ?",
+        @day.beginning_of_day,
+        @day.end_of_day).
+      group_by(&:user)
+  end
+
 private
 
   def output_params

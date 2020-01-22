@@ -8,8 +8,8 @@
         <% else %>
           <i class="material-icons circle">folder</i>
         <% end %>
-        <span class="title">
-          <%= link_to order_items_path(item_id: item.id, quantity: 1, key: params[:key]), method: :post, remote: true do %>
+        <span class="title" style="letter-spacing: 1px;">
+          <%= link_to order_items_path(item_id: item.id, quantity: 1, key: params[:key]), class: "blue-grey-text", method: :post, remote: true do %>
             <strong><%= item.name %></strong>
           <% end %>
         </span>

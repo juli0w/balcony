@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col s12">
     <table class="bordered">
-      <thead>
+      <thead style="letter-spacing: 1px; font-size: 11px; text-transform: uppercase">
         <tr>
             <th data-field="name" width="55%">Produto</th>
             <th data-field="qtd" width="15%">Preço Unit.</th>
@@ -14,7 +14,7 @@
         <% current_cart.order_items.order("id desc").each do |order_item| %>
         <tr>
           <td>
-            <strong><%= order_item.item.try(:name) %></strong>
+            <strong style="letter-spacing: 1px;"><%= order_item.item.try(:name) %></strong>
             <%= link_to order_item_path(order_item, key: params[:key]), method: :delete, class: "red-text" do %>
             <i class="material-icons" style="vertical-align: bottom;">delete</i>
             <% end %>

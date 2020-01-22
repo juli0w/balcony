@@ -55,6 +55,8 @@ Rails.application.routes.draw do
 
   #
 
+  get "close_day", to: "outputs#close_day", as: "close_day"
+
   resources :outputs
   resources :stocks
   resources :stock_changes
