@@ -23,7 +23,7 @@ class OutputsController < ApplicationController
   end
 
   def close_day
-    @day = params[:day].to_date || Time.zone.now
+    @day = params[:day].blank? ? Date.today : params[:day].to_date
     
     @user_id = params[:user_id] || current_user.id
     @user = User.find(@user_id)
