@@ -38,6 +38,10 @@ class Order < ApplicationRecord
     (order_items.count + order_tintas.count) <= 0
   end
 
+  def boleto?
+    self.boleto
+  end
+
   def open!
     update(state: "open",
            total: calculate_total,

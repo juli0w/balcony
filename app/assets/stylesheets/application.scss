@@ -33,7 +33,7 @@ html {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-.dropdown-content {
+.nav-wrapper .dropdown-content {
   background-color: color("red", "darken-1");
   a { color: white !important; }
   a:hover {
