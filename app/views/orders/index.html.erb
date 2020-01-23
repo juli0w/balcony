@@ -240,7 +240,7 @@
                 <i class="material-icons">print</i>
               <% end %>
 
-              <% if current_user.admin? %>
+              <% if current_user.vendedor? %>
                 <%= link_to 'javascript:void();', onclick: "javascript:$('#order-cc-#{order.id}').slideToggle();", style: "margin-right: 4px; padding: 4px; line-height: 0; margin-top: -7px;", class: "white-text blue right", method: :post do %>
                   <i class="material-icons">credit_card</i>
                 <% end %>

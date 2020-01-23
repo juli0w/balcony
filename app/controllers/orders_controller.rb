@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_filter :set_order, only: [:boleto, :setcc, :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
   before_action :authenticate_user!
-  before_action :authenticate_admin!, only: [:setcc, :boleto]
+  # before_action :authenticate_vendedor!, only: [:setcc, :boleto]
   # before_action :authenticate_vendedor!
 
   def index
