@@ -14,7 +14,7 @@ class Order < ApplicationRecord
   scope :quote, -> { where(state: "quote") }
   scope :canceled, -> { where(state: "canceled") }
   scope :opened_and_quote, -> { where("state = ? or state = ?", "open", "quote") }
-
+  scope :boletos, -> { where(boleto: true) }
   scope :not_empty, -> { where.not(state: "") }
 
   include SearchCop
@@ -63,6 +63,10 @@ class Order < ApplicationRecord
 
   def quote!
     update(state: "quote")
+  end
+
+  def quote?
+    return self.state == "quote"
   end
 
   def cancel!

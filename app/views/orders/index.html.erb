@@ -15,7 +15,7 @@
       font-size: 12px;
     }
     </style>
-    <div class="row">
+    <div class="row" style="letter-spacing: 0.5px;">
       <div class="col s12">
         <div class="card-panel" style="padding: 20px;">
           <div class="search-offers">
@@ -58,16 +58,24 @@
                     <%= number_to_currency(order.total) %>
                   </div>
 
+                  <div style="width: 140px; float: left">
+                    <span class="titled">Data:<br></span>
+                    <%= l(order.created_at.to_date).split("-")[0] %>
+                  </div>
+
                   <% if order.cc_value.to_f > 0 %>
                     <div style="width: 90px; float: left">
                       <span class="titled">No cartão:<br></span>
                       <%= number_to_currency(order.cc_value) %>
                     </div>
                   <% end %>
-                  <div style="width: 140px; float: left">
-                    <span class="titled">Data:<br></span>
-                    <%= l(order.created_at.to_date).split("-")[0] %>
-                  </div>
+
+                  <% if order.boleto? %>
+                    <div style="width: 140px; float: left">
+                      <span class="titled">Forma de pagamento:<br></span>
+                      Boleto
+                    </div>
+                  <% end %>
                 </div>
                 <div style="float:right; width: 180px;">
                   <span class="titled">Vendedor:<br></span>
@@ -239,10 +247,32 @@
                 <div id="order-cc-<%= order.id %>" style="display:none;">
                   <hr style="margin: 20px 0; border: none; border-bottom: 1px solid #dedede !important;" />
                   <div class="card-panel ccvalue" style="padding: 10px 20px; margin: 10px 0;">
-                    <i class="material-icons left blue-text" style="padding: 8px 0;">credit_card</i> <h5 style="font-size: 16px;">Valor no cartão:</h5>
+                    <h5 style="font-size: 15px;" class="big-spaced">Gerenciar forma de pagamento</h5>
+                    <hr style="margin: 20px 0 10px 0; border: none; border-bottom: 1px solid #dedede !important;" />
+                    <div style="
+                      display: flex;
+                      align-items: center;
+                      margin: 20px 0;">
+                      <i class="material-icons left blue-text" style="padding: 0px 0;">web</i>
+                      <div class='switch'>
+                        <label style="font-size: 16px; color: black;">Boleto
+                          <input class="boleto" data-order="<%= order.id %>" type="checkbox" <%= "checked" if order.boleto? %>>
+                          <span class="lever"></span>
+                        </label>
+                      </div>
+                    </div>
+                    <div style="
+                      display: flex;
+                      align-items: center;">
+                      <i class="material-icons left blue-text" style="padding: 0px 0;">credit_card</i>
+                      <h5 style="font-size: 16px;">Valor no cartão:</h5>
+                    </div>
                     <%= form_for [:setcc, order], method: :put do |f| %>
-                      R$ <%= f.number_field :cc_value, step: 0.01, style: "width: 60px;", value: (order.cc_value.to_f > 0 ? order.cc_value : order.total) %>
-                      <button class="btn waves-effect waves-light light-green" type="submit" name="action">
+                      R$ <%= f.number_field :cc_value, step: 0.01,
+                                style: "width: 60px;",
+                                disabled: order.boleto?,
+                                value: (order.cc_value.to_f > 0 ? order.cc_value : order.total) %>
+                      <button <%= "disabled" if order.boleto? %> class="btn waves-effect waves-light light-green" type="submit" name="action">
                         <i class="material-icons left">save</i> Salvar
                       </button>
                     <% end %>

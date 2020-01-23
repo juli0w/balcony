@@ -23,6 +23,11 @@
 html {
   background-color: color("grey", "lighten-4");
 }
+
+.big-spaced {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 .btn {
   font-size: 12px;
   letter-spacing: 1px;

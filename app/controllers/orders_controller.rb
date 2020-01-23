@@ -1,13 +1,8 @@
 class OrdersController < ApplicationController
-  before_filter :set_order, only: [:setcc, :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
+  before_filter :set_order, only: [:boleto, :setcc, :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
   before_action :authenticate_user!
-  before_action :authenticate_admin!, only: [:setcc]
+  before_action :authenticate_admin!, only: [:setcc, :boleto]
   # before_action :authenticate_vendedor!
-
-  def check_order
-    @order.coupon = params[:value]
-    @order.save
-  end
 
   def index
     if current_user.admin?
@@ -37,6 +32,21 @@ class OrdersController < ApplicationController
 
   def print
     render layout: nil
+  end
+
+  def boleto
+    @order.boleto = params[:value]
+
+    if params[:value] == "true"
+      @order.cc_value = 0
+    end
+    
+    @order.save
+  end
+
+  def check_order
+    @order.coupon = params[:value]
+    @order.save
   end
 
   def setcc

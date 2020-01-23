@@ -79,6 +79,7 @@ Rails.application.routes.draw do
       post :pay_with_cash
       post :print
       get  :print
+      post :boleto
     end
   end
   resources :clients do

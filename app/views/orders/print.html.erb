@@ -62,6 +62,15 @@
     </div>
     <div class="row rowed">
       <div style="float: left; width: 100px;">
+        <% if @order.quote? %>
+          <h5 style="
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 22px;
+          ">
+            Orçamento
+          </h5>
+        <% end %>
         <span class="titled">Pedido:<br></span>
         <%= @order.id %>
       </div>

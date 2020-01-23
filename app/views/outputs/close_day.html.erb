@@ -17,8 +17,8 @@
     </div>
   </div>
 
+  <% @orders.each do |user, orders| %>
   <div class="col s12 m6">
-    <% @orders.each do |user, orders| %>
     <div class="card-panel">
       <h5 onclick="$('.report1').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
         Vendas de <%= params[:day].blank? ? 'hoje' : l(@day) %> (<%= Stock.find_by_user_id(user.id).name || user.try(:name) %>)
@@ -41,11 +41,20 @@
             </tr>
 
             <tr>
+                <td width="50%">Boleto</td>
+                <td width="25%"></td>
+                <td width="25%">
+                  <% total_boleto = orders.select {|o| o.boleto? }.sum(&:total) %>
+                  <%= number_to_currency total_boleto %>
+                </td>
+            </tr>
+
+            <tr>
                 <td width="50%">Crédito</td>
                 <td width="25%"></td>
                 <td width="25%"><%= number_to_currency orders.sum(&:cc_value) %></td>
             </tr>
-            <% @money = orders.sum(&:total) - orders.sum(&:cc_value) %>
+            <% @money = orders.sum(&:total) - orders.sum(&:cc_value) - total_boleto %>
             <tr class="green lighten-4">
                 <td width="50%">Dinheiro</td>
                 <td width="25%"></td>
@@ -67,6 +76,6 @@
             </tbody>
         </table>
     </div>
-    <% end %>
   </div>
+  <% end %>
 </div>

@@ -28,6 +28,10 @@ $(document).ready(function() {
     $.get("/order_check/" + $(this).attr("data-order") + "?value=" + $(this).prop('checked'), function() { alert("sucesso"); });
   });
 
+  $(".boleto").change(function() {
+    $.post("/orders/" + $(this).attr("data-order") + "/boleto?value=" + $(this).prop('checked'), function() { alert("sucesso"); location.reload(); });
+  });
+
   // function updateCaixa() {
   //   $(".caixa-update").load("/caixa_update");
   //   setTimeout(updateCaixa, 5000);
