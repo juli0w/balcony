@@ -13,9 +13,14 @@
       <%= f.text_field :username %>
     </div>
 
-    <div class="input-field col s10">
+    <div class="input-field col s8">
       <%= f.label :name %>
       <%= f.text_field :name %>
+    </div>
+
+    <div class="input-field col s2">
+      <%= f.label :default_stock_id, "Loja padrão" %>
+      <%= f.collection_select :default_stock_id, Stock.all, :id, :name %>
     </div>
 
     <div class="input-field col s2">

@@ -33,16 +33,18 @@
         <% if current_user.vendedor? %>
           <li><%= link_to 'Clientes', clients_path %></li>
         <% end %>
-        <% if current_user.admin? %>
-        <li><%= link_to "#", 'data-activates' => "dropdown2", class: "dropdown-button" do %>
-          Cadastros <i class="material-icons right">arrow_drop_down</i>
-        <% end %></li>
-        <li><%= link_to "#", 'data-activates' => "dropdown4", class: "dropdown-button" do %>
+        <% if current_user.caixa? %>
+          <li><%= link_to "#", 'data-activates' => "dropdown3", class: "dropdown-button" do %>
+            Integrações <i class="material-icons right">arrow_drop_down</i>
+          <% end %></li>
+          <li><%= link_to "#", 'data-activates' => "dropdown4", class: "dropdown-button" do %>
           Financeiro <i class="material-icons right">arrow_drop_down</i>
         <% end %></li>
-        <li><%= link_to "#", 'data-activates' => "dropdown3", class: "dropdown-button" do %>
-          Integrações <i class="material-icons right">arrow_drop_down</i>
-        <% end %></li>
+        <% end %>
+        <% if current_user.admin? %>
+          <li><%= link_to "#", 'data-activates' => "dropdown2", class: "dropdown-button" do %>
+            Cadastros <i class="material-icons right">arrow_drop_down</i>
+          <% end %></li>
           <li><%= link_to "#", 'data-activates' => "dropdown1", class: "dropdown-button" do %>
             Relatórios <i class="material-icons right">arrow_drop_down</i>
           <% end %></li>
@@ -52,8 +54,9 @@
     </ul>
 
     <ul id="dropdown4" class="dropdown-content">
+      <li><%= link_to 'Caixa', new_close_day_path %></li>
       <li><%= link_to 'Retiradas', outputs_path %></li>
-      <li><%= link_to 'Fechamento', close_day_path %></li>
+      <li><%= link_to 'Fechamento', checkout_path %></li>
     </ul>
 
     <ul id="dropdown3" class="dropdown-content">

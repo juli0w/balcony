@@ -63,6 +63,6 @@ private
     params.require('/profile').permit(:name, :email, :section_id, :name, :address, :city, :uf, :cpf, :birthday, :phone, :cep, :line, :company, :district)
   end
   def user_params
-    params.require(:user).permit(:email, :name, :username, :password, :role, :password_confirmation)
+    params.require(:user).permit(:email, :default_stock_id, :name, :username, :password, :role, :password_confirmation)
   end
 end

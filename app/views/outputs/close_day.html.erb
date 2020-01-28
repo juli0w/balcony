@@ -1,7 +1,7 @@
 <div class="row" style="margin-top: -8px">
   <div class="card-panel">
     <div class="search-offers">
-      <%= form_tag close_day_path, method: :get do %>
+      <%= form_tag checkout_path, method: :get do %>
         <fieldset style="border: none; margin: 0; padding: 0;">
           <div class="row">
             <div class="input-field col s12">
@@ -18,10 +18,25 @@
   </div>
 
   <% @orders.each do |user, orders| %>
+  <% if current_user.admin? or current_user == user %>
   <div class="col s12 m6">
     <div class="card-panel">
-      <h5 onclick="$('.report1').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
-        Vendas de <%= params[:day].blank? ? 'hoje' : l(@day) %> (<%= Stock.find_by_user_id(user.id).name || user.try(:name) %>)
+
+    <% if Order.
+      opened.
+      where(
+        "user_id == ? and created_at > ? and created_at < ?",
+        user.id,
+        @day.beginning_of_day,
+        @day.end_of_day).any? %>
+      <div class="big-spaced" style="text-align: center; margin-bottom: 20px; font-size: 11px; padding: 10px; background-color: #ddaa00; color: white; border: 1px solid #cc9900;">
+        <strong>Atenção:</strong> Confira os pedidos em aberto.
+      </div>
+    <% end %>
+
+      <h5 class="big-spaced" style="text-align: center; border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 14px; color: #676767;">
+        Vendas de <%= params[:day].blank? ? 'hoje' : l(@day) %>
+          (<%= Stock.find_by_user_id(user.id).try(:name) || user.try(:name) %>)
       </h5>
         <table class="bordered report1">
             <thead>
@@ -61,6 +76,18 @@
                 <td width="25%"><%= number_to_currency (@money) %></td>
             </tr>
 
+            <tr class="yellow lighten-3">
+                <td width="50%">Descontos</td>
+                <td width="25%"></td>
+                <td width="25%"><%= number_to_currency orders.sum(&:discount) %></td>
+            </tr>
+
+            <tr class="yellow lighten-3">
+                <td width="50%">Fretes</td>
+                <td width="25%"></td>
+                <td width="25%"><%= number_to_currency orders.sum(&:shipping) %></td>
+            </tr>
+
             <tr class="green lighten-4">
                 <td width="50%">Retiradas</td>
                 <td width="25%"><%= @outputs.count %></td>
@@ -73,9 +100,22 @@
                 <td width="25%"><%= number_to_currency (@money - @outputs.sum(&:value)) %></td>
             </tr>
 
+            <tr class="">
+                <td width="50%">Caixa inicial</td>
+                <td width="25%"></td>
+                <td width="25%"><%= number_to_currency CloseDay.where(stock_id: user.stock_id, day: @day).first.try(:initial) || 0 %></td>
+            </tr>
+
+            <tr class="">
+                <td width="50%">Caixa final</td>
+                <td width="25%"></td>
+                <td width="25%"><%= number_to_currency CloseDay.where(stock_id: user.stock_id, day: @day).first.try(:final) || 0 %></td>
+            </tr>
+
             </tbody>
         </table>
     </div>
   </div>
+  <% end %>
   <% end %>
 </div>

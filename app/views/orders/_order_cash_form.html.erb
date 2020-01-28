@@ -1,0 +1,35 @@
+<div id="order-cash-<%= order.id %>" style="display:none;">
+    <hr style="margin: 20px 0; border: none; border-bottom: 1px solid #dedede !important;" />
+    <div class="card-panel ccvalue" style="padding: 10px 20px; margin: 10px 0;">
+        <h5 style="font-size: 15px;" class="big-spaced">Frete e desconto</h5>
+        <hr style="margin: 20px 0 10px 0; border: none; border-bottom: 1px solid #dedede !important;" />
+
+        <%= form_for [:setcash, order], method: :put, remote: true do |f| %>
+            <div style="
+                display: flex;
+                align-items: center; height: 50px;">
+                <i class="material-icons left blue-text" style="padding: 0px 0;">local_shipping</i>
+                <h5 style="font-size: 16px; margin-right: 10px;">Frete:</h5>
+                
+                R$ <%= f.number_field :shipping, step: 0.01,
+                    style: "width: 80px; margin-top: 20px; margin-left: 5px;" %>
+                
+            </div>
+
+            <div style="
+                display: flex;
+                align-items: center; height: 50px; margin-bottom: 10px;">
+                <i class="material-icons left blue-text" style="padding: 0px 0;">attach_money</i>
+                <h5 style="font-size: 16px; margin-right: 10px;">Desconto:</h5>
+                
+                R$ <%= f.number_field :discount, step: 0.01,
+                    style: "width: 80px; margin-top: 20px; margin-left: 5px;" %>
+                
+            </div>
+            
+            <button class="btn waves-effect waves-light light-green" type="submit" name="action">
+            <i class="material-icons left">save</i> Salvar
+            </button>
+        <% end %>
+    </div>
+</div>

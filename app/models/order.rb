@@ -10,10 +10,11 @@ class Order < ApplicationRecord
   # default_scope { where("orders.created_at > ?", 1.day.ago) }
 
   scope :opened, -> { where(state: "open") }
+  scope :pending, -> { where(state: "pending") }
   scope :paid, -> { where(state: "paid") }
   scope :quote, -> { where(state: "quote") }
   scope :canceled, -> { where(state: "canceled") }
-  scope :opened_and_quote, -> { where("state = ? or state = ?", "open", "quote") }
+  scope :opened_and_quote, -> { where("state = ? or state = ? or state = ?", "open", "quote", "pending") }
   scope :boletos, -> { where(boleto: true) }
   scope :not_empty, -> { where.not(state: "") }
 
@@ -30,6 +31,7 @@ class Order < ApplicationRecord
   def get_state
     {"open" => "Aberto",
      "paid" => "Pago",
+     "pending" => "Carteira",
      "quote" => "Orçamento",
      "canceled" => "Cancelado"}[self.state]
   end
@@ -48,15 +50,29 @@ class Order < ApplicationRecord
            submited_at: DateTime.now)
   end
 
+  def open?
+    return self.state == "open"
+  end
+
+  def pending!
+    update(state: "pending")
+  end
+
+  def pending?
+    return self.state == "pending"
+  end
+
   def pay! ob=nil
     update(state: "paid", paid_at: DateTime.now)
 
-    order_items.each do |order_item|
-      StockChange.create(item_id: order_item.item_id,
-        stock_id: user.try(:stock_id),
-        quantity: order_item.quantity,
-        state: "out",
-        observation: "PDV: Pedido ##{self.id} #{'- Pago com saldo' if ob == 'cash'}").push!
+    if user.try(:stock_id)
+      order_items.each do |order_item|
+        StockChange.create(item_id: order_item.item_id,
+          stock_id: user.try(:stock_id),
+          quantity: order_item.quantity,
+          state: "out",
+          observation: "PDV: Pedido ##{self.id} #{'- Pago com saldo' if ob == 'cash'}").push!
+      end
     end
   end
 

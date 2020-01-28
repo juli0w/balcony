@@ -1,7 +1,7 @@
 class StocksController < ApplicationController
   before_filter :set_stock, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :authenticate_admin!
+  before_action :authenticate_caixa!
 
   def index
     @stocks = Stock.all

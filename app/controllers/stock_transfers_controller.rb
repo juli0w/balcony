@@ -1,6 +1,6 @@
 class StockTransfersController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_admin!
+  before_action :authenticate_caixa!
 
   def index
     @stock_transfers = StockTransfer.last(100)

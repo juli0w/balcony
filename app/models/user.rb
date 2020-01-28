@@ -14,13 +14,16 @@ class User < ApplicationRecord
 
   has_many :orders
 
-
   def stock
-    Stock.where(user_id: self.id).first
+    Stock.where(user_id: self.id).first || default_stock
   end
 
   def stock_id
-    stock.id
+    stock.try :id
+  end
+
+  def default_stock
+    Stock.find(self.default_stock_id) || Stock.first
   end
 
   include SearchCop
@@ -31,7 +34,7 @@ class User < ApplicationRecord
   end
 
   def role_name
-    {1 => "caixa", 2 => "vendedor", 3 => "administrador"}[role.to_i]
+    {1 => "vendedor", 2 => "caixa", 3 => "administrador"}[role.to_i]
   end
 
   def client?
@@ -39,11 +42,11 @@ class User < ApplicationRecord
   end
 
   def caixa?
-    role.to_i == 1 || role.to_i >= 3
+    role.to_i >= 2
   end
 
   def vendedor?
-    role.to_i == 2 || role.to_i >= 3
+    role.to_i >= 1 #|| role.to_i >= 3
   end
 
   def admin?

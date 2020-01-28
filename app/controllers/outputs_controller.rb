@@ -1,6 +1,6 @@
 class OutputsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_admin!
+  before_action :authenticate_caixa!
 
   def index
     @outputs = Output.all.page(params[:page]).order("created_at desc")

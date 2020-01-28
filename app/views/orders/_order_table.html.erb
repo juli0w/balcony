@@ -1,0 +1,37 @@
+<table class="bordered striped highlight" style="margin-top: 20px; font-size: 12px">
+    <thead>
+        <tr class="grey white-text">
+            <th data-field="item" width="">Produto</th>
+            <th data-field="unit" width="">Valor</th>
+            <th data-field="quantity" width="">Quantidade</th>
+            <th data-field="total" width="">Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% order.order_items.each do |oi| %>
+            <tr>
+                <td><%= oi.item.name %></td>
+                <td><%= number_to_currency(oi.unit_price) || 0 %></td>
+                <td><%= oi.quantity %></td>
+                <td><%= number_to_currency oi.total_price %></td>
+            </tr>
+        <% end %>
+        <% order.order_tintas.each do |oi| %>
+            <tr>
+                <td>
+                <%= oi.tinta_cor.codigo %> (<%= oi.tinta_embalagem.descricao %>)
+                <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.descricao %></span>
+                <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.tinta_produto.descricao %></span>
+                </td>
+                <td><%= number_to_currency oi.unit_price %></td>
+                <td><%= oi.quantity %></td>
+                <td><%= number_to_currency oi.total_price %></td>
+            </tr>
+        <% end %>
+        <tr>
+            <td colspan='3' class="right-align">Total:</td>
+            <td><%= number_to_currency order.calculate_total %></td>
+        </tr>
+    </tbody>
+</table>

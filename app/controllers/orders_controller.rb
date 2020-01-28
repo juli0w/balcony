@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
-  before_filter :set_order, only: [:boleto, :setcc, :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
+  before_filter :set_order, only: [:pending, :boleto, :setcash, :setcc, :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
   before_action :authenticate_user!
-  # before_action :authenticate_vendedor!, only: [:setcc, :boleto]
+  before_action :authenticate_caixa!, only: [:setcc, :setcash, :boleto]
   # before_action :authenticate_vendedor!
 
   def index
@@ -54,13 +54,28 @@ class OrdersController < ApplicationController
     @order.update(cc_value: ccvalue)
 
     flash[:success] = "Pedido alterado"
-    redirect_to orders_path
+    #redirect_to orders_path
+  end
+
+  def setcash
+    discount = params.require(:order).permit(:discount)[:discount]
+    shipping = params.require(:order).permit(:shipping)[:shipping]
+    @order.update(discount: discount, shipping: shipping)
+
+    flash[:success] = "Pedido alterado"
+    #redirect_to orders_path
   end
 
   def pay
     @order.pay!
 
     redirect_to orders_path(type: params[:type]), notice: "Pagamento confirmado."
+  end
+
+  def pending
+    @order.pending!
+
+    redirect_to orders_path(type: params[:type]), notice: "Pedido em carteira."
   end
 
   def pay_with_cash

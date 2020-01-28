@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200123131023) do
+ActiveRecord::Schema.define(version: 20200127142232) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 20200123131023) do
     t.decimal  "cash",       precision: 8, scale: 2
     t.index ["order_id"], name: "index_clients_on_order_id"
     t.index ["section_id"], name: "index_clients_on_section_id"
+  end
+
+  create_table "close_days", force: :cascade do |t|
+    t.integer  "stock_id"
+    t.date     "day"
+    t.decimal  "initial",    precision: 10, scale: 2
+    t.decimal  "final",      precision: 10, scale: 2
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["stock_id"], name: "index_close_days_on_stock_id"
   end
 
   create_table "fabricantes", force: :cascade do |t|
@@ -117,6 +127,8 @@ ActiveRecord::Schema.define(version: 20200123131023) do
     t.datetime "submited_at"
     t.decimal  "cc_value",    precision: 10, scale: 1, default: "0.0"
     t.boolean  "boleto",                               default: false
+    t.decimal  "discount",    precision: 10, scale: 2, default: "0.0"
+    t.decimal  "shipping",    precision: 10, scale: 2, default: "0.0"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -374,6 +386,7 @@ ActiveRecord::Schema.define(version: 20200123131023) do
     t.datetime "updated_at",                          null: false
     t.string   "username"
     t.string   "name"
+    t.integer  "default_stock_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

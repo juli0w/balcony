@@ -1,0 +1,88 @@
+<div class="card-panel" style="padding: 10px 20px;">
+    <h5 class="order" style="font-size: 16px;" id="<%= order.id %>" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %>
+        <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; margin-top: -7px;", class: "white-text grey lighten-1 right", method: :post do %>
+        <i class="material-icons">print</i>
+        <% end %>
+    </h5>
+
+    <div class="divider"></div>
+    
+    <%= render "order_details", order: order %>
+
+    <div class="orders" id="order-<%= order.id %>">
+        <%= render "order_table", order: order %>
+        <br>
+        <style>
+        .orders .btn {
+            line-height: 20px;
+            padding: 6px !important;
+            padding-right: 8px !important;
+            font-size: 10px;
+            height: auto !important;
+        }
+        .orders .btn i {
+            margin-right: 4px;
+            margin-left: 4px;
+        }
+        </style>
+        <% if current_user.caixa? %>
+            <% if (order.state != "paid") %>
+                <%= link_to pay_order_path(order, type: params[:type]), class: "btn light-green", method: :post do %>
+                    <i class="material-icons left">payment</i> Pago
+                <% end %>
+            <% end %>
+
+            <% if (order.client.cash.to_f > order.calculate_total) and (order.state != "paid") %>
+                <%= link_to pay_with_cash_order_path(order, type: params[:type]), class: "btn light-green", method: :post do %>
+                <i class="material-icons left">attach_money</i> Pagar com saldo
+            <% end %>
+        <% end %>
+
+        <% if (order.state != "open") %>
+            <%= link_to open_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
+                <i class="material-icons left">settings</i> Abrir
+            <% end %>
+        <% end %>
+
+        <% if (order.state != "quote") %>
+            <%= link_to quote_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
+                <i class="material-icons left">assignment</i> Orçamento
+            <% end %>
+        <% end %>
+
+        <% unless (order.pending?) %>
+            <%= link_to pending_order_path(order, type: params[:type]), class: "btn light-blue", method: :post do %>
+                <i class="material-icons left">account_balance_wallet</i> Carteira
+            <% end %>
+        <% end %>
+
+        <% if current_user.admin? %>
+            <%= link_to edit_order_path(order), class: "btn grey darken-2" do %>
+                <i class="material-icons left">edit</i> Editar
+                <% end %>
+            <% end %>
+        <% end %>
+
+        <% if (order.state != "canceled") and current_user.admin? %>
+            <%= link_to cancel_order_path(order, type: params[:type]), class: "btn grey darken-2", method: :post do %>
+                <i class="material-icons left">delete</i> Cancelar
+            <% end %>
+        <% end %>
+        <% if current_user.caixa? %>
+            <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; line-height: 0; margin-top: -7px;", class: "white-text grey darken-2 right", method: :post do %>
+                <i class="material-icons">print</i>
+            <% end %>
+
+            <%= link_to 'javascript:void();', onclick: "javascript:$('#order-cc-#{order.id}').slideToggle();", style: "margin-right: 4px; padding: 4px; line-height: 0; margin-top: -7px;", class: "white-text blue right", method: :post do %>
+                <i class="material-icons">credit_card</i>
+            <% end %>
+
+            <%= link_to 'javascript:void();', onclick: "javascript:$('#order-cash-#{order.id}').slideToggle();", style: "margin-right: 4px; padding: 4px; line-height: 0; margin-top: -7px;", class: "white-text blue right", method: :post do %>
+                <i class="material-icons">attach_money</i>
+            <% end %>
+            
+            <%= render "order_cc_form", order: order %>
+            <%= render "order_cash_form", order: order %>
+        <% end %>
+    </div>
+</div>

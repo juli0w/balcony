@@ -1,0 +1,4 @@
+var $toastContent = $('<span>Atualizado com sucesso</span>');
+Materialize.toast($toastContent, 5000);
+
+$("#order-cash-<%= @order.id %>").slideToggle();

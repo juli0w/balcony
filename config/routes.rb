@@ -55,7 +55,8 @@ Rails.application.routes.draw do
 
   #
 
-  get "close_day", to: "outputs#close_day", as: "close_day"
+  resources :close_days
+  get "checkout", to: "outputs#close_day", as: "checkout"
 
   resources :outputs
   resources :stocks
@@ -68,14 +69,17 @@ Rails.application.routes.draw do
       get :print
     end
   end
+  
   resources :sections
   resources :orders do
     member do
       put :setcc
+      put :setcash
       post :pay
       post :cancel
       post :open
       post :quote
+      post :pending
       post :pay_with_cash
       post :print
       get  :print
