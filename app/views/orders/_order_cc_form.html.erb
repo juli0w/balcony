@@ -21,7 +21,7 @@
         <i class="material-icons left blue-text" style="padding: 0px 0;">credit_card</i>
         <h5 style="font-size: 16px;">Valor no cartão:</h5>
     </div>
-    <%= form_for [:setcc, order], method: :put do |f| %>
+    <%= form_for [:setcc, order], method: :put, remote: true do |f| %>
         R$ <%= f.number_field :cc_value, step: 0.01,
                 style: "width: 60px;",
                 disabled: order.boleto?,

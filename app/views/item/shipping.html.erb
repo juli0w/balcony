@@ -39,7 +39,7 @@ $(document).ready(function() {
         <div class="card-content">
           <div class="row">
             <div class="input-field col s12">
-              <%= select_tag(:seller, options_from_collection_for_select(User.where("role >= 2"), :username, :name, current_user.try(:username))) %>
+              <%= select_tag(:seller, options_from_collection_for_select(User.where("role >= 1"), :username, :name, current_user.try(:username))) %>
               <%= label_tag :seller, "Vendedor" %>
             </div>
           </div>

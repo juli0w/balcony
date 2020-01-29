@@ -8,12 +8,14 @@ class OrdersController < ApplicationController
     if current_user.admin?
       @orders = Order.not_empty
     else
-      @orders = current_user.orders.not_empty.opened_and_quote
+      user = current_user.stock.user
+      @orders = user.orders.not_empty.opened_and_quote
     end
 
     if params[:type].present?
       @orders = @orders.send(params[:type])
     end
+
     @orders = @orders.search(params[:keyword]).page(params[:page]).per(10).order("orders.submited_at DESC, orders.id DESC")
   end
 
@@ -54,7 +56,10 @@ class OrdersController < ApplicationController
     @order.update(cc_value: ccvalue)
 
     flash[:success] = "Pedido alterado"
-    #redirect_to orders_path
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def setcash
@@ -63,6 +68,8 @@ class OrdersController < ApplicationController
     @order.update(discount: discount, shipping: shipping)
 
     flash[:success] = "Pedido alterado"
+    
+    render :setcash
     #redirect_to orders_path
   end
 
