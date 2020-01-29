@@ -52,6 +52,12 @@ class OrderItemsController < ApplicationController
       @order = current_cart
       @client = Client.find(session[:client])
 
+      @sellers = User.where("role >= 1")
+
+      unless current_user.admin?
+        @sellers = @sellers.where(default_stock_id: current_user.default_stock_id)
+      end
+
       # last_order = current_user.orders.last
       # if last_order
       #   @client = last_order.client || Client.new
