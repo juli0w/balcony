@@ -7,12 +7,15 @@ class OutputsController < ApplicationController
   end
 
   def new
-    stock_id = Stock.where(user_id: current_user.id).first.try(:id)
+    @users = User.all.reject{|u| u.name.blank?}
+
+    stock_id = current_user.stock_id
     @output = Output.new(stock_id: stock_id, user_id: current_user.id)
   end
 
   def create
-    @output = Output.new(output_params)
+    stock_id = current_user.stock_id
+    @output = Output.new(output_params.merge({stock_id: stock_id, user_id: current_user.id}))
 
     if @output.save
       redirect_to outputs_path, notice: "Retirada feita com sucesso"
@@ -35,6 +38,10 @@ class OutputsController < ApplicationController
       "created_at > ? and created_at < ?",
       @day.beginning_of_day,
       @day.end_of_day)
+    
+    @envelopes = @outputs.where("output_type != 1 and output_type != 2 or output_type == 0")
+    @despesas = @outputs.where(output_type: 1)
+    @injecoes = @outputs.where(output_type: 2)
 
     @orders = Order.
       paid.
@@ -48,6 +55,6 @@ class OutputsController < ApplicationController
 private
 
   def output_params
-    params.require(:output).permit(:value, :stock_id, :user_id)
+    params.require(:output).permit(:description, :output_type, :value, :stock_id, :user_id)
   end
 end

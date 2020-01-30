@@ -89,15 +89,21 @@
             </tr>
 
             <tr class="green lighten-4">
-                <td width="50%">Retiradas</td>
-                <td width="25%"><%= @outputs.count %></td>
-                <td width="25%"><%= number_to_currency (@outputs.sum(&:value)) %></td>
+                <td width="50%">Envelopes</td>
+                <td width="25%"><%= @envelopes.count %></td>
+                <td width="25%"><%= number_to_currency (@envelopes.sum(&:value)) %></td>
             </tr>
 
-            <tr class="green lighten-3">
-                <td width="50%">Diferença</td>
-                <td width="25%"></td>
-                <td width="25%"><%= number_to_currency (@money - @outputs.sum(&:value)) %></td>
+            <tr class="green lighten-4">
+                <td width="50%">Despesas</td>
+                <td width="25%"><%= @despesas.count %></td>
+                <td width="25%"><%= number_to_currency (@despesas.sum(&:value)) %></td>
+            </tr>
+
+            <tr class="green lighten-4">
+                <td width="50%">Injeções</td>
+                <td width="25%"><%= @injecoes.count %></td>
+                <td width="25%"><%= number_to_currency (@injecoes.sum(&:value)) %></td>
             </tr>
 
             <tr class="">
@@ -111,6 +117,13 @@
                 <td width="25%"></td>
                 <td width="25%"><%= number_to_currency CloseDay.where(stock_id: user.stock_id, day: @day).first.try(:final) || 0 %></td>
             </tr>
+
+            <tr class="green lighten-3">
+                <td width="50%">Diferença</td>
+                <td width="25%"></td>
+                <td width="25%"><%= number_to_currency (@money - @despesas.sum(&:value) - @envelopes.sum(&:value) + @injecoes.sum(&:value)) %></td>
+            </tr>
+
 
             </tbody>
         </table>

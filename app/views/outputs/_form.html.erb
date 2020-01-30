@@ -1,23 +1,32 @@
 <%#= render "layouts/flash" %>
-<%= form_for @output do |f| %>
+<%= form_for @output, class: "form-output" do |f| %>
   <div class="row">
-    <div class="input-field col s12">
-      <%= f.collection_select :stock_id, Stock.all, :id, :name %>
-      <%= f.label :stock, "Loja" %>
+    <div class="input-field col s6">
+      <%= f.collection_select :stock_id, Stock.all, :id, :name, { }, disabled: !current_user.admin? %>
+      <%= f.label :stock_id, "Loja" %>
     </div>
-  </div>
-
-<div class="row">
-    <div class="input-field col s12">
-      <%= f.collection_select :user_id, User.all.reject{|u| u.name.blank?}, :id, :name, { value: current_user }, disabled: !current_user.admin? %>
-      <%= f.label :user, "Responsável" %>
+    <div class="input-field col s6">
+      <%= f.collection_select :user_id, @users, :id, :name, { }, disabled: !current_user.admin? %>
+      <%= f.label :user_id, "Responsável" %>
     </div>
   </div>
 
   <div class="row">
-    <div class="input-field col s12">
+    <div class="input-field col s4">
+      <%= f.select :output_type, Output::TYPES %>
+      <%= f.label :output_type, "Tipo" %>
+    </div>
+
+    <div class="input-field col s8">
       <%= f.label :value, "Valor" %>
       <%= f.number_field :value, step: 0.01 %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.label :description, "Descrição" %>
+      <%= f.text_area :description, class: "materialize-textarea" %>
     </div>
   </div>
 
