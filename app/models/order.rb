@@ -40,6 +40,10 @@ class Order < ApplicationRecord
     (order_items.count + order_tintas.count) <= 0
   end
 
+  def paid?
+    return self.state == "paid"
+  end
+
   def boleto?
     self.boleto
   end

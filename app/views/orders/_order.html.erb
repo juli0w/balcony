@@ -56,7 +56,7 @@
                 <% end %>
             <% end %>
 
-            <% if current_user.admin? %>
+            <% if current_user.caixa? || current_user.admin? %>
                 <%= link_to edit_order_path(order), class: "btn grey darken-2" do %>
                     <i class="material-icons left">edit</i> Editar
                 <% end %>
