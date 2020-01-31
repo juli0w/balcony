@@ -40,6 +40,10 @@
             <% end %>
         </div>
         <div style="float:right; width: 180px;">
+            <span class="titled">Loja:<br></span>
+            <%= order.user.stock.try :name %>
+        </div>
+        <div style="float:right; width: 140px;">
             <span class="titled">Vendedor:<br></span>
             <%= order.seller || order.user.try(:email) %>
         </div>
