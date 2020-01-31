@@ -38,7 +38,6 @@
 
         <tbody>
           <% @outputs.each do |output| %>
-          <% if current_user.admin? or current_user.stock == output.stock %>
           <tr>
             <td><%= output.id %></td>
             <td><%= output.type_name %></td>
@@ -50,7 +49,6 @@
             </td>
           </tr>
 
-          <% end %>
           <% end %>
         </tbody>
       </table>

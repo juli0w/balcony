@@ -58,15 +58,8 @@ class OrderItemsController < ApplicationController
         @sellers = @sellers.where(default_stock_id: current_user.default_stock_id)
       end
 
-      # last_order = current_user.orders.last
-      # if last_order
-      #   @client = last_order.client || Client.new
-      # else
-      #   @client = Client.new
-      # end
-
       if user_signed_in?
-        @order.update(user: current_user)
+        @order.update(user: current_user.stock.user)
       end
 
       render "item/shipping"

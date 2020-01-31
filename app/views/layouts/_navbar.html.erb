@@ -1,5 +1,6 @@
 <% if user_signed_in? %>
   <div class="row grey darken-3 white-text" style="margin: 0; padding: 5px;">
+    <span class="nav-top-menu" style="padding-left: 10px;"><%= current_user.stock.name %></span>
     <span class="nav-top-menu right" style="padding-right: 10px;">
       <%= current_user.username %>
       <% if current_user.role_name.present? %>(<%= current_user.role_name %>)<% end %>

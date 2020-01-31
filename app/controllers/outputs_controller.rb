@@ -3,7 +3,13 @@ class OutputsController < ApplicationController
   before_action :authenticate_caixa!
 
   def index
-    @outputs = Output.all.page(params[:page]).order("created_at desc")
+    @outputs = Output.all
+
+    unless current_user.admin?
+      @outputs = @outputs.where(stock_id: current_user.stock_id)
+    end
+
+    @outputs = @outputs.page(params[:page]).order("created_at desc")
   end
 
   def new
