@@ -5,6 +5,12 @@ class OutputsController < ApplicationController
   def index
     @outputs = Output.all
 
+    unless params[:day].blank?
+      date = params[:day].to_date
+      @outputs = @outputs.where(
+        "created_at > ? and created_at < ?", date.beginning_of_day, date.end_of_day)
+    end
+
     unless current_user.admin?
       @outputs = @outputs.where(stock_id: current_user.stock_id)
     end

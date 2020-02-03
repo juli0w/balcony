@@ -67,7 +67,7 @@
                 <td width="25%"><strong><%= number_to_currency orders.sum(&:total) %></strong></td>
             </tr>
 
-            <tr class="">
+            <tr class="green lighten-4">
                 <td width="50%">Caixa inicial</td>
                 <td width="25%"></td>
                 <td width="25%"><%= number_to_currency caixa_inicial %></td>
@@ -105,13 +105,13 @@
                 <td width="25%"><%= number_to_currency shippings %></td>
             </tr>
 
-            <tr class="green lighten-4">
+            <tr class="yellow lighten-3">
                 <td width="50%">Envelopes</td>
                 <td width="25%"><%= envelopes.count %></td>
                 <td width="25%"><%= number_to_currency (envelopes.sum(&:value)) %></td>
             </tr>
 
-            <tr class="green lighten-4">
+            <tr class="yellow lighten-3">
                 <td width="50%">Despesas</td>
                 <td width="25%"><%= despesas.count %></td>
                 <td width="25%"><%= number_to_currency (despesas.sum(&:value)) %></td>
@@ -123,13 +123,13 @@
                 <td width="25%"><%= number_to_currency (injecoes.sum(&:value)) %></td>
             </tr>
 
-            <tr class="">
+            <tr class="yellow lighten-3">
                 <td width="50%">Caixa final</td>
                 <td width="25%"></td>
                 <td width="25%"><%= number_to_currency caixa_final %></td>
             </tr>
 
-            <tr class="green lighten-3">
+            <tr class="blue-grey lighten-4">
                 <td width="50%">Diferença</td>
                 <td width="25%"></td>
                 <td width="25%"><%= number_to_currency (caixa_inicial + @money - despesas.sum(&:value) - envelopes.sum(&:value) + injecoes.sum(&:value) - shippings - descontos - caixa_final) %></td>
