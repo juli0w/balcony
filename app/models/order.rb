@@ -66,6 +66,10 @@ class Order < ApplicationRecord
     return self.state == "pending"
   end
 
+  def stock_id
+    self.user.try :stock_id
+  end
+
   def pay! ob=nil
     update(state: "paid", paid_at: DateTime.now)
 
