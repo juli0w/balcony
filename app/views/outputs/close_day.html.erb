@@ -28,7 +28,8 @@
       injecoes = @injecoes.where(stock_id: user.stock_id)
       descontos = orders.sum(&:discount)
       shippings = orders.sum(&:shipping)
-      total_boleto = orders.select {|o| o.boleto? }.sum(&:total)
+      boletos = orders.select {|o| o.boleto? }
+      total_boleto = boletos.sum(&:total)
       @money = orders.sum(&:total) - orders.sum(&:cc_value) - total_boleto
       caixa_inicial = CloseDay.where(stock_id: user.stock_id, day: @day).first.try(:initial) || 0
       caixa_final = CloseDay.where(stock_id: user.stock_id, day: @day).first.try(:final) || 0
@@ -73,18 +74,30 @@
                 <td width="25%"><%= number_to_currency caixa_inicial %></td>
             </tr>
 
-            <tr>
+            <tr style="cursor: pointer;" class="highlightHover" onclick="$('#boletos-'+<%= user.id %>).slideToggle(200);">
                 <td width="50%">Boleto</td>
                 <td width="25%"></td>
-                <td width="25%">
+                <td width="45%">
                   <%= number_to_currency total_boleto %>
                 </td>
             </tr>
 
-            <tr>
+            <tr id="boletos-<%= user.id %>" style="display: none;">
+                <td colspan='4'>
+                    <%= render "list", { user: user, orders: boletos } %>
+                </td>
+            </tr>
+
+            <tr style="cursor: pointer;" class="highlightHover" onclick="$('#cartoes-'+<%= user.id %>).slideToggle(200);">
                 <td width="50%">Cartão</td>
                 <td width="25%"></td>
                 <td width="25%"><%= number_to_currency orders.sum(&:cc_value) %></td>
+            </tr>
+
+            <tr id="cartoes-<%= user.id %>" style="display: none;">
+                <td colspan='4'>
+                    <%= render "list", { user: user, orders: orders.select{|o| o.cc_value.to_f > 0 } } %>
+                </td>
             </tr>
             
             <tr class="green lighten-4">

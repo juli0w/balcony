@@ -21,6 +21,7 @@ class Order < ApplicationRecord
   include SearchCop
 
   search_scope :search do
+    attributes :id
     attributes :state
     attributes :seller
     attributes :user => ["user.email", "user.username"]
