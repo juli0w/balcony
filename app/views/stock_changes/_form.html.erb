@@ -1,5 +1,5 @@
 <%#= render "layouts/flash" %>
-<%= form_for @stock_change do |f| %>
+<%= form_for @stock_change, html: { class: "form-once" } do |f| %>
   <div class="row">
     <div class="input-field col s12">
       <%= f.collection_select :stock_id, Stock.all, :id, :name %>

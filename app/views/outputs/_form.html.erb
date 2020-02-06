@@ -1,5 +1,5 @@
 <%#= render "layouts/flash" %>
-<%= form_for @output, class: "form-output" do |f| %>
+<%= form_for @output, html: { class: "form-output form-once" } do |f| %>
   <div class="row">
     <div class="input-field col s6">
       <%= f.collection_select :stock_id, Stock.all, :id, :name, { }, disabled: !current_user.admin? %>

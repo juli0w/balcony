@@ -32,6 +32,11 @@ $(document).ready(function() {
     $.post("/orders/" + $(this).attr("data-order") + "/boleto?value=" + $(this).prop('checked'), function() { alert("sucesso"); location.reload(); });
   });
 
+  $(".form-once").submit(function () {
+      // prevent duplicate form submissions
+      $(this).find(":submit").attr('disabled', 'disabled');
+  });
+
   // function updateCaixa() {
   //   $(".caixa-update").load("/caixa_update");
   //   setTimeout(updateCaixa, 5000);

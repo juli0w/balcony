@@ -1,0 +1,25 @@
+<table class="bordered striped highlight" style="">
+    <thead>
+        <tr class="grey white-text">
+            <th data-field="id" width="">Responsável</th>
+            <th data-field="id" width="">Valor</th>
+            <th data-field="" width=""></th>
+            <th data-field="" width=""></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    <% outputs.each do |output| %>
+
+        <tr>
+            <td><%= output.user.try :name %></td>
+            <td><%= number_to_currency output.value %></td>
+            <td><%= output.description %></td>
+            <td><%= l(output.created_at).to_s.split("-")[0].split(",")[1] %></td>
+        </tr>
+
+    <% end %>
+
+    </tbody>
+</table>

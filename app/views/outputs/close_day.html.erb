@@ -118,22 +118,40 @@
                 <td width="25%"><%= number_to_currency shippings %></td>
             </tr>
 
-            <tr class="yellow lighten-3">
+            <tr class="yellow lighten-3 highlightHover" style="cursor: pointer;" onclick="$('#envelopes-'+<%= user.id %>).slideToggle(200);">
                 <td width="50%">Envelopes</td>
                 <td width="25%"><%= envelopes.count %></td>
                 <td width="25%"><%= number_to_currency (envelopes.sum(&:value)) %></td>
             </tr>
 
-            <tr class="yellow lighten-3">
+            <tr id="envelopes-<%= user.id %>" style="display: none;">
+                <td colspan='4'>
+                    <%= render "outputs", { user: user, outputs: envelopes } %>
+                </td>
+            </tr>
+
+            <tr class="yellow lighten-3 highlightHover" style="cursor: pointer;" onclick="$('#despesas-'+<%= user.id %>).slideToggle(200);">
                 <td width="50%">Despesas</td>
                 <td width="25%"><%= despesas.count %></td>
                 <td width="25%"><%= number_to_currency (despesas.sum(&:value)) %></td>
             </tr>
 
-            <tr class="green lighten-4">
+            <tr id="despesas-<%= user.id %>" style="display: none;">
+                <td colspan='4'>
+                    <%= render "outputs", { user: user, outputs: despesas } %>
+                </td>
+            </tr>
+
+            <tr class="yellow lighten-3 highlightHover" style="cursor: pointer;" onclick="$('#injecoes-'+<%= user.id %>).slideToggle(200);">
                 <td width="50%">Injeções</td>
                 <td width="25%"><%= injecoes.count %></td>
                 <td width="25%"><%= number_to_currency (injecoes.sum(&:value)) %></td>
+            </tr>
+
+            <tr id="injecoes-<%= user.id %>" style="display: none;">
+                <td colspan='4'>
+                    <%= render "outputs", { user: user, outputs: injecoes } %>
+                </td>
             </tr>
 
             <tr class="yellow lighten-3">

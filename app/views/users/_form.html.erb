@@ -1,5 +1,5 @@
 <%#= render "layouts/flash" %>
-<%= form_for @user do |f| %>
+<%= form_for @user, html: { class: "form-once" } do |f| %>
   <div class="row">
     <div class="input-field col s12">
       <%= f.label :email %>
