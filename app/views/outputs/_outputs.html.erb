@@ -16,7 +16,7 @@
             <td><%= output.user.try :name %></td>
             <td><%= number_to_currency output.value %></td>
             <td><%= output.description %></td>
-            <td><%= l(output.created_at).to_s.split("-")[0].split(",")[1] %></td>
+            <td><%= l(output.created_at).to_s.split("-")[0].split(",")[2] %></td>
         </tr>
 
     <% end %>
