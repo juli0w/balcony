@@ -139,7 +139,15 @@ class Order < ApplicationRecord
 
   def calculate_total
     @total_i = order_items.collect  { |oi| oi.valid? ? (oi.quantity * oi.unit_price) : 0 }.sum
-    @total_t = order_tintas.collect { |oi| oi.valid? ? (oi.quantity * oi.unit_price) : 0 }.sum
+    
+    @total_t = order_tintas.collect do |oi|
+      begin
+        oi.valid? ? (oi.quantity * oi.unit_price) : 0
+      rescue => e
+        0
+      end
+    end.sum
+
     @total = @total_i + @total_t
   end
 
