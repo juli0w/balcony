@@ -17,6 +17,7 @@
                 <td><%= number_to_currency oi.total_price %></td>
             </tr>
         <% end %>
+        <% begin %>
         <% order.order_tintas.each do |oi| %>
             <tr>
                 <td>
@@ -28,6 +29,9 @@
                 <td><%= oi.quantity %></td>
                 <td><%= number_to_currency oi.total_price %></td>
             </tr>
+        <% end %>
+        <% rescue => e %>
+            <span>Erro nesse item: <%= e.inspect %></span>
         <% end %>
         <tr>
             <td colspan='3' class="right-align">Total:</td>
