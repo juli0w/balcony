@@ -43,13 +43,9 @@
           </div>
         </div>
         <% @orders.where.not(client: nil).each do |order| %>
-          <% begin %>
+
             <%= render "order", order: order %>
-          <% rescue => e %>
-            <% order.cancel! %>
-            <%= e.inspect %>
-            </div></div></div>
-          <% end %>
+
         <% end %>
         <%= paginate @orders %>
       </div>
