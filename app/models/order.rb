@@ -96,11 +96,11 @@ class Order < ApplicationRecord
       new_client_cash = 0
     end
 
-    Output.create(user: current_user,
+    Output.create(user: self.user,
                   output_type: 1,
                   description: "SISTEMA: Pagamento com saldo - Pedido ##{self.id}",
                   value: value,
-                  stock_id: current_user.stock_id)
+                  stock_id: self.user.stock_id)
 
     client.update(cash: new_client_cash)
   end
