@@ -87,7 +87,22 @@ class Order < ApplicationRecord
 
   def pay_with_cash!
     pay! "cash"
-    client.update(cash: (client.cash - calculate_total))
+
+    if (client.cash - calculate_total) >= 0
+      value = calculate_total
+      new_client_cash = (client.cash - calculate_total)
+    else
+      value = client.cash
+      new_client_cash = 0
+    end
+
+    Output.create(user: current_user,
+                  output_type: 1,
+                  description: "SISTEMA: Pagamento com saldo - Pedido ##{self.id}",
+                  value: value,
+                  stock_id: current_user.stock_id)
+
+    client.update(cash: new_client_cash)
   end
 
   def quote!
