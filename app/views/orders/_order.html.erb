@@ -32,7 +32,7 @@
                 <% end %>
             <% end %>
 
-            <% if (order.client.cash.to_f > order.calculate_total) and (current_user.caixa?) and (order.state != "paid") %>
+            <% if (order.client.cash.to_f > 0) and (current_user.caixa?) and (order.state != "paid") %>
                 <%= link_to pay_with_cash_order_path(order, type: params[:type]), class: "btn light-green", method: :post do %>
                 <i class="material-icons left">attach_money</i> Pagar com saldo
                 <% end %>
