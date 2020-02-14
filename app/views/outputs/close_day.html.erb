@@ -26,8 +26,8 @@
       envelopes = @envelopes.where(stock_id: user.stock_id)
       despesas = @despesas.where(stock_id: user.stock_id)
       injecoes = @injecoes.where(stock_id: user.stock_id)
-      descontos = orders.sum(&:discount)
-      shippings = orders.sum(&:shipping)
+      descontos = orders.select {|o| o.money? }.sum(&:discount)
+      shippings = orders.select {|o| o.money? }.sum(&:shipping)
       boletos = orders.select {|o| o.boleto? }
       total_boleto = boletos.sum(&:total)
       @money = orders.sum(&:total) - orders.sum(&:cc_value) - total_boleto

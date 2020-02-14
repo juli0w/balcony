@@ -20,14 +20,17 @@ class OutputsController < ApplicationController
 
   def new
     @users = User.all.reject{|u| u.name.blank?}
-
     stock_id = current_user.stock_id
+
     @output = Output.new(stock_id: stock_id, user_id: current_user.id)
   end
 
   def create
-    stock_id = current_user.stock_id
-    @output = Output.new(output_params.merge({stock_id: stock_id, user_id: current_user.id}))
+    @output = Output.new(output_params.merge({ user_id: current_user.id }))
+
+    unless current_user.admin?
+      @output.stock_id = current_user.stock_id
+    end
 
     if @output.save
       redirect_to outputs_path, notice: "Retirada feita com sucesso"

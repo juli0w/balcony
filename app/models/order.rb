@@ -45,6 +45,10 @@ class Order < ApplicationRecord
     return self.state == "paid"
   end
 
+  def money?
+    !self.boleto? and !(self.cc_value >= self.calculate_total)
+  end
+
   def boleto?
     self.boleto
   end
