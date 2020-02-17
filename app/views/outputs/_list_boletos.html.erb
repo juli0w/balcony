@@ -3,6 +3,7 @@
         <tr class="grey white-text">
             <th data-field="id" width="25%">Pedido</th>
             <th data-field="id" width="">Cliente</th>
+            <th data-field="total" width="25%">Subtotal</th>
             <th data-field="total" width="25%">Total</th>
         </tr>
     </thead>
@@ -21,6 +22,7 @@
             </td>
             <td><%= order.client.name %></td>
             <td><%= number_to_currency order.total %></td>
+            <td><%= number_to_currency order.total_discounted %></td>
         </tr>
 
     <% end %>

@@ -2,41 +2,46 @@
     <div class="row rowed">
         <div style="float: left;">
             <div style="width: 140px; float: left">
-            <span class="titled">Total:<br></span>
-            <%= number_to_currency(order.total) %>
+                <span class="titled">Total:<br></span>
+                <%= number_to_currency(order.total_discounted) %>
             </div>
 
             <div style="width: 140px; float: left">
-            <span class="titled">Data:<br></span>
-            <%= l(order.created_at.to_date).split("-")[0] %>
+                <span class="titled">Data:<br></span>
+                <%= l(order.created_at.to_date).split("-")[0] %>
             </div>
 
             <% if order.cc_value.to_f > 0 %>
-            <div style="width: 90px; float: left">
-                <span class="titled">No cartão:<br></span>
-                <%= number_to_currency(order.cc_value) %>
-            </div>
+                <div style="width: 90px; float: left">
+                    <span class="titled">No cartão:<br></span>
+                    <%= number_to_currency(order.cc_value) %>
+                </div>
+
+                <div style="width: 90px; float: left">
+                    <span class="titled">No dinheiro:<br></span>
+                    <%= number_to_currency(order.total_cash) %>
+                </div>
             <% end %>
 
             <% if order.boleto? %>
-            <div style="width: 140px; float: left">
-                <span class="titled">Forma de pagamento:<br></span>
-                Boleto
-            </div>
+                <div style="width: 140px; float: left">
+                    <span class="titled">Forma de pagamento:<br></span>
+                    Boleto
+                </div>
             <% end %>
 
             <% if order.shipping > 0 %>
-            <div style="width: 140px; float: left">
-                <span class="titled">Frete:<br></span>
-                <%= number_to_currency order.shipping %>
-            </div>
+                <div style="width: 140px; float: left">
+                    <span class="titled">Frete:<br></span>
+                    <%= number_to_currency order.shipping %>
+                </div>
             <% end %>
 
             <% if order.discount > 0 %>
-            <div style="width: 140px; float: left">
-                <span class="titled">Desconto:<br></span>
-                <%= number_to_currency order.discount %>
-            </div>
+                <div style="width: 140px; float: left">
+                    <span class="titled">Desconto:<br></span>
+                    <%= number_to_currency order.discount %>
+                </div>
             <% end %>
         </div>
         <div style="float:right; width: 180px;">

@@ -175,4 +175,12 @@ class Order < ApplicationRecord
     @total_t = order_tintas.collect { |oi| oi.valid? ? (oi.quantity) : 0 }.sum
     @total = @total_i + @total_t
   end
+
+  def total_discounted
+    calculate_total - shipping - discount
+  end
+
+  def total_cash
+    total_discounted - cc_value
+  end
 end

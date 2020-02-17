@@ -29,8 +29,8 @@
       descontos = orders.select {|o| o.money? }.sum(&:discount)
       shippings = orders.select {|o| o.money? }.sum(&:shipping)
       boletos = orders.select {|o| o.boleto? }
-      total_boleto = boletos.sum(&:total)
-      @money = orders.sum(&:total) - orders.sum(&:cc_value) - total_boleto
+      total_boleto = boletos.sum(&:total_discounted)
+      @money = orders.sum(&:total_cash) - total_boleto
       caixa_inicial = CloseDay.where(stock_id: user.stock_id, day: @day).first.try(:initial) || 0
       caixa_final = CloseDay.where(stock_id: user.stock_id, day: @day).first.try(:final) || 0
     %>
@@ -63,9 +63,15 @@
             <tbody>
 
             <tr>
+                <td width="50%">Subtotal</td>
+                <td width="25%"></td>
+                <td width="25%"><strong><%= number_to_currency orders.sum(&:total) %></strong></td>
+            </tr>
+
+            <tr>
                 <td width="50%">Total</td>
                 <td width="25%"><%= orders.count %></td>
-                <td width="25%"><strong><%= number_to_currency orders.sum(&:total) %></strong></td>
+                <td width="25%"><strong><%= number_to_currency orders.sum(&:total_discounted) %></strong></td>
             </tr>
 
             <tr class="green lighten-4">
@@ -84,7 +90,7 @@
 
             <tr id="boletos-<%= user.id %>" style="display: none;">
                 <td colspan='4'>
-                    <%= render "list", { user: user, orders: boletos } %>
+                    <%= render "list_boletos", { user: user, orders: boletos } %>
                 </td>
             </tr>
 
@@ -96,7 +102,7 @@
 
             <tr id="cartoes-<%= user.id %>" style="display: none;">
                 <td colspan='4'>
-                    <%= render "list", { user: user, orders: orders.select{|o| o.cc_value.to_f > 0 } } %>
+                    <%= render "list_cc", { user: user, orders: orders.select{|o| o.cc_value.to_f > 0 } } %>
                 </td>
             </tr>
             
@@ -163,7 +169,7 @@
             <tr class="blue-grey lighten-4">
                 <td width="50%">Diferença</td>
                 <td width="25%"></td>
-                <td width="25%"><%= number_to_currency (caixa_inicial + @money - despesas.sum(&:value) - envelopes.sum(&:value) + injecoes.sum(&:value) - shippings - descontos - caixa_final) %></td>
+                <td width="25%"><%= number_to_currency (caixa_inicial + @money - despesas.sum(&:value) - envelopes.sum(&:value) + injecoes.sum(&:value) - caixa_final) %></td>
             </tr>
 
 

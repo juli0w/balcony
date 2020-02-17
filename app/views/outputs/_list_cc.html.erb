@@ -1,0 +1,33 @@
+<table class="bordered striped highlight" style="">
+    <thead>
+        <tr class="grey white-text">
+            <th data-field="id" width="20%">Pedido</th>
+            <th data-field="id" width="">Cliente</th>
+            <th data-field="total" width="20%">Subtotal</th>
+            <th data-field="total" width="20%">Total</th>
+            <th data-field="total" width="20%">Cartão</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    <% orders.each do |order| %>
+
+        <tr>
+            <td style="padding: 0;">
+                <%= link_to "#{orders_path(keyword: "#{order.id} #{order.client.name}")}##{order.id}", target: "_blank" do %>
+                    <span style="flex: 1; display: flex; width: 100%; padding: 10px;">
+                        <%= order.id %>
+                    </span>
+                <% end %>
+            </td>
+            <td><%= order.client.name %></td>
+            <td><%= number_to_currency order.total %></td>
+            <td><%= number_to_currency order.total_discounted %></td>
+            <td><%= number_to_currency order.cc_value %></td>
+        </tr>
+
+    <% end %>
+
+    </tbody>
+</table>
