@@ -157,9 +157,25 @@
             </tr>
           <% end %>
           <tr>
-            <td colspan='4' class="right-align">Total:</td>
-            <td><%= number_to_currency @order.total %></td>
+            <td colspan='4' class="right-align">Subotal:</td>
+            <td><%= number_to_currency @order.calculate_total %></td>
           </tr>
+
+          <tr>
+            <td colspan='4' class="right-align">Desconto:</td>
+            <td><%= number_to_currency @order.discount %></td>
+          </tr>
+
+          <tr>
+            <td colspan='4' class="right-align">Frete:</td>
+            <td><%= number_to_currency @order.shipping %></td>
+          </tr>
+
+          <tr>
+            <td colspan='4' class="right-align">Total:</td>
+            <td><%= number_to_currency @order.total_discounted %></td>
+          </tr>
+
         </tbody>
       </table>
     </div>

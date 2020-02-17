@@ -3,7 +3,7 @@
         <div style="float: left;">
             <div style="width: 140px; float: left">
                 <span class="titled">Total:<br></span>
-                <%= number_to_currency(order.total_discounted) %>
+                <%= number_to_currency(order.calculate_total) %>
             </div>
 
             <div style="width: 140px; float: left">
