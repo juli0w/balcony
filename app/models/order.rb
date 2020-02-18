@@ -177,7 +177,7 @@ class Order < ApplicationRecord
   end
 
   def total_discounted
-    calculate_total - shipping - discount
+    calculate_total + shipping - discount
   end
 
   def total_cash
