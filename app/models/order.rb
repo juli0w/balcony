@@ -181,6 +181,6 @@ class Order < ApplicationRecord
   end
 
   def total_cash
-    total_discounted - cc_value
+    total_discounted - cc_value - boleto_value
   end
 end

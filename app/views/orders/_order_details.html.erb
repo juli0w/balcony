@@ -16,12 +16,19 @@
                     <span class="titled">No cartão:<br></span>
                     <%= number_to_currency(order.cc_value) %>
                 </div>
+            <% end %>
 
+            <% if order.boleto_value.to_f > 0 %>
                 <div style="width: 90px; float: left">
-                    <span class="titled">No dinheiro:<br></span>
-                    <%= number_to_currency(order.total_cash) %>
+                    <span class="titled">No boleto:<br></span>
+                    <%= number_to_currency(order.boleto_value) %>
                 </div>
             <% end %>
+
+            <div style="width: 90px; float: left">
+                <span class="titled">No dinheiro:<br></span>
+                <%= number_to_currency(order.total_cash) %>
+            </div>
 
             <% if order.boleto? %>
                 <div style="width: 140px; float: left">

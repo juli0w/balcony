@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :set_order, only: [:pending, :boleto, :setcash, :setcc, :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
+  before_filter :set_order, only: [:pending, :boleto, :setcash, :setboleto, :setcc, :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
   before_action :authenticate_user!
   before_action :authenticate_caixa!, only: [:setcc, :setcash, :boleto]
   # before_action :authenticate_vendedor!
@@ -53,7 +53,18 @@ class OrdersController < ApplicationController
 
   def setcc
     ccvalue = params.require(:order).permit(:cc_value)[:cc_value]
-    @order.update(cc_value: ccvalue)
+    @order.update(cc_value: ccvalue, boleto_value: 0)
+
+    flash[:success] = "Pedido alterado"
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def setboleto
+    boletovalue = params.require(:order).permit(:boleto_value)[:boleto_value]
+    @order.update(boleto_value: boletovalue, cc_value: 0)
 
     flash[:success] = "Pedido alterado"
 

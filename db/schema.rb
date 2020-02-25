@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200130125004) do
+ActiveRecord::Schema.define(version: 20200225135654) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -115,20 +115,21 @@ ActiveRecord::Schema.define(version: 20200130125004) do
   create_table "orders", force: :cascade do |t|
     t.string   "name"
     t.string   "state"
-    t.decimal  "total",       precision: 10, scale: 2
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
+    t.decimal  "total",        precision: 10, scale: 2
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.integer  "user_id"
     t.integer  "client_id"
     t.string   "obs"
     t.string   "seller"
-    t.boolean  "coupon",                               default: false
+    t.boolean  "coupon",                                default: false
     t.datetime "paid_at"
     t.datetime "submited_at"
-    t.decimal  "cc_value",    precision: 10, scale: 1, default: "0.0"
-    t.boolean  "boleto",                               default: false
-    t.decimal  "discount",    precision: 10, scale: 2, default: "0.0"
-    t.decimal  "shipping",    precision: 10, scale: 2, default: "0.0"
+    t.decimal  "cc_value",     precision: 10, scale: 1, default: "0.0"
+    t.boolean  "boleto",                                default: false
+    t.decimal  "discount",     precision: 10, scale: 2, default: "0.0"
+    t.decimal  "shipping",     precision: 10, scale: 2, default: "0.0"
+    t.decimal  "boleto_value", precision: 10, scale: 1, default: "0.0"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 

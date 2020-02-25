@@ -7,14 +7,30 @@
         display: flex;
         align-items: center;
         margin: 20px 0;">
-        <i class="material-icons left blue-text" style="padding: 0px 0;">web</i>
+
         <div class='switch'>
-        <label style="font-size: 16px; color: black;">Boleto
+        <label style="font-size: 16px; color: black;">Cartão
             <input class="boleto" data-order="<%= order.id %>" type="checkbox" <%= "checked" if order.boleto? %>>
-            <span class="lever"></span>
+            <span class="lever"></span> Boleto
         </label>
         </div>
     </div>
+        <div style="
+        display: flex;
+        align-items: center;">
+        <i class="material-icons left blue-text" style="padding: 0px 0;">web</i>
+        <h5 style="font-size: 16px;">Valor no boleto:</h5>
+    </div>
+    <%= form_for [:setboleto, order], method: :put, remote: true do |f| %>
+        R$ <%= f.number_field :boleto_value, step: 0.01,
+                style: "width: 60px;",
+                disabled: !order.boleto?,
+                value: (order.boleto_value.to_f > 0 ? order.boleto_value : order.total) %>
+        <button <%= "disabled" if !order.boleto? %> class="btn waves-effect waves-light light-green" type="submit" name="action">
+        <i class="material-icons left">save</i> Salvar
+        </button>
+    <% end %>
+
     <div style="
         display: flex;
         align-items: center;">
