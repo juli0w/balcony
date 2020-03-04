@@ -50,6 +50,18 @@ class ReportsController < ApplicationController
     end
   end
 
+  def abc
+    start = 1.year.ago
+    final = Date.today
+
+    @orders = Order.paid.where('created_at >= ? and created_at <= ?', start, final)
+
+    @order_items = @orders.map {|o| o.order_items.pluck(:item_id, :quantity).to_h }
+    results = @order_items.inject(Hash.new(0)) { |memo, subhash| subhash.each { |prod, value| memo[prod] += value } ; memo }
+
+    @results = results.sort_by{|k,v| v}.reverse
+  end
+
   def items
     if params[:item].present?
       @orders = OrderItem.joins(:item).where("items.name LIKE ?", "%#{params[:item]}%").collect(&:order).uniq
