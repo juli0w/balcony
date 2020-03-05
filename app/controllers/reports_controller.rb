@@ -51,7 +51,7 @@ class ReportsController < ApplicationController
   end
 
   def abc
-    start = 1.month.ago
+    start = 6.month.ago
     final = Date.today
 
     @orders = Order.paid.where('created_at >= ? and created_at <= ?', start, final)

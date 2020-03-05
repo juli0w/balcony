@@ -3,6 +3,7 @@
     <table class="striped bordered">
         <thead>
             <tr>
+                <th data-field=""></th>
                 <th data-field="">Item</th>
                 <th data-field="name">Quantidade</th>
                 <th data-field="name">$</th>
@@ -11,8 +12,9 @@
         </thead>
 
         <tbody>
-            <% @results.each do |k,v| %>
+            <% @results.each.with_index(1) do |(k,v), index| %>
                 <tr>
+                    <td><%= index %></td>
                     <td><%= Item.find(k).name %></td>
                     <td><%= v %></td>
                     <td><%= Item.find(k).price * v %></td>
