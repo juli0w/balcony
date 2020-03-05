@@ -13,7 +13,7 @@ class HomeController < ApplicationController
       # redirect_to clients_path
     end
 
-    @items = Item.order(:name).search(params[:key].try(:upcase)).first(50)
+    @items = Item.where(active: true).order(:name).search(params[:key].try(:upcase)).first(50)
     @client = Client.find(session[:client])
   end
 
