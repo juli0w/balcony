@@ -1,13 +1,39 @@
+<% content_for :header do %>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+    
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF/jspdf.min.js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+<% end %>
+
 <div class="container" style="margin-top: 30px;">
+<div id="toolbar" class="select">
+  <select class="form-control">
+    <option value="">Export Basic</option>
+    <option value="all">Export All</option>
+    <option value="selected">Export Selected</option>
+  </select>
+</div>
+
 <div class="card-panel">
-    <table class="striped bordered">
+    <table
+        class="striped bordered"
+        data-toggle="table"
+        data-pagination="true"
+        data-search="true"
+        data-show-export="true"
+        data-toolbar="#toolbar"
+    >
         <thead>
             <tr>
-                <th data-field=""></th>
-                <th data-field="">Item</th>
-                <th data-field="name">Quantidade</th>
-                <th data-field="name">$</th>
-                <th data-field="name">%</th>
+                <th data-sortable="true" data-field="id"></th>
+                <th data-sortable="true" data-field="item">Item</th>
+                <th data-sortable="true" data-field="qtd">Quantidade</th>
+                <th data-sortable="true" data-field="money">$</th>
+                <th data-sortable="true" data-field="percent">%</th>
             </tr>
         </thead>
 
