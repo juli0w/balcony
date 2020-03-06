@@ -56,7 +56,11 @@ class ReportsController < ApplicationController
 
     @orders = Order.paid.where('created_at >= ? and created_at <= ?', start, final)
 
-    @order_items = @orders.map {|o| o.order_items.pluck(:item_id, :quantity).to_h }
+    @order_items = @orders.map {|o| o.
+                    order_items.
+                    joins(:item).
+                    where("items.name NOT LIKE ? and items.name NOT LIKE ?", "%R PIGMENTO%", "%SW CORANTE%").
+                    pluck(:item_id, :quantity).to_h }
     results = @order_items.inject(Hash.new(0)) { |memo, subhash| subhash.each { |prod, value| memo[prod] += value } ; memo }
 
     @results = results.sort_by{|k,v| v}.reverse
