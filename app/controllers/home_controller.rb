@@ -3,6 +3,9 @@ class HomeController < ApplicationController
   before_action :authenticate_caixa!, only: [:caixa, :caixa_update]
 
   def index
+    # mail = OrderMailer.new_order
+    # mail.deliver_now
+
     if current_user.client?
       client = Client.where(company: current_user.username).first_or_create(section: Section.last, name: current_user.username)
       session[:client] = client.id

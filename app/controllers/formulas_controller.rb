@@ -4,6 +4,53 @@ class FormulasController < ApplicationController
   def index
   end
 
+  def pigmentos
+    @dyes = Dye.all
+    # @tinta_pigmentos = TintaPigmento.all
+  end
+
+  def search_dye_item
+    @dye = Dye.find(params[:id])
+    @items = Item.order(:name).search(params[:key].try(:upcase)).first(10)
+
+    respond_to do |format|
+      format.js { }
+    end
+  end
+
+  def change_dye_item
+    @dye = Dye.find(params[:id])
+    @dye.item_id = params[:item_id]
+    @dye.save
+
+    respond_to do |format|
+      format.js { }
+    end
+  end
+
+  def acabamentos
+    @bases = ProductBaseItem.all
+  end
+
+  def search_base_item
+    @base = ProductBaseItem.find(params[:id])
+    @items = Item.order(:name).search(params[:key].try(:upcase)).first(10)
+
+    respond_to do |format|
+      format.js { }
+    end
+  end
+
+  def change_base_item
+    @base = ProductBaseItem.find(params[:id])
+    @base.item_id = params[:item_id]
+    @base.save
+
+    respond_to do |format|
+      format.js { }
+    end
+  end
+
   def import
     @formula = Formula.new(formula_params)
     @formula.import
@@ -13,14 +60,6 @@ class FormulasController < ApplicationController
 
   def formulas
     @tinta_cores = TintaCor.search(params[:keyword])
-  end
-
-  def pigmentos
-    @tinta_pigmentos = TintaPigmento.all
-  end
-
-  def acabamentos
-    @tinta_acabamentos = TintaAcabamento.all
   end
 
   def integracao

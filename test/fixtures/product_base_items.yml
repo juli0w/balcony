@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sw_product: one
+  sw_base: one
+  item: one
+
+two:
+  sw_product: two
+  sw_base: two
+  item: two

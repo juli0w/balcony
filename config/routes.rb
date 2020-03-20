@@ -12,6 +12,15 @@ Rails.application.routes.draw do
   get "integracao", to: "formulas#integracao", as: "integracao_formulas"
   get "Fórmulas", to: "formulas#formulas", as: "list_formulas"
 
+  get "tintas/sw", to: "tintas#sw", as: "sw"
+
+  # get  "change_dye_item", to: "formulas#change_dye_item", as: "change_dye_item"
+  post "change_dye_item/:id", to: "formulas#change_dye_item", as: "change_dye_item"
+  get "search_dye_item/:id", to: "formulas#search_dye_item", as: 'search_dye_item'
+
+  post "change_base_item/:id", to: "formulas#change_base_item", as: "change_base_item"
+  get "search_base_item/:id", to: "formulas#search_base_item", as: 'search_base_item'
+
   # efator
   get "import", to: "efator#index"
   post "import", to: "efator#import"

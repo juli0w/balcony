@@ -1,39 +1,68 @@
 <%= render "menu" %>
 
 <div class="">
-  <div class="row">
-    <div class="col s12 m12 l12">
-      <h4 style="margin-top: 40px;">Acabamentos</h4>
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <h4 style="margin-top: 40px;">Bases</h4>
+        </div>
     </div>
-  </div>
 </div>
 
 <div id="bases">
-  <div class="row">
-    <div class="card-panel">
-      <table class="striped bordered">
-        <thead>
-          <tr>
-              <th data-field="name">Fabricante</th>
-              <th data-field="name">Descrição</th>
-              <th data-field="name">Linha</th>
-          </tr>
-        </thead>
+    <div class="row">
+        <div class="card-panel">
+            <table class="striped bordered">
+                <thead>
+                    <tr>
+                        <th data-field="name">Fabricante</th>
+                        <th data-field="name">Produto</th>
+                        <th data-field="name">Base</th>
+                        <th data-field="name">Recipiente</th>
+                        <th data-field="name">Item</th>
+                    </tr>
+                </thead>
 
-        <tbody>
-          <% @tinta_acabamentos.each do |tinta_acabamento| %>
+                <tbody>
+                    <% @bases.each do |base| %>
 
-          <tr>
-            <td><%= tinta_acabamento.tinta_produto.fabricante.name %></td>
-            <td><%= tinta_acabamento.descricao %></td>
-            <td><%= tinta_acabamento.tinta_produto.descricao %></td>
-          </tr>
+                    <tr>
+                        <td>Sherwin Williams</td>
+                        <td><%= base.sw_product.name %></td>
+                        <td><%= base.sw_base.name %></td>
+                        <td><%= base.sw_recipient.name %></td>
+                        <td>
+                            <span style="vertical-align: top;" id='td-base-<%= base.id %>'>
+                                <%= base.item.try(:name) %>
+                            </span>
 
-          <% end %>
-        </tbody>
-      </table>
+                            <%= link_to "javascript:void();",
+                                  style: "margin: 0 6px; float: right;",
+                                  onclick: "$('#base-#{base.id}').modal('open'); preventDefault();" do %>
+                            <i class="material-icons">cloud_upload</i>
+                            <% end %>
 
+                            <div id="base-<%= base.id %>" class="modal">
+                                <div class="modal-content">
+                                    <%= form_tag search_base_item_path(base.id), remote: true, method: :get do %>
+                                    <div class="input-field">
+                                        <input id="search" onfocus="this.select();" type="search" style="text-transform: uppercase;" name="key" value='<%= base.item.try(:name) %>' autofocus=true required>
+                                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                        <i class="material-icons">close</i>
+                                    </div>
+                                    <% end %>
+                                    <div id="modal-<%= base.id %>">
+                                        <%= render "base_modal", base_id: base.id, items: Item.search(base.item.try(:name)).first(20) %>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <% end %>
+                </tbody>
+            </table>
+
+        </div>
     </div>
-  </div>
 
 </div>

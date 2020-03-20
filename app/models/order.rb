@@ -177,10 +177,10 @@ class Order < ApplicationRecord
   end
 
   def total_discounted
-    calculate_total + shipping - discount
+    calculate_total + shipping.to_f - discount.to_f
   end
 
   def total_cash
-    total_discounted - cc_value - boleto_value
+    total_discounted - cc_value.to_f - boleto_value.to_f
   end
 end

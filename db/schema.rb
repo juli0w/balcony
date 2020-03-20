@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200225135654) do
+ActiveRecord::Schema.define(version: 20200317134704) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -44,6 +44,21 @@ ActiveRecord::Schema.define(version: 20200225135654) do
     t.index ["stock_id"], name: "index_close_days_on_stock_id"
   end
 
+  create_table "dye_inks", force: :cascade do |t|
+    t.string  "quantity"
+    t.integer "dye_id"
+    t.integer "ink_id"
+    t.index ["dye_id"], name: "index_dye_inks_on_dye_id"
+    t.index ["ink_id"], name: "index_dye_inks_on_ink_id"
+  end
+
+  create_table "dyes", force: :cascade do |t|
+    t.string  "name"
+    t.decimal "price",   precision: 8, scale: 2
+    t.integer "item_id"
+    t.index ["item_id"], name: "index_dyes_on_item_id"
+  end
+
   create_table "fabricantes", force: :cascade do |t|
     t.integer  "fabricante_id"
     t.string   "name"
@@ -65,6 +80,22 @@ ActiveRecord::Schema.define(version: 20200225135654) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["family_id"], name: "index_groups_on_family_id"
+  end
+
+  create_table "inks", force: :cascade do |t|
+    t.string  "collection"
+    t.string  "code"
+    t.string  "name"
+    t.string  "message"
+    t.integer "sw_product_id"
+    t.integer "sw_base_id"
+    t.integer "sw_recipient_id"
+    t.index ["code"], name: "index_inks_on_code"
+    t.index ["collection"], name: "index_inks_on_collection"
+    t.index ["name"], name: "index_inks_on_name"
+    t.index ["sw_base_id"], name: "index_inks_on_sw_base_id"
+    t.index ["sw_product_id"], name: "index_inks_on_sw_product_id"
+    t.index ["sw_recipient_id"], name: "index_inks_on_sw_recipient_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -143,6 +174,17 @@ ActiveRecord::Schema.define(version: 20200225135654) do
     t.integer  "output_type"
     t.index ["stock_id"], name: "index_outputs_on_stock_id"
     t.index ["user_id"], name: "index_outputs_on_user_id"
+  end
+
+  create_table "product_base_items", force: :cascade do |t|
+    t.integer "sw_product_id"
+    t.integer "sw_base_id"
+    t.integer "sw_recipient_id"
+    t.integer "item_id"
+    t.index ["item_id"], name: "index_product_base_items_on_item_id"
+    t.index ["sw_base_id"], name: "index_product_base_items_on_sw_base_id"
+    t.index ["sw_product_id"], name: "index_product_base_items_on_sw_product_id"
+    t.index ["sw_recipient_id"], name: "index_product_base_items_on_sw_recipient_id"
   end
 
   create_table "rbases", force: :cascade do |t|
@@ -279,6 +321,21 @@ ActiveRecord::Schema.define(version: 20200225135654) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sw_bases", force: :cascade do |t|
+    t.string  "name"
+    t.integer "item_id"
+    t.index ["item_id"], name: "index_sw_bases_on_item_id"
+  end
+
+  create_table "sw_products", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "sw_recipients", force: :cascade do |t|
+    t.string "name"
+    t.string "capacity"
   end
 
   create_table "tinta_acabamento_base_items", force: :cascade do |t|

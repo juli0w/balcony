@@ -1,0 +1,166 @@
+<div class="row" style="margin-bottom: -7px;">
+    <div class="col s12 m6 red darken-1 white-text" style="height: 54px; padding: 0;">
+        <span style="padding: 5px;" class="left">
+            <%= @client.name %>
+            <br><%= @client.company %>
+        </span>
+    </div>
+    <div class="col s12 m6 red darken-1 white-text" style="padding: 0;">
+        <a class="btn-large right green" onclick="$('.search').slideToggle(); $('.cart').slideToggle(); $('#search').focus();">
+            <i class="large material-icons">shopping_cart</i>
+        </a>
+
+        <%= link_to "#client-infos", class: "modal-trigger btn-large right red darken-1" do %>
+        <i class="large material-icons">account_box</i>
+        <% end %>
+
+        <%= link_to clear_client_path(@client), class: "btn-large right red darken-1" do %>
+        <i class="large material-icons">refresh</i>
+        <% end %>
+    </div>
+    <div class="col s12 no-space cart" style="display: none;">
+        <%= render "cart/cart" %>
+    </div>
+</div>
+<div class="search">
+    <div class="row" style="margin-top: 0px; margin-bottom: 0;">
+        <div class="card-panel">
+            <div class="search-offers">
+                <h5>Sherwin Williams</h5>
+                <div class="divider" style="margin: 20px 0"></div>
+                <%= form_tag sw_path, method: :get do %>
+                <fieldset style="border: none; margin: 0; padding: 0;">
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="input-field col s12 m12">
+                            <%= text_field_tag :color, params[:color], id: "search", class: "autocomplete" %>
+                            <%= label_tag :color, "Cor" %>
+                        </div>
+
+                        <div class="input-field col s12 m8">
+                            <%= select_tag :sw_product_id, options_from_collection_for_select(SwProduct.all, :id, :name, params[:sw_product_id]), prompt: 'Linha', include_blank: true %>
+                        </div>
+
+                        <div class="input-field col s12 m4">
+                            <%= select_tag :sw_recipient_id, options_from_collection_for_select(SwRecipient.all, :id, :name, params[:sw_recipient_id]), include_blank: true %>
+                        </div>
+
+                    </div>
+
+                    <button class="btn" type="submit" name="action">
+                        Buscar
+                    </button>
+                </fieldset>
+                <% end %>
+            </div>
+        </div>
+    </div>
+
+    <% @inks.each do |ink| %>
+    <div id="rf-<%= ink.id %>" class="modal">
+        <div class="modal-content">
+            <h5 style="text-align: center;"><%= ink.code.try(:humanize) %> (<%= ink.sw_recipient.try(:name) %>)</h5>
+            <h6 style="text-align: center; margin-bottom: 20px;"><%= ink.sw_product.name %></h5>
+                <table class="striped bordered">
+                    <tbody>
+                        <% ink.dye_inks.each do |dye_ink| %>
+                        <tr>
+                            <td><%= dye_ink.dye.name %></td>
+                            <td><%= dye_ink.quantity %><%#= ((quantidade || 0).to_d) *946/1000 %></td>
+                            <td><%= number_to_currency dye_ink.dye.item.price %>/ml</td>
+                            <td><%= number_to_currency (dye_ink.quantity.to_d * dye_ink.dye.item.price) %></td>
+                        </tr>
+                        <% end %>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td><%= number_to_currency (ink.price_dyes) %></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><%= ink.base.try(:name) %></td>
+                            <td><%= number_to_currency ink.base_price %></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td><%= number_to_currency ink.price_with_no_margin %></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td><strong><%= number_to_currency ink.price %></strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+        <div class="modal-footer">
+            <!-- <div style="background-color: #<%#= tinta.rgb %>;
+                    width: 80px; height: 40px;
+                    border: 1px solid #dedede;
+                    bottom: 20px; left: 20px; position: absolute;"><%#= tinta.rgb %></div> !-->
+
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</a>
+        </div>
+    </div>
+    <% end %>
+
+    <div class="card-panel" style="margin-top: -14px;">
+        <table class="bordered">
+            <thead>
+                <tr style="background-color: #efefef; border: 1px solid #dedede;">
+                    <th data-field="name"></th>
+                    <th data-field="name">Cor</th>
+                    <th data-field="name">Linha</th>
+                    <th data-field="name">Embalagem</th>
+                    <th data-field="name">Preço</th>
+                    <th data-field="actions"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% @inks.each do |ink| %>
+                <tr>
+                    <td><%= ink.code %></td>
+                    <td><%= ink.name %></td>
+                    <td><%= ink.sw_product.name %></td>
+                    <td><%= ink.sw_recipient.name %></td>
+                    <td><%= number_to_currency ink.price %></td>
+                    <td>
+                        <%= link_to "Fórmula", "#rf-#{ink.id}", class: "modal-trigger" %> |
+                        <%= link_to "Adicionar", order_tintas_path(ink_id: ink.id, quantity: 1), method: :post, remote: true %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="client-infos" class="modal">
+    <div class="modal-content">
+        <h5 style="text-align: center;"><%= @client.name %></h5>
+        <table>
+            <tbody>
+                <tr>
+                    <td style="text-align: right; padding-right: 20px; width: 170px;">Razão social</td>
+                    <td><%= @client.company %> (<%= @client.section.try(:name) %>)</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding-right: 20px; width: 170px;">Email</td>
+                    <td><%= @client.email %></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding-right: 20px; width: 170px;">Telefone</td>
+                    <td><%= @client.phone %></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding-right: 20px; width: 170px;">Endereço</td>
+                    <td><%= @client.address %> <%= @client.district %> - <%= @client.city %>/<%= @client.uf %></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding-right: 20px; width: 170px;">CPF/CNPJ</td>
+                    <td><%= @client.cpf %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</a>
+        <%= link_to "Editar", [:edit, @client], class: "btn-flat" %>
+    </div>
+</div>

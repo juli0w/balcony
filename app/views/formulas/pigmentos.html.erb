@@ -1,45 +1,66 @@
 <%= render "menu" %>
 
 <div class="">
-  <div class="row">
-    <div class="col s12 m12 l12">
-      <h4 style="margin-top: 40px;">Pigmentos</h4>
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <h4 style="margin-top: 40px;">Pigmentos</h4>
+        </div>
     </div>
-  </div>
 </div>
 
 <div id="bases">
-  <div class="row">
-    <div class="card-panel">
-      <table class="striped bordered">
-        <thead>
-          <tr>
-              <th data-field="name">Fabricante</th>
-              <th data-field="id">Código</th>
-              <th data-field="name">Descrição</th>
-              <th data-field="name">Item</th>
-              <th data-field="price">Preço</th>
-              <!-- <th data-field="actions">Litro</th> -->
-          </tr>
-        </thead>
+    <div class="row">
+        <div class="card-panel">
+            <table class="striped bordered">
+                <thead>
+                    <tr>
+                        <th data-field="collection">Fabricante</th>
+                        <th data-field="name">Nome</th>
+                        <th data-field="price">Preço</th>
+                        <th></th>
+                    </tr>
+                </thead>
 
-        <tbody>
-          <% @tinta_pigmentos.each do |tinta_pigmento| %>
+                <tbody>
+                    <% @dyes.each do |dye| %>
 
-          <tr>
-            <td><%= tinta_pigmento.fabricante.name %></td>
-            <td><%= tinta_pigmento.codigo %></td>
-            <td><%= tinta_pigmento.descricao %></td>
-            <td><%= tinta_pigmento.tinta_pigmento_item.item.name %></td>
-            <td><%= tinta_pigmento.tinta_pigmento_item.item.price %></td>
-            <!-- <td><%#= number_to_currency rbase.price/946*1000 %></td> -->
-          </tr>
+                    <tr>
+                        <td>Sherwin Williams</td>
+                        <td><%= dye.name %></td>
+                        <td><%= dye.item.try :price %></td>
+                        <td>
+                            <span style="vertical-align: top;" id='td-dye-<%= dye.id %>'>
+                                <%= dye.item.try(:name) %>
+                            </span>
 
-          <% end %>
-        </tbody>
-      </table>
+                            <%= link_to "javascript:void();",
+                                  style: "margin: 0 6px; float: right;",
+                                  onclick: "$('#dye-#{dye.id}').modal('open'); preventDefault();" do %>
+                            <i class="material-icons">cloud_upload</i>
+                            <% end %>
 
+                            <div id="dye-<%= dye.id %>" class="modal">
+                                <div class="modal-content">
+                                    <%= form_tag search_dye_item_path(dye.id), remote: true, method: :get do %>
+                                    <div class="input-field">
+                                        <input id="search" onfocus="this.select();" type="search" style="text-transform: uppercase;" name="key" value='<%= dye.item.try(:name) %>' autofocus=true required>
+                                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                        <i class="material-icons">close</i>
+                                    </div>
+                                    <% end %>
+                                    <div id="modal-<%= dye.id %>">
+                                        <%= render "dye_modal", dye_id: dye.id, items: Item.search(dye.item.try(:name)).first(20) %>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <% end %>
+                </tbody>
+            </table>
+
+        </div>
     </div>
-  </div>
 
 </div>

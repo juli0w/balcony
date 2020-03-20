@@ -1,0 +1,2 @@
+class SwProduct < ApplicationRecord
+end

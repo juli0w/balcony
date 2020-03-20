@@ -1,0 +1,20 @@
+<ul class="collection no-space-top" style="border-right: none;">
+    <% items.each do |item| %>
+    <li class="collection-item avatar absol">
+        <% if item.image? %>
+        <%= image_tag item.image, class: "circle materialboxed", style: "border-radius: 0% !important;" %>
+        <% else %>
+        <i class="material-icons circle">folder</i>
+        <% end %>
+        <span class="title">
+            <%= link_to change_dye_item_path(dye_id, item_id: item.id), method: :post, remote: true do %>
+            <strong><%= item.name %></strong>
+            <% end %>
+        </span>
+        <p style="font-size: .8em;"><%= item.code %><br>
+            <%= item.group.try(:name) %> <% item.subgroup.try(:name) %>
+        </p>
+        <%= content_tag :span, number_to_currency(item.price), class: "chip light-green white-text" %>
+    </li>
+    <% end %>
+</ul>

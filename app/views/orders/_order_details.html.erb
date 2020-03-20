@@ -1,128 +1,128 @@
  <div style="padding-top: 10px">
-    <div class="row rowed">
-        <div style="float: left;">
-            <div style="width: 140px; float: left">
-                <span class="titled">Total:<br></span>
-                <%= number_to_currency(order.calculate_total) %>
-            </div>
+     <div class="row rowed">
+         <div style="float: left;">
+             <div style="width: 140px; float: left">
+                 <span class="titled">Total:<br></span>
+                 <%= number_to_currency(order.calculate_total) %>
+             </div>
 
-            <div style="width: 140px; float: left">
-                <span class="titled">Data:<br></span>
-                <%= l(order.created_at.to_date).split("-")[0] %>
-            </div>
+             <div style="width: 140px; float: left">
+                 <span class="titled">Data:<br></span>
+                 <%= l(order.created_at.to_date).split("-")[0] %>
+             </div>
 
-            <% if order.cc_value.to_f > 0 %>
-                <div style="width: 90px; float: left">
-                    <span class="titled">No cartão:<br></span>
-                    <%= number_to_currency(order.cc_value) %>
-                </div>
-            <% end %>
+             <% if order.cc_value.to_f > 0 %>
+             <div style="width: 90px; float: left">
+                 <span class="titled">No cartão:<br></span>
+                 <%= number_to_currency(order.cc_value) %>
+             </div>
+             <% end %>
 
-            <% if order.boleto_value.to_f > 0 %>
-                <div style="width: 90px; float: left">
-                    <span class="titled">No boleto:<br></span>
-                    <%= number_to_currency(order.boleto_value) %>
-                </div>
-            <% end %>
+             <% if order.boleto_value.to_f > 0 %>
+             <div style="width: 90px; float: left">
+                 <span class="titled">No boleto:<br></span>
+                 <%= number_to_currency(order.boleto_value) %>
+             </div>
+             <% end %>
 
-            <div style="width: 90px; float: left">
-                <span class="titled">No dinheiro:<br></span>
-                <%= number_to_currency(order.total_cash) %>
-            </div>
+             <div style="width: 90px; float: left">
+                 <span class="titled">No dinheiro:<br></span>
+                 <%= number_to_currency(order.total_cash) %>
+             </div>
 
-            <% if order.boleto? %>
-                <div style="width: 140px; float: left">
-                    <span class="titled">Forma de pagamento:<br></span>
-                    Boleto
-                </div>
-            <% end %>
+             <% if order.boleto? %>
+             <div style="width: 140px; float: left">
+                 <span class="titled">Forma de pagamento:<br></span>
+                 Boleto
+             </div>
+             <% end %>
 
-            <% if order.shipping > 0 %>
-                <div style="width: 140px; float: left">
-                    <span class="titled">Frete:<br></span>
-                    <%= number_to_currency order.shipping %>
-                </div>
-            <% end %>
+             <% if order.shipping > 0 %>
+             <div style="width: 140px; float: left">
+                 <span class="titled">Frete:<br></span>
+                 <%= number_to_currency order.shipping %>
+             </div>
+             <% end %>
 
-            <% if order.discount > 0 %>
-                <div style="width: 140px; float: left">
-                    <span class="titled">Desconto:<br></span>
-                    <%= number_to_currency order.discount %>
-                </div>
-            <% end %>
-        </div>
-        <div style="float:right; width: 180px;">
-            <span class="titled">Loja:<br></span>
-            <%= order.user.stock.try :name %>
-        </div>
-        <div style="float:right; width: 140px;">
-            <span class="titled">Vendedor:<br></span>
-            <%= order.seller || order.user.try(:email) %>
-        </div>
-        </div>
-        <div class="row rowed">
-        <div style="float: left;">
-            <span class="titled">Cliente:<br></span>
-            <%= order.client.try(:company) || "Não informado" %>
-            <% if order.client.cash.to_f > 0 %>
-            <span class="light-green white-text" style="margin-left: 10px; padding: 3px; font-size: 10px;">Saldo: <%= number_to_currency order.client.cash %></span>
-            <% end %>
-        </div>
-        <div style="float:right; width: 180px;">
-            <span class="titled">Telefone:<br></span>
-            <%= order.client.try(:phone) || "Não informado" %>
-        </div>
-        <div style="float:right; width: 140px;">
-            <span class="titled">CNPJ:<br></span>
-            <%= order.client.try(:cpf) || "Não informado" %>
-        </div>
-        </div>
-        <div class="row rowed">
-        <div style="float: left;">
-            <span class="titled">Endereço:<br></span>
-            <%= order.client.try(:address) || 'Não informado' %>
-            <%= ", #{order.client.try(:district)}" unless order.client.try(:district).blank? %>
-        </div>
-        <div style="float:right; width: 180px;">
-            <span class="titled">Município:<br></span>
-            <%= order.client.try(:city) || "Não informado" %> <%= order.client.try(:uf) %>
-        </div>
-        <div style="float:right; width: 140px;">
-            <span class="titled">CEP:<br></span>
-            <%= order.client.try(:cep) || "Não informado" %>
-        </div>
-        </div>
-        <% unless order.submited_at.blank? %>
-        <div class="row rowed">
-        <div style="float: left;">
-            <span class="titled">Criado em:<br></span>
-            <%= (l order.submited_at).split("-")[0] %>
-        </div>
-        </div>
-        <% end %>
-        <% unless order.paid_at.blank? %>
-        <div class="row rowed">
-        <div style="float: left;">
-            <span class="titled">Pago em:<br></span>
-            <%= (l order.paid_at).split("-")[0] %>
-        </div>
-        </div>
-        <% end %>
-        <% unless order.obs.blank? %>
-        <div class="row rowed">
-        <div style="float: left;">
-            <span class="titled">Observação:<br></span>
-            <%= order.obs %>
-        </div>
-        </div>
-        <% end %>
+             <% if order.discount.to_f > 0 %>
+             <div style="width: 140px; float: left">
+                 <span class="titled">Desconto:<br></span>
+                 <%= number_to_currency order.discount %>
+             </div>
+             <% end %>
+         </div>
+         <div style="float:right; width: 180px;">
+             <span class="titled">Loja:<br></span>
+             <%= order.user.stock.try :name %>
+         </div>
+         <div style="float:right; width: 140px;">
+             <span class="titled">Vendedor:<br></span>
+             <%= order.seller || order.user.try(:email) %>
+         </div>
+     </div>
+     <div class="row rowed">
+         <div style="float: left;">
+             <span class="titled">Cliente:<br></span>
+             <%= order.client.try(:company) || "Não informado" %>
+             <% if order.client.cash.to_f > 0 %>
+             <span class="light-green white-text" style="margin-left: 10px; padding: 3px; font-size: 10px;">Saldo: <%= number_to_currency order.client.cash %></span>
+             <% end %>
+         </div>
+         <div style="float:right; width: 180px;">
+             <span class="titled">Telefone:<br></span>
+             <%= order.client.try(:phone) || "Não informado" %>
+         </div>
+         <div style="float:right; width: 140px;">
+             <span class="titled">CNPJ:<br></span>
+             <%= order.client.try(:cpf) || "Não informado" %>
+         </div>
+     </div>
+     <div class="row rowed">
+         <div style="float: left;">
+             <span class="titled">Endereço:<br></span>
+             <%= order.client.try(:address) || 'Não informado' %>
+             <%= ", #{order.client.try(:district)}" unless order.client.try(:district).blank? %>
+         </div>
+         <div style="float:right; width: 180px;">
+             <span class="titled">Município:<br></span>
+             <%= order.client.try(:city) || "Não informado" %> <%= order.client.try(:uf) %>
+         </div>
+         <div style="float:right; width: 140px;">
+             <span class="titled">CEP:<br></span>
+             <%= order.client.try(:cep) || "Não informado" %>
+         </div>
+     </div>
+     <% unless order.submited_at.blank? %>
+     <div class="row rowed">
+         <div style="float: left;">
+             <span class="titled">Criado em:<br></span>
+             <%= (l order.submited_at).split("-")[0] %>
+         </div>
+     </div>
+     <% end %>
+     <% unless order.paid_at.blank? %>
+     <div class="row rowed">
+         <div style="float: left;">
+             <span class="titled">Pago em:<br></span>
+             <%= (l order.paid_at).split("-")[0] %>
+         </div>
+     </div>
+     <% end %>
+     <% unless order.obs.blank? %>
+     <div class="row rowed">
+         <div style="float: left;">
+             <span class="titled">Observação:<br></span>
+             <%= order.obs %>
+         </div>
+     </div>
+     <% end %>
 
-        <div class='switch' style="display:none;">
-        <label>Cupom retirado
-            <input class="coupon_check" data-order="<%= order.id %>" type="checkbox" <%= "checked" if order.coupon? %>>
-            <span class="lever"></span>
-        </label>
-        </div>
+     <div class='switch' style="display:none;">
+         <label>Cupom retirado
+             <input class="coupon_check" data-order="<%= order.id %>" type="checkbox" <%= "checked" if order.coupon? %>>
+             <span class="lever"></span>
+         </label>
+     </div>
 
-        <span class="badge green white-text" style="margin-top: -30px; font-size: 9px; font-weight: bold; text-transform: uppercase;"><%= order.get_state %></span>
-    </div>
+     <span class="badge green white-text" style="margin-top: -30px; font-size: 9px; font-weight: bold; text-transform: uppercase;"><%= order.get_state %></span>
+ </div>

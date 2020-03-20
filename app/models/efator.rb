@@ -48,7 +48,7 @@ private
     xml.xpath("itens/item").each do |i|
 
       # load or create the item
-      item = Item.where(code: i.xpath("codigo").text).first_or_create
+      item = Item.where(code: i.xpath("codigo").text.to_i).first_or_create
 
       # if i.xpath("codigo").text == "5476"
       #   Rails.logger.info "----------------------------------"
