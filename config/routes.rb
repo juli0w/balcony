@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users, :path => 'u'
 
+  authenticate :user, ->(u) { u.admin? } do
+    mount ExceptionTrack::Engine => "/errors"
+  end
+
   # formulas
   get "import_2", to: "formulas#index", as: "formulas"
   post "import_2", to: "formulas#import"

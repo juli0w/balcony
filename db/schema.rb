@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200317134704) do
+ActiveRecord::Schema.define(version: 20200323115202) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -57,6 +57,13 @@ ActiveRecord::Schema.define(version: 20200317134704) do
     t.decimal "price",   precision: 8, scale: 2
     t.integer "item_id"
     t.index ["item_id"], name: "index_dyes_on_item_id"
+  end
+
+  create_table "exception_tracks", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body",       limit: 16777215
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "fabricantes", force: :cascade do |t|
