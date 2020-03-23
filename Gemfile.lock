@@ -90,6 +90,13 @@ GEM
       responders
       warden (~> 1.2.3)
     erubis (2.7.0)
+    exception-track (0.6.2)
+      exception_notification (~> 4)
+      kaminari (>= 0.15)
+      rails (>= 4.0)
+    exception_notification (4.4.0)
+      actionmailer (>= 4.0, < 7)
+      activesupport (>= 4.0, < 7)
     execjs (2.7.0)
     ffi (1.9.17)
     globalid (0.3.7)
@@ -241,6 +248,7 @@ DEPENDENCIES
   chartjs-ror
   coffee-rails (~> 4.2)
   devise
+  exception-track
   jbuilder (~> 2.5)
   jquery-rails
   kaminari

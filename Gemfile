@@ -23,7 +23,7 @@ gem 'coffee-rails', '~> 4.2'
 
 gem 'roo'
 gem 'activerecord-session_store'
-
+gem 'exception-track'
 gem 'chartjs-ror'
 
 gem 'mysql2'
