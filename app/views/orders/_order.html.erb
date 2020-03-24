@@ -68,7 +68,7 @@
                 <% end %>
             <% end %>
 
-            <% if current_user.caixa? %>
+            <%# if current_user.caixa? %>
                 <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; line-height: 0; margin-top: -7px;", class: "white-text grey darken-2 right", method: :post do %>
                     <i class="material-icons">print</i>
                 <% end %>
@@ -83,7 +83,7 @@
                 
                 <%= render "order_cc_form", order: order %>
                 <%= render "order_cash_form", order: order %>
-            <% end %>
+            <%# end %>
         <% end %>
     </div>
 </div>
