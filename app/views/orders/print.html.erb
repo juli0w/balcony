@@ -120,6 +120,15 @@
       </div>
     </div>
 
+    <% unless @order.obs.blank? %>
+      <div class="row rowed">
+          <div style="float: left;">
+              <span class="titled">Observação:<br></span>
+              <%= @order.obs %>
+          </div>
+      </div>
+     <% end %>
+
     <div class="row">
       <table class="striped">
         <thead>
