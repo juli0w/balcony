@@ -1,6 +1,6 @@
 <div class="card-panel" style="padding: 10px 20px;">
     <h5 class="order" style="font-size: 16px;" id="<%= order.id %>" onclick="$('#order-'+<%= order.id %>).slideToggle();">Pedido #<%= order.id %>
-        <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; margin-top: -7px;", class: "white-text grey lighten-1 right", method: :post do %>
+        <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; margin-top: -7px;", onclick: "$(this).removeClass('grey').addClass('blue');", class: "white-text #{order.printed ? 'blue' : 'grey' } lighten-1 right", method: :post do %>
         <i class="material-icons">print</i>
         <% end %>
     </h5>
@@ -69,7 +69,7 @@
             <% end %>
 
             <%# if current_user.caixa? %>
-                <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; line-height: 0; margin-top: -7px;", class: "white-text grey darken-2 right", method: :post do %>
+                <%= link_to print_order_path(order), target: "_blank", style: "padding: 4px; line-height: 0; margin-top: -7px;", class: "white-text #{order.printed ? 'blue' : 'grey'} darken-2 right", method: :post do %>
                     <i class="material-icons">print</i>
                 <% end %>
 

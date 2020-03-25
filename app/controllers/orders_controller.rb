@@ -33,6 +33,8 @@ class OrdersController < ApplicationController
   end
 
   def print
+    @order.update(printed: true)
+    
     render layout: nil
   end
 

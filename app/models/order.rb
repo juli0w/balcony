@@ -170,6 +170,10 @@ class Order < ApplicationRecord
     @total = @total_i + @total_t
   end
 
+  def get_discount
+    self.discount || 0
+  end
+
   def calculate_qtd
     @total_i = order_items.collect  { |oi| oi.valid? ? (oi.quantity) : 0 }.sum
     @total_t = order_tintas.collect { |oi| oi.valid? ? (oi.quantity) : 0 }.sum
