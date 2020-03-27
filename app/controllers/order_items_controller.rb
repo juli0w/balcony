@@ -59,7 +59,7 @@ class OrderItemsController < ApplicationController
       end
 
       if user_signed_in?
-        @order.update(user: current_user.default_stock)
+        @order.update(user: current_user.default_stock.user)
       end
 
       render "item/shipping"
