@@ -64,7 +64,9 @@
         <ul id="dropdown4" class="dropdown-content">
             <li><%= link_to 'Caixa', new_close_day_path %></li>
             <li><%= link_to 'Retiradas', outputs_path %></li>
-            <li><%= link_to 'Fechamento', checkout_path %></li>
+            <% if current_user.admin? %>
+                <li><%= link_to 'Fechamento', checkout_path %></li>
+            <% end %>
         </ul>
 
         <ul id="dropdown3" class="dropdown-content">

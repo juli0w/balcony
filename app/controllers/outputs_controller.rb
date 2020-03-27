@@ -1,6 +1,7 @@
 class OutputsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_caixa!
+  before_action :authenticate_admin!, only: [:close_day]
 
   def index
     @outputs = Output.all
