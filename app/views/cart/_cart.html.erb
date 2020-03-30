@@ -23,7 +23,7 @@
           </td>
           <td><%= number_to_currency(order_item.unit_price) %></td>
           <td><%= form_for order_item, remote: true do |f| %>
-                <%= f.number_field :quantity, step: 0.5, style: "width: 40px;" %>
+                <%= f.number_field :quantity, step: 0.01, style: "width: 40px;" %>
                 <button id="submit" class="btn btn-tiny waves-effect waves-light light-green" type="submit" name="action">
                   <i class="material-icons">loop</i>
                 </button>
