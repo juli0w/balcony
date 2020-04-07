@@ -1,0 +1,41 @@
+<div id="promotions" class="modal"
+  style="
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    max-height: 500px;
+  ">
+  <div class="modal-content">
+    <h5 style="margin-bottom: 20px;">
+      <i class="material-icons orange-text" style="vertical-align: top; margin-right: 10px;">star</i> Promoções ativas</h5>
+    
+      <% if @promotions.empty? %>
+        <p class="center-align">Nenhuma promoção ativa</p>
+      <% else %>
+        <ul class="collection no-space">
+          <% @promotions.each do |item| %>
+          <li class="collection-item avatar absol">
+            <% if item.image? %>
+              <%= image_tag item.image, class: "circle materialboxed", style: "border-radius: 0% !important;" %>
+            <% else %>
+              <i class="material-icons circle">folder</i>
+            <% end %>
+            <span class="title" style="letter-spacing: 1px;">
+              <%= link_to order_items_path(item_id: item.id, quantity: 1, key: params[:key]), class: "blue-grey-text", method: :post, remote: true do %>
+                <strong><%= item.name %></strong>
+              <% end %>
+
+              <% if current_user.admin? %>
+                <%= link_to "Editar", edit_item_path(item), class: "grey white-text", target: "_blank", style: "vertical-align: top; padding: 3px; font-size: 9px;" %>
+              <% end %>
+            </span>
+            <p style="font-size: .8em;"><%= item.code %><br>
+              <%= item.group.try(:name) %> <% item.subgroup.try(:name) %>
+            </p>
+            <%= content_tag :span, number_to_currency(item.final_price), class: "chip orange white-text" %>
+          </li>
+          <% end %>
+        </ul>
+    <% end %>
+  </div>
+</div>

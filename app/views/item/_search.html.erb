@@ -9,14 +9,22 @@
           <i class="material-icons circle">folder</i>
         <% end %>
         <span class="title" style="letter-spacing: 1px;">
+          <% if item.virtual_price.to_f > 0 %>
+            <i class="material-icons orange-text" style="vertical-align: text-middle; font-size: 14px;">star</i>
+          <% end %>
+          
           <%= link_to order_items_path(item_id: item.id, quantity: 1, key: params[:key]), class: "blue-grey-text", method: :post, remote: true do %>
             <strong><%= item.name %></strong>
+          <% end %>
+
+          <% if current_user.admin? %>
+            <%= link_to "Editar", edit_item_path(item), class: "grey white-text", target: "_blank", style: "vertical-align: top; padding: 3px; font-size: 9px;" %>
           <% end %>
         </span>
         <p style="font-size: .8em;"><%= item.code %><br>
            <%= item.group.try(:name) %> <% item.subgroup.try(:name) %>
         </p>
-        <%= content_tag :span, number_to_currency(item.price), class: "chip light-green white-text" %>
+        <%= content_tag :span, number_to_currency(item.final_price), class: "chip #{item.virtual_price.to_f > 0 ? 'orange' : 'light-green'} white-text" %>
       </li>
       <% end %>
     </ul>

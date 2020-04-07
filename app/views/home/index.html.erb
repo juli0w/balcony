@@ -8,8 +8,12 @@
   </span>
 </div>
 <div class="col s12 m6 red darken-1 white-text" style="padding: 0;">
-  <a class="btn-large right green" onclick="$('.search').slideToggle(); $('.cart').slideToggle(); $('#search').focus();">
+  <a class="btn-large right green" onclick="$('.search, .cart').slideToggle(); $('#search').focus();">
     <i class="large material-icons">shopping_cart</i>
+  </a>
+
+  <a class="btn-large right orange modal-trigger" href="#promotions">
+    <i class="large material-icons">star</i>
   </a>
 
   <%= link_to "#client-infos", class: "modal-trigger btn-large right red darken-1" do %>
@@ -20,6 +24,9 @@
     <i class="large material-icons">refresh</i>
   <% end %>
 </div>
+
+<%= render "item/promotions" %>
+
 <div class="col s12 no-space cart" style="display: none;">
   <%= render "cart/cart" %>
 </div>

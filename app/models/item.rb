@@ -16,4 +16,8 @@ class Item < ApplicationRecord
     attributes :group => ["group.name"]
     attributes :subgroup => ["subgroup.name"]
   end
+
+  def final_price
+    virtual_price.to_f > 0 ? virtual_price : price
+  end
 end

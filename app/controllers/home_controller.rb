@@ -17,6 +17,7 @@ class HomeController < ApplicationController
     end
 
     @items = Item.where(active: true).order(:name).search(params[:key].try(:upcase)).first(50)
+    @promotions = Item.where(active: true).where("virtual_price > 0")
     @client = Client.find(session[:client])
   end
 
