@@ -8,6 +8,10 @@ class Output < ApplicationRecord
     "Injeção" => 2
   }
 
+  def value
+    self.read_attribute(:value) || 0
+  end
+
   def type_name
     TYPES.key(self.output_type) || "Não informado"
   end
