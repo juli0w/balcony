@@ -29,6 +29,23 @@ class Order < ApplicationRecord
     attributes :items => ["items.name"]
   end
 
+  def colour_state
+    return case self.state
+    when "paid"
+      "green"
+    when "open"
+      "yellow darken-2"
+    when "pending"
+      "blue"
+    when "quote"
+      "blue"
+    when "canceled"
+      "grey lighten-2"
+    else
+      "grey"
+    end
+  end
+
   def get_state
     {"open" => "Aberto",
      "paid" => "Pago",
