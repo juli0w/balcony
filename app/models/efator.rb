@@ -91,8 +91,8 @@ private
     xml.xpath("grupos/grupo").each do |item|
       family = Family.where(code: item.xpath("familia").text.to_i).first
       if family
-        family.groups.first_or_create(code: item['id'].to_i,
-                           name: item.xpath("descricao").text)
+        family.groups.where(code: item['id'].to_i).
+                      first_or_create(name: item.xpath("descricao").text)
       end
     end
   end
@@ -100,8 +100,8 @@ private
   def self.import_subgroup file
     xml = Nokogiri::XML(File.open(file.tempfile))
     xml.xpath("subgrupos/subgrupo").each do |item|
-      Subgroup.first_or_create(code: item['id'].to_i,
-                      name: item.xpath("descricao").text)
+      Subgroup.where(code: item['id'].to_i).
+               first_or_create(name: item.xpath("descricao").text)
     end
   end
 end
