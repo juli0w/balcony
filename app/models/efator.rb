@@ -43,6 +43,7 @@ class Efator
 private
 
   def self.import_item file
+    return if file.blank?
     xml = Nokogiri::XML(File.open(file.tempfile))
 
     xml.xpath("itens/item").each do |i|
