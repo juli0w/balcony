@@ -90,11 +90,8 @@ private
   def self.import_group file
     xml = Nokogiri::XML(File.open(file.tempfile))
     xml.xpath("grupos/grupo").each do |item|
-      family = Family.where(code: item.xpath("familia").text.to_i).first
-      if family
-        family.groups.where(code: item['id'].to_i).
-                      first_or_create(name: item.xpath("descricao").text)
-      end
+      Group.where(code: item['id'].to_i).
+            first_or_create(name: item.xpath("descricao").text)
     end
   end
 
