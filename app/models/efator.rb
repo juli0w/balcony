@@ -15,7 +15,7 @@ class Efator
       end
     end
 
-    Item.all.each do |i|
+    # Item.all.each do |i|
 
     Item.where(code: nil).each do |i|
       
