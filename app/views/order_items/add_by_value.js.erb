@@ -1,5 +1,4 @@
 $(".cart").html('<%= escape_javascript(render "cart/cart") %>');
-alert("<%= @quantity %>");
 var $toastContent = $('<span>Adicionado com sucesso</span>');
 Materialize.toast($toastContent, 5000);
 $("#byv_<%= @item.id %>").modal('close');
