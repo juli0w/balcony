@@ -115,7 +115,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :order_items,  only: [:create, :destroy, :update]
+  resources :order_items,  only: [:create, :destroy, :update] do
+    member do
+      post :add_by_value
+    end
+  end
+
   resources :order_tintas, only: [:create, :destroy, :update]
 
   root to: "home#index"

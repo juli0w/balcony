@@ -2,6 +2,54 @@ require 'nokogiri'
 class Efator
   attr_accessor :family, :group, :subgroup, :item
 
+  def self.remove_duplicates
+    Family.find_each do |sg|
+      if sg
+        original = Family.where.not(code: nil).where(name: sg.name).first
+
+        if original
+          Group.joins(:family).where('families.name = ?', original.name).update_all(family_id: original.id)
+          Item.joins(:family).where('families.name = ?', original.name).update_all(family_id: original.id)
+          Family.where(code: nil).where(name: sg.name).destroy_all
+        end
+      end
+    end
+
+    Item.all.each do |i|
+
+    Item.where(code: nil).each do |i|
+      
+      # itens = Item.where({ code: nil, name: i.name })
+      
+      # if itens.any?
+      itens = Item.where.not(code: nil).where(name: i.name)
+        original = itens.first
+        if original
+        OrderItem.joins(:item).where('items.name = ?', original.name).update_all(item_id: original.id)
+        StockItem.joins(:item).where('items.name = ?', original.name).update_all(item_id: original.id)
+        ProductBaseItem.joins(:item).where('items.name = ?', original.name).update_all(item_id: original.id)
+        Dye.joins(:item).where('items.name = ?', original.name).update_all(item_id: original.id)
+        TintaAcabamentoBaseItem.joins(:item).where('items.name = ?', original.name).update_all(item_id: original.id)
+        TintaPigmentoItem.joins(:item).where('items.name = ?', original.name).update_all(item_id: original.id)
+        Rproduct.joins(:item).where('items.name = ?', original.name).update_all(item_id: original.id)
+        Rintegration.joins(:item).where('items.name = ?', original.name).update_all(item_id: original.id)
+        StockChange.joins(:item).where('items.name = ?', original.name).update_all(item_id: original.id)
+        
+        end
+        begin
+          Item.where({ code: nil, name: i.name }).destroy_all
+        rescue
+        end
+    end
+
+    Group.all.each do |sg|
+      original = Group.where.not(code: nil).where(name: sg.name).first
+
+      Item.joins(:group).where('groups.name = ?', original.name).update_all(group_id: original.id)
+      sg.destroy if sg.code == nil
+    end
+  end
+
   def initialize params
     self.family = params[:family]
     self.group = params[:group]

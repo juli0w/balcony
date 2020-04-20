@@ -39,6 +39,24 @@ class OrderItemsController < ApplicationController
     redirect_to root_path(key: params[:key])
   end
 
+  def add_by_value
+    @item = Item.find(params[:id])
+    
+    @quantity = params[:value].to_f / @item.final_price.to_f
+
+    @order = current_cart
+    @order.add_item({
+      item_id: @item.id,
+      quantity: @quantity
+    })
+
+    @order.save
+
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
   def clients
     @client = Client.find_by_email(params[:email])
     @client = Client.new if @client.blank?
