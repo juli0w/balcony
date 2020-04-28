@@ -28,7 +28,45 @@
 <%= render "item/promotions" %>
 
 <div class="col s12 no-space cart" style="display: none;">
-  <%= render "cart/cart" %>
+  <div class="cart-partial">
+    <%= render "cart/cart" %>
+  </div>
+
+  <%= form_tag finish_order_path, method: :post do |f| %>
+
+    <div class="row" style="margin-bottom: 0">
+      <div class="input-field col s12 m8 offset-m4 l3 offset-l9">
+        <%= select_tag(:seller, options_from_collection_for_select(@sellers, :username, :name, current_user.try(:username))) %>
+        <%= label_tag :seller, "Vendedor" %>
+      </div>
+    </div>
+
+    <div class="row" style="margin: 0">
+      <div class="input-field col s12 m8 offset-m4 l3 offset-l9">
+        <%= label_tag :obs, 'Observações' %>
+        <%= text_area_tag :obs, "", class: "materialize-textarea", style: "height: 40px" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <%= link_to clean_path(key: params[:key]), class: "btn grey darken-2" do %>
+          <%= material_icon.delete.css_class("left") %> Limpar
+        <% end %>
+
+        <% if current_user.caixa? %>
+          <%= link_to new_stock_transfer_path, class: "btn blue darken-3" do %>
+            <%= material_icon.send.css_class("left") %> Transferência
+          <% end %>
+        <% end %>
+
+        <%= button_tag(type: :submit, class: "btn right light-green") do %>
+          <%= material_icon.shopping_cart.css_class("left") %> Finalizar
+        <% end %>
+
+      </div>
+    </div>
+  <% end %>
 </div>
 
 <div class="col s12 no-space search">

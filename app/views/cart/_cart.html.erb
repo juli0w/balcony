@@ -60,21 +60,4 @@
       </tr>
     </table>
   </div>
-  <div class="col s12">
-    <br>
-    <%= link_to clean_path(key: params[:key]), class: "btn grey darken-2" do %>
-      <%= material_icon.delete.css_class("left") %> Limpar
-    <% end %>
-
-    <% if current_user.caixa? %>
-      <%= link_to new_stock_transfer_path, class: "btn blue darken-3" do %>
-        <%= material_icon.send.css_class("left") %> Transferência
-      <% end %>
-    <% end %>
-
-    <%= link_to shipping_order_path, class: "btn right light-green", method: :post do %>
-      <%= material_icon.shopping_cart.css_class("left") %> Finalizar
-    <% end %>
-
-  </div>
 </div>

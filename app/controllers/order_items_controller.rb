@@ -9,7 +9,15 @@ class OrderItemsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to root_path(key: params[:key]) }
-      format.js { render 'item/create' }
+      format.js {
+        @sellers = User.where("role >= 1")
+
+        unless current_user.admin?
+          @sellers = @sellers.where(default_stock_id: current_user.default_stock_id)
+        end
+        
+        render 'item/create'
+      }
     end
   end
 
@@ -85,6 +93,12 @@ class OrderItemsController < ApplicationController
   end
 
   def finish
+    if current_cart.empty?
+      notice = "Você não adicionou itens ao pedido"
+      redirect_to root_path, notice: notice
+      return
+    end
+    
     @order = current_cart
     @order.open!
     @order.update(obs: params[:obs],
@@ -92,7 +106,9 @@ class OrderItemsController < ApplicationController
                   seller: params[:seller],
                   created_at: Time.now)
 
-    # @client = @order.clienting(client_params)
+    if user_signed_in?
+      @order.update(user: current_user.default_stock.user)
+    end
 
     flash[:notice] = "Pedido realizado com sucesso!"
 
