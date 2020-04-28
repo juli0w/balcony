@@ -10,12 +10,6 @@ class OrderItemsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to root_path(key: params[:key]) }
       format.js {
-        @sellers = User.where("role >= 1")
-
-        unless current_user.admin?
-          @sellers = @sellers.where(default_stock_id: current_user.default_stock_id)
-        end
-        
         render 'item/create'
       }
     end

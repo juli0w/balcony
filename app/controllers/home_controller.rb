@@ -18,9 +18,9 @@ class HomeController < ApplicationController
 
     @sellers = User.where("role >= 1")
 
-    unless current_user.admin?
-      @sellers = @sellers.where(default_stock_id: current_user.default_stock_id)
-    end
+    # unless current_user.admin?
+    #   @sellers = @sellers.where(default_stock_id: current_user.default_stock_id)
+    # end
 
     @items = Item.where(active: true).order(:name).search(params[:key].try(:upcase)).first(50)
     @promotions = Item.where(active: true).where("virtual_price > 0")
