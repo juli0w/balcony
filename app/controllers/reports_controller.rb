@@ -50,6 +50,24 @@ class ReportsController < ApplicationController
     end
   end
 
+  def sales_by_day
+    @date = params[:date].blank? ? Date.today : params[:date].to_date
+    stock_id = params[:stock_id] || current_user.default_stock.id
+
+    @stock = Stock.find(stock_id)
+    user_id = @stock.user_id
+
+    @orders = Order.
+                paid.
+                where("
+                    created_at > ? and
+                    created_at < ? and
+                    user_id = ?",
+                  @date.beginning_of_day,
+                  @date.end_of_day,
+                  user_id)
+  end
+
   def abc
     start = 6.month.ago
     final = Date.today

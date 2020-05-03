@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col s12 m12 l12">
+    <h4 style="margin-top: 40px;">Vendas por dia</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="card-panel">
+    <div class="search-offers">
+      <%= form_tag sales_by_day_report_path, method: :get do %>
+        <fieldset style="border: none; margin: 0; padding: 0;">
+          <div class="row">
+            <div class="input-field col s12">
+              <%= label_tag :date, 'Dia', class: "active" %>
+              <%= date_field_tag :date, @date %>
+            </div>
+
+            <div class="input-field col s12">
+              <%= select_tag(:stock_id, options_from_collection_for_select(Stock.all, :id, :name, @stock.id)) %>
+              <%= label_tag :stock_id, "Loja" %>
+            </div>
+          </div>
+            <button class="btn" type="submit" name="action">
+              Filtrar
+            </button>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-panel">
+    <h5><%= @stock.name %> - <%= l @date %></h5>
+    <hr />
+    <table class="striped bordered">
+      <thead>
+        <tr>
+          <th data-field="id">Pedido</th>
+          <th data-field="">Cliente</th>
+          <th data-field="">Vendedor</th>
+          <th data-field="">Detalhes</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if @orders.any? %>
+          <% @orders.each do |order| %>
+            <tr>
+              <td><%= order.id %></td>
+              <td><%= order.client.try(:name) %></td>
+              <td><%= order.seller %></td>
+              <td>
+                <p>
+                    Total:
+                    <%= number_to_currency(order.calculate_total) %>
+                </p>
+
+                <% if order.cc_value.to_f > 0 %>
+                <p>
+                    <span class="titled">No cartão:</span>
+                    <%= number_to_currency(order.cc_value) %>
+                </p>
+                <% end %>
+
+                <% if order.boleto_value.to_f > 0 %>
+                <p>
+                    <span class="titled">No boleto:</span>
+                    <%= number_to_currency(order.boleto_value) %>
+                </p>
+                <% end %>
+
+                <% if order.boleto? %>
+                <p>
+                    <span class="titled">Forma de pagamento:</span>
+                    Boleto
+                </p>
+                <% end %>
+
+                <% if order.shipping > 0 %>
+                <p>
+                    <span class="titled">Frete:</span>
+                    <%= number_to_currency order.shipping %>
+                </p>
+                <% end %>
+
+                <% if order.discount.to_f > 0 %>
+                <p>
+                    <span class="titled">Desconto:</span>
+                    <%= number_to_currency order.discount %>
+                </p>
+                <% end %>
+
+                <p>
+                    <span class="titled">Dinheiro:</span>
+                    <%= number_to_currency(order.total_cash) %>
+                </p>
+
+              </td>
+            </tr>
+          <% end %>
+
+          <tr>
+            <td colspan=2></td>
+            <td style="text-align: right">Total:</td>
+            <td><%= number_to_currency @orders.sum {|o| o.total_discounted || 0 } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
