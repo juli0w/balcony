@@ -101,7 +101,13 @@
           <tr>
             <td colspan=2></td>
             <td style="text-align: right">Total:</td>
-            <td><%= number_to_currency @orders.sum {|o| o.total_discounted || 0 } %></td>
+            <td><%= number_to_currency @orders.sum {|o| o.total_discounted || 0 } %>
+          </tr>
+
+          <tr>
+            <td colspan=2></td>
+            <td style="text-align: right">Dinheiro:</td>
+            <td><%= number_to_currency @orders.sum {|o| o.total_cash || 0 } %>
           </tr>
         <% end %>
       </tbody>
