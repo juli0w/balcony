@@ -117,6 +117,8 @@ class Order < ApplicationRecord
       new_client_cash = 0
     end
 
+    update(cashed: value)
+
     Output.create(user: self.user,
                   output_type: 1,
                   description: "SISTEMA: Pagamento com saldo - Pedido ##{self.id}",
@@ -202,6 +204,6 @@ class Order < ApplicationRecord
   end
 
   def total_cash
-    total_discounted - cc_value.to_f - boleto_value.to_f
+    total_discounted - cc_value.to_f - boleto_value.to_f - cashed.to_f
   end
 end
