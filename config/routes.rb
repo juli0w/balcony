@@ -88,6 +88,7 @@ Rails.application.routes.draw do
   resources :sections
   resources :orders do
     member do
+      post :edit_obs
       put :setcc
       put :setboleto
       put :setcash

@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :set_order, only: [:pending, :boleto, :setcash, :setboleto, :setcc, :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
+  before_filter :set_order, only: [:edit_obs, :pending, :boleto, :setcash, :setboleto, :setcc, :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
   before_action :authenticate_user!
   before_action :authenticate_admin!, only: [:edit]
   # before_action :authenticate_caixa!, only: [:setcc, :setcash, :boleto]
@@ -18,6 +18,12 @@ class OrdersController < ApplicationController
     end
 
     @orders = @orders.search(params[:keyword]).page(params[:page]).per(10).order("orders.submited_at DESC, orders.id DESC")
+  end
+
+  def edit_obs
+    @order.update(obs: params[:obs])
+
+    redirect_to "/orders##{@order.id}"
   end
 
   def edit

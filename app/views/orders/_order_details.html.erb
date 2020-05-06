@@ -115,14 +115,23 @@
          </div>
      </div>
      <% end %>
-     <% unless order.obs.blank? %>
+
      <div class="row rowed">
          <div style="float: left;">
-             <span class="titled">Observação:<br></span>
-             <%= order.obs %>
+             <span class="titled">Observação:
+             <%= link_to "Editar", "javascript:$('#obs-edit-#{order.id}').slideToggle();", style: "font-size: 8px; padding: 2px;" %>
+             <br></span>
+
+             <div id="obs-edit-<%= order.id %>" style="display: none;">
+                <%= form_tag edit_obs_order_path(order) do %>
+                    <%= text_area_tag :obs, order.obs %>
+                    <%= submit_tag "Salvar", class: "blue white-text", style: "border: none; font-size: 10px; padding: 4px 8px;" %>
+                <% end %>
+                <br>
+             </div>
+            <%= order.obs %>
          </div>
      </div>
-     <% end %>
 
      <div class='switch' style="display:none;">
          <label>Cupom retirado
