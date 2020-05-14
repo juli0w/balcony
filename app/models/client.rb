@@ -13,6 +13,10 @@ class Client < ApplicationRecord
     attributes :section => ["section.name"]
   end
 
+  def name
+    read_attribute(:name) || "<sem nome>"
+  end
+
   def points date
     orders.where("created_at > ?", date).sum(&:calculate_total)
   end
