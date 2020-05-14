@@ -15,13 +15,13 @@
 
         <tr>
             <td style="padding: 0;">
-                <%= link_to "#{orders_path(keyword: "#{order.id} #{order.client.name}")}##{order.id}", target: "_blank" do %>
+                <%= link_to "#{orders_path(keyword: "#{order.id} #{order.try(:client).try(:name)}")}##{order.id}", target: "_blank" do %>
                     <span style="flex: 1; display: flex; width: 100%; padding: 10px;">
                         <%= order.id %>
                     </span>
                 <% end %>
             </td>
-            <td><%= order.client.name %></td>
+            <td><%= order.try(:client).try(:name) %></td>
             <td><%= number_to_currency order.total %></td>
             <td><%= number_to_currency order.total_discounted %></td>
             <td><%= number_to_currency order.cc_value %></td>
