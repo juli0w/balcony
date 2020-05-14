@@ -75,9 +75,9 @@ class ClientsController < ApplicationController
   end
 
   def destroy
-    @client.delete
+    # @client.delete
 
-    flash[:success] = "Cliente removido"
+    flash[:success] = "Não é possível remover um cliente"
     redirect_to clients_path
   end
 
