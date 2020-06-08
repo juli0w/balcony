@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_admin!, except: [:profile, :update_profile]
 
   def index
-    @users = User.search(params[:keyword])
+    @users = User.where('super_role == ?', false).search(params[:keyword])
   end
 
   def become
