@@ -53,6 +53,10 @@ class User < ApplicationRecord
     role.to_i >= 3
   end
 
+  def super?
+    (role.to_i >= 10) and (super_role == true)
+  end
+
   def login=(login)
     @login = login
   end
