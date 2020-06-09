@@ -19,6 +19,23 @@ class OrdersController < ApplicationController
       @orders = @orders.send(params[:type])
     end
 
+    if params[:date].present?
+      date = params[:date].to_date
+      @orders = @orders.where('created_at > ? and created_at < ?',
+                                date.beginning_of_day,
+                                date.end_of_day)
+    end
+
+    if params[:seller].present?
+      @orders = @orders.where(seller: params[:seller])
+    end
+
+    if params[:stock].present?
+      stock = Stock.find(params[:stock])
+      user = User.where(default_stock_id: stock.id).first
+      @orders = @orders.where(user_id: user.id)
+    end
+
     @orders = @orders.search(params[:keyword]).page(params[:page]).per(10).order("orders.submited_at DESC, orders.id DESC")
   end
 

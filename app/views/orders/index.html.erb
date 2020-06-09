@@ -21,23 +21,46 @@
           <div class="search-offers">
             <%= form_tag orders_path, method: :get do %>
                 <fieldset style="border: none; margin: 0; padding: 0;">
-                  <input name="keyword" id="icon_local" style="display: inline;" type="search" placeholder="Filtrar pedidos" value='<%= params[:keyword] %>'>
-                  <button class="btn" type="submit" name="action">
-                    Filtrar
-                  </button>
+                  <div class="col s12">
+                    <input name="keyword" id="icon_local" style="display: inline;" type="search" placeholder="Filtrar pedidos" value='<%= params[:keyword] %>'>
+                  </div>
+                  <div id="advanced-filters" style="display: none;">
+                    <div class="col s12 m5">
+                      <%= select_tag(:seller, options_from_collection_for_select(User.where("role >= 1"), :username, :name, params[:seller]), prompt: "Vendedor") %>
+                    </div>
+                    <div class="col s6 m4">
+                      <%= select_tag :stock, options_for_select(Stock.all.collect{ |u| [u.name, u.id] }, params[:stock]), prompt: "Loja" %>
+                    </div>
+                    <div class="col s6 m3">
+                      <%= date_field_tag :date, (params[:date]) %>
+                    </div>
+                  </div>
+                  
+                  <div class="col s12">
+                    <button class="btn" type="submit" name="action">
+                      Filtrar
+                    </button>
 
-                  <%= hidden_field_tag :type, params[:type] %>
-                  <%= link_to "Todos", orders_path, style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type].blank?}" %>
-                  <% if current_user.admin? %>
+                    <%= link_to "Filtros avançados", "javascript:void()",
+                      style: "font-size: 8px;
+                              text-transform: uppercase;
+                              vertical-align: bottom;
+                              margin-left: 20px;",
+                      onclick: "javascript:$('#advanced-filters').slideToggle();" %>
 
-                    <%= link_to "Cancelados", orders_path(type: "canceled"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'canceled'}" %>
-                    <%= link_to "Pagos", orders_path(type: "paid"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'paid'}" %>
-                  <% end %>
-                  <% if current_user.caixa? %>
-                    <%= link_to "Carteira", orders_path(type: "pending"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'pending'}" %>
-                  <% end %>
-                  <%= link_to "Abertos", orders_path(type: "opened"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
-                  <%= link_to "Orçamentos", orders_path(type: "quote"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'quote'}" %>
+                    <%= hidden_field_tag :type, params[:type] %>
+                    <%= link_to "Todos", orders_path, style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type].blank?}" %>
+                    <% if current_user.admin? %>
+
+                      <%= link_to "Cancelados", orders_path(type: "canceled"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'canceled'}" %>
+                      <%= link_to "Pagos", orders_path(type: "paid"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'paid'}" %>
+                    <% end %>
+                    <% if current_user.caixa? %>
+                      <%= link_to "Carteira", orders_path(type: "pending"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'pending'}" %>
+                    <% end %>
+                    <%= link_to "Abertos", orders_path(type: "opened"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'opened'}" %>
+                    <%= link_to "Orçamentos", orders_path(type: "quote"), style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type] == 'quote'}" %>
+                </div>
               </fieldset>
             <% end %>
           </div>
