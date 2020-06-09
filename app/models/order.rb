@@ -25,7 +25,7 @@ class Order < ApplicationRecord
     attributes :state
     attributes :seller
     attributes :user => ["user.email", "user.username"]
-    attributes :client => ["client.name", "client.email"]
+    attributes :client => ["client.name", "client.email", "client.company", "client.city"]
     attributes :items => ["items.name"]
   end
 

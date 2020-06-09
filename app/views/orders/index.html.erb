@@ -36,7 +36,7 @@
                     </div>
                   </div>
                   
-                  <div class="col s12">
+                  <div class="col s12 m4">
                     <button class="btn" type="submit" name="action">
                       Filtrar
                     </button>
@@ -49,6 +49,9 @@
                       onclick: "javascript:$('#advanced-filters').slideToggle();" %>
 
                     <%= hidden_field_tag :type, params[:type] %>
+                  </div>
+
+                  <div class="col s12 m8">
                     <%= link_to "Todos", orders_path, style: 'padding: 0 12px !important; margin: 0;', class: "btn-flat #{'disabled' if params[:type].blank?}" %>
                     <% if current_user.admin? %>
 
