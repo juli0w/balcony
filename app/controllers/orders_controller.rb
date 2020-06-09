@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
       @orders = user.orders.not_empty.opened_and_quote
     end
 
-    @orders = @orders.where('created_at > ?', 4.days.ago) unless current_user.super?
+    # @orders = @orders.where('created_at > ?', 4.days.ago) unless current_user.super?
 
     if params[:type].present?
       @orders = @orders.send(params[:type])
