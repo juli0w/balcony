@@ -37,7 +37,7 @@
              </div>
              <% end %>
 
-             <% if order.shipping > 0 %>
+             <% if order.shipping.to_f > 0 %>
              <div style="width: 140px; float: left">
                  <span class="titled">Frete:<br></span>
                  <%= number_to_currency order.shipping %>

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_admin!, except: [:profile, :update_profile]
 
   def index
-    @users = User.where('super_role == ?', false).search(params[:keyword])
+    @users = User.where(super_role: false).search(params[:keyword])
   end
 
   def become
@@ -47,9 +47,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.delete
+    # @user.delete
 
-    flash[:success] = "Usuário removido"
+    # flash[:success] = "Usuário removido"
     redirect_to users_path
   end
 
@@ -62,6 +62,7 @@ private
   def client_params
     params.require('/profile').permit(:name, :email, :section_id, :name, :address, :city, :uf, :cpf, :birthday, :phone, :cep, :line, :company, :district)
   end
+
   def user_params
     params.require(:user).permit(:email, :default_stock_id, :name, :username, :password, :role, :password_confirmation)
   end
