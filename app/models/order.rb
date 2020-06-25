@@ -63,7 +63,7 @@ class Order < ApplicationRecord
   end
 
   def money?
-    !self.boleto? and !(self.cc_value >= self.calculate_total)
+    !self.boleto? and !(self.cc_value.to_f >= self.calculate_total)
   end
 
   def boleto?
