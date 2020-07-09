@@ -32,8 +32,7 @@ class OrdersController < ApplicationController
 
     if params[:stock].present?
       stock = Stock.find(params[:stock])
-      user = User.where(default_stock_id: stock.id).first
-      @orders = @orders.where(user_id: user.id)
+      @orders = @orders.where(user_id: stock.user_id)
     end
 
     @orders = @orders.search(params[:keyword]).page(params[:page]).per(10).order("orders.submited_at DESC, orders.id DESC")
