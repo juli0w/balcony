@@ -23,6 +23,12 @@
     </div>
   </div>
 
+  <div class="col s12">
+    <div class="card panel">
+      <%= bar_chart @data, {maintainAspectRatio: false} %>
+    </div>
+  </div>
+
   <div class="col s12 m6">
     <div class="card-panel">
       <h5 onclick="$('.report1').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
@@ -58,7 +64,7 @@
   </div>
 
   <div class="col s12 m6">
-    <div class="card-panel" style="margin-top: 20px;">
+    <div class="card-panel">
       <h5 onclick="$('.report2').slideToggle(30);" style="border-bottom: 1px dashed #dedede; padding-bottom: 12px; margin-top: 0; font-size: 16px; color: #aeaeae; font-weight: bold;">
         Vendas do mês (por loja)
       </h5>
