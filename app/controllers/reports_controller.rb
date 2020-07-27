@@ -31,23 +31,34 @@ class ReportsController < ApplicationController
       datasets: [
         {
             label: "Faturamento",
-            backgroundColor: "rgba(160,160,160,0.2)",
-            borderColor: "rgba(120,120,120,0.6)",
+            backgroundColor: "rgba(160,255,160,0.2)",
+            borderColor: "rgba(120,255,120,0.6)",
             data: @days.map {|d| Order.paid.where("created_at >= ? and created_at <= ?", d.beginning_of_day, d.end_of_day).sum(&:total) }# @values.values.map{|o| o.sum(&:total) }
         }
       ]
     }
 
+    i = 1
+
     @orders_by_month.each do |user, orders|
       if user
+        color = get_color(i)
+        i += 1
         @data[:datasets] << {
             label: (user.try(:name) || user.try(:email)),
-            backgroundColor: "rgba(220,220,220,0.2)",
-            borderColor: "rgba(220,220,220,1)",
+            backgroundColor: "rgba(#{color},0.2)",
+            borderColor: "rgba(#{color},1)",
             data: @days.map {|d| Order.paid.where("created_at >= ? and created_at <= ? and user_id = ?", d.beginning_of_day, d.end_of_day, user.try(:id)).sum(&:total) }# @values.values.map{|o| o.sum(&:total) }
         }
       end
     end
+  end
+
+  def get_color index
+    { 1 => "120,120,255",
+      2 => "255,120,120",
+      3 => "120,120,120",
+      4 => "255,20,255" }[index]
   end
 
   def sales_by_day
