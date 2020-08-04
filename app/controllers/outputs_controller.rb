@@ -62,7 +62,7 @@ class OutputsController < ApplicationController
     @orders = Order.
       paid.
       where(
-        "created_at > ? and created_at < ?",
+        "paid_at > ? and paid_at < ?",
         @day.beginning_of_day,
         @day.end_of_day).
       group_by(&:user)
