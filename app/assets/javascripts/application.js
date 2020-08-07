@@ -24,6 +24,16 @@ $(document).ready(function() {
   $(".dropdown-button").dropdown();
   $('.tabs').tabs();
 
+  $(".stockCount").change(function() {
+    val = $(this).data('id');
+    stock_id = $(this).data('stock_id');
+    $.post("/items/"+val+"/check?stock_id="+ stock_id +"&checked=" + val)
+  });
+
+  $('#modoInventario').change(function() {
+    $("#searchForm").submit();
+  });
+
   $(".coupon_check").change(function() {
     $.get("/order_check/" + $(this).attr("data-order") + "?value=" + $(this).prop('checked'), function() { alert("sucesso"); });
   });

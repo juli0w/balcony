@@ -10,7 +10,7 @@
   <div class="row">
     <div class="card-panel">
       <div class="search-offers">
-        <%= form_tag items_path, method: :get do %>
+        <%= form_tag items_path, method: :get, id: "searchForm" do %>
             <fieldset style="border: none; margin: 0; padding: 0;">
               <input name="keyword" id="icon_local" style="display: inline;" type="search" placeholder="Filtrar itens" value='<%= params[:keyword] %>'>
               <button class="btn" type="submit" name="action">
@@ -18,6 +18,14 @@
               </button>
               <%= link_to "Imprimir", print_items_path(keyword: params[:keyword]), class: "btn large blue" %>
               <%#= link_to "Sem imagem", items_path(noimage: 'noimage'), class: "btn right" %>
+
+              <div class="right">
+                <%= select_tag :stock_id,
+                      options_from_collection_for_select(Stock.all, :id, :name, params[:stock_id]),
+                      include_blank: false,
+                      prompt: "Modo inventário",
+                      id: "modoInventario" %>
+              </div>
           </fieldset>
         <% end %>
       </div>
@@ -44,10 +52,30 @@
               <td><%= item.code %></td>
               <td><%= item.name %></td>
               <td><%= item.subgroup.try(:name) %></td>
-              <td><% Stock.all.each do |stock| %>
-                  <p><%= "#{stock.name}: #{stock.of_item(item.id)}" %></p>
-                <% end %>
-              </td>
+              <% unless params[:stock_id].blank? %>
+                <td>
+                  <p><%= "#{@stock.name}: #{@stock.of_item(item.id)}" %></p>
+                  
+                    <div class="switch">
+                      <label>
+                        <input
+                          type="checkbox"
+                          class="stockCount"
+                          id="item-<%= item.id %>"
+                          data-stock_id="<%= params[:stock_id] %>"
+                          data-id="<%= item.id %>"
+                          <%= "checked" if @stock.checked?(item.id) %>                        
+                        >
+                        <span class="lever"></span>
+                      </label>
+                    </div>
+                </td>
+              <% else %>
+                <td><% Stock.all.each do |stock| %>
+                    <p><%= "#{stock.name}: #{stock.of_item(item.id)}" %></p>
+                  <% end %>
+                </td>
+              <% end %>
               <td>
                 <%= link_to "Editar", [:edit, item] %>
               </td>
@@ -57,7 +85,7 @@
         </tbody>
       </table>
 
-      <%= paginate @items %>
+      <%= paginate @items, params: { stock_id: params[:stock_id], keyword: params[:keyword] } %>
 
     </div>
   </div>

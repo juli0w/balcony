@@ -74,12 +74,16 @@ Rails.application.routes.draw do
   get "checkout", to: "outputs#close_day", as: "checkout"
 
   resources :outputs
+  
   resources :stocks
   resources :stock_changes
   resources :stock_transfers
 
   resources :listings
   resources :items do
+    member do
+      post :check
+    end
     collection do
       get :print
     end

@@ -5,14 +5,33 @@ class ItemsController < ApplicationController
 
   def index
     if params[:keyword].present?
-      @items = Item.search(params[:keyword]).page(params[:page]).order(:name)
+      @items = Item.search(params[:keyword])
     else
-      @items = Item.all.page(params[:page]).order(:name)
+      @items = Item.all
+    end
+
+    unless params[:stock_id].blank?
+      @stock = Stock.find(params[:stock_id])
+
+      item_ids = StockItem.where(stock_id: @stock.id).where("quantity <= 0").map(&:item_id)
+      
+      @items = @items.where(:id => item_ids)
     end
 
     if params[:noimage]
       @items = @items.where(image: nil)
     end
+
+    @items = @items.page(params[:page]).order(:name)
+  end
+
+  def check
+    checked = params[:checked]
+    stock_id = params[:stock_id]
+
+    StockCount.where(stock_id: stock_id, item_id: params[:id]).
+      first_or_create.
+      update(checked: checked)
   end
 
   def print
