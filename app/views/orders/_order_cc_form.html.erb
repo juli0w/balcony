@@ -9,10 +9,10 @@
         margin: 20px 0;">
 
         <div class='switch'>
-        <label style="font-size: 16px; color: black;">Cartão
-            <input class="boleto" data-order="<%= order.id %>" type="checkbox" <%= "checked" if order.boleto? %>>
-            <span class="lever"></span> Boleto
-        </label>
+            <label style="font-size: 16px; color: black;">Cartão
+                <input class="boleto" data-order="<%= order.id %>" type="checkbox" <%= "checked" if order.boleto? %>>
+                <span class="lever"></span> Boleto
+            </label>
         </div>
     </div>
         <div style="
@@ -42,8 +42,22 @@
                 style: "width: 60px;",
                 disabled: order.boleto?,
                 value: (order.cc_value.to_f > 0 ? order.cc_value : order.total_discounted) %>
+
+        <div class='switch' style="margin-bottom: 20px;">
+            <label style="font-size: 14px; color: black;">Débito
+                <input class=""
+                    data-order="<%= order.id %>"
+                    type="checkbox"
+                    name="order[credito]"
+                    <%= "checked" if order.credito %>
+                    <%= "disabled" if order.boleto? %>
+                >
+                <span class="lever"></span> Crédito
+            </label>
+        </div>
+
         <button <%= "disabled" if order.boleto? %> class="btn waves-effect waves-light light-green" type="submit" name="action">
-        <i class="material-icons left">save</i> Salvar
+            <i class="material-icons left">save</i> Salvar
         </button>
     <% end %>
     </div>

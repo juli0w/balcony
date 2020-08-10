@@ -96,8 +96,16 @@
 
             <tr style="cursor: pointer;" class="highlightHover" onclick="$('#cartoes-'+<%= user.id %>).slideToggle(200);">
                 <td width="50%">Cartão</td>
-                <td width="25%"></td>
-                <td width="25%"><%= number_to_currency orders.sum{|o| o.cc_value.to_f } %></td>
+                <%
+                  tt = orders.sum{|o| o.cc_value.to_f }
+                  cc = orders.select{|o| o.credito }.sum{|o| o.cc_value.to_f }
+                  dd = tt-cc
+                %>
+                <td width="25%">
+                  D: <%= number_to_currency dd %>
+                  <br>C: <%= number_to_currency cc %>
+                </td>
+                <td width="25%"><%= number_to_currency tt %></td>
             </tr>
 
             <tr id="cartoes-<%= user.id %>" style="display: none;">

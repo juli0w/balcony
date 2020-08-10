@@ -3,7 +3,7 @@
         <tr class="grey white-text">
             <th data-field="id" width="20%">Pedido</th>
             <th data-field="id" width="">Cliente</th>
-            <th data-field="total" width="20%">Subtotal</th>
+            <th data-field="total" width="20%"></th>
             <th data-field="total" width="20%">Total</th>
             <th data-field="total" width="20%">Cartão</th>
         </tr>
@@ -22,7 +22,7 @@
                 <% end %>
             </td>
             <td><%= order.try(:client).try(:name) %></td>
-            <td><%= number_to_currency order.total %></td>
+            <td><%= order.credito ? "Crédito" : "Débito" %></td>
             <td><%= number_to_currency order.total_discounted %></td>
             <td><%= number_to_currency order.cc_value %></td>
         </tr>
