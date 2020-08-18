@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_filter :set_item, only: [:edit, :update]
+  before_filter :set_item, only: [:edit, :update, :change_location]
   before_action :authenticate_user!
   before_action :authenticate_admin!
 
@@ -23,6 +23,13 @@ class ItemsController < ApplicationController
     end
 
     @items = @items.page(params[:page]).order(:name)
+  end
+
+  def change_location
+    sl = StockLocation.where(item_id: @item.id, stock_id: params[:stock_id]).first_or_create
+    sl.update(location: params[:location])
+
+    redirect_to "#{edit_item_path(@item)}#st-#{params[:stock_id]}"
   end
 
   def check

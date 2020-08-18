@@ -38,7 +38,6 @@
             <th data-field="img"></th>
             <th data-field="id"></th>
             <th data-field="name">Nome</th>
-            <th data-field="name">Categoria</th>
             <th data-field="name">Estoque</th>
             <th data-field="actions"></th>
           </tr>
@@ -51,10 +50,17 @@
               <td><%= image_tag item.image, class: "circle materialboxed", style: "width: 60px; height: 60px; border-radius: 0% !important;" %></td>
               <td><%= item.code %></td>
               <td><%= item.name %></td>
-              <td><%= item.subgroup.try(:name) %></td>
               <% unless params[:stock_id].blank? %>
                 <td>
-                  <p><%= "#{@stock.name}: #{@stock.of_item(item.id)}" %></p>
+                  <p style="line-height: 12px; margin: 0; padding-bottom:8px;"><%= "#{@stock.name}: #{@stock.of_item(item.id)}" %>
+                      <span style="
+                        clear:both; font-size: 9px; text-transform: uppercase;
+                        line-height: 1px; color: #676767;
+                        letter-spacing: 1px;">
+                        <br>
+                        <%= @stock.location_of(item.id) %>
+                      </span>
+                  </p>
                   
                     <div class="switch">
                       <label>
@@ -72,7 +78,15 @@
                 </td>
               <% else %>
                 <td><% Stock.all.each do |stock| %>
-                    <p><%= "#{stock.name}: #{stock.of_item(item.id)}" %></p>
+                    <p style="line-height: 12px; margin: 0; padding-bottom:8px;"><%= "#{stock.name}: #{stock.of_item(item.id)}" %>
+                      <span style="
+                        clear:both; font-size: 9px; text-transform: uppercase;
+                        line-height: 1px; color: #676767;
+                        letter-spacing: 1px;">
+                        <br>
+                        <%= stock.location_of(item.id) %>
+                      </span>
+                    </p>
                   <% end %>
                 </td>
               <% end %>

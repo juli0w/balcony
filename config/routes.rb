@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   resources :listings
   resources :items do
     member do
+      post :change_location
       post :check
     end
     collection do

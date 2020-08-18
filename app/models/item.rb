@@ -7,6 +7,8 @@ class Item < ApplicationRecord
   belongs_to :family, optional: true
   belongs_to :subgroup, optional: true
 
+  has_many :stock_locations
+
   include SearchCop
 
   search_scope :search do

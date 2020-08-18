@@ -21,6 +21,13 @@
         <div id="st-<%= stock.id %>" class="card-panel">
           <h5 class="left">Total: <%= stock.of_item @item.id %></h5>
           <%= link_to "Nova movimentação", new_stock_change_path(item_id: @item.id), class: "btn right" %>
+          <div style="clear: both; display: flex; flex-diretion: column; float: right; max-width: 400px;">
+            <%= form_tag change_location_item_path(@item.id), style: "display: flex" do %>
+              <%= hidden_field_tag :stock_id, stock.id %>
+              <%= text_field_tag :location, stock.location_of(@item.id), placeholder: "Localização" %>
+              <%= submit_tag "Salvar", class: "btn" %>
+            <% end %>
+          </div>
           <table class="striped bordered">
             <thead>
               <tr>
