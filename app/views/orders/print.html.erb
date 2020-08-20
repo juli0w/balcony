@@ -170,20 +170,54 @@
             <td><%= number_to_currency @order.calculate_total %></td>
           </tr>
 
+          <% if @order.discount.to_f > 0 %>
           <tr>
             <td colspan='4' class="right-align">Desconto:</td>
             <td><%= number_to_currency @order.discount %></td>
           </tr>
+          <% end %>
 
+          <% if @order.shipping.to_f > 0 %>
           <tr>
             <td colspan='4' class="right-align">Frete:</td>
             <td><%= number_to_currency @order.shipping %></td>
           </tr>
+          <% end %>
 
           <tr>
             <td colspan='4' class="right-align">Total:</td>
             <td><%= number_to_currency @order.total_discounted %></td>
           </tr>
+          
+          <% if @order.cashed.to_f > 0 %>
+          <tr>
+            <td colspan='4' class="right-align">Pgto com saldo:</td>
+            <td><%= number_to_currency @order.cashed %></td>
+          </tr>
+          <% end %>
+
+          <% if @order.cc_value.to_f > 0 %>
+          <tr>
+            <td colspan='4' class="right-align">Cartão:</td>
+            <td><%= number_to_currency @order.cc_value %></td>
+          </tr>
+          <% end %>
+
+          <% if @order.boleto_value.to_f > 0 %>
+          <tr>
+            <td colspan='4' class="right-align">Boleto:</td>
+            <td><%= number_to_currency @order.boleto_value %></td>
+          </tr>
+          <% end %>
+
+          <% if @order.total_cash.to_f > 0 %>
+          <tr>
+            <td colspan='4' class="right-align">Dinheiro:</td>
+            <td><%= number_to_currency @order.total_cash %></td>
+          </tr>
+          <% end %>
+
+
 
         </tbody>
       </table>
