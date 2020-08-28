@@ -97,7 +97,14 @@ class ReportsController < ApplicationController
 
   def items
     if params[:item].present?
-      @orders = OrderItem.joins(:item).where("items.name LIKE ?", "%#{params[:item]}%").collect(&:order).uniq
+      @date = Date.today
+      @orders = OrderItem.joins(:item).where("
+        items.name LIKE ? and
+        order_items.created_at > ? and
+        order_items.created_at < ?",
+          "%#{params[:item]}%",
+        @date.beginning_of_month,
+        @date.end_of_month).collect(&:order).uniq
     end
   end
 
