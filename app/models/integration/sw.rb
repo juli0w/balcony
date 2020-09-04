@@ -39,7 +39,7 @@ class Integration::Sw < Integration
             ink.dye_inks.where(dye: dye, quantity: quantity).first_or_create
 
             n+=1
-            break if n > 4000
+            # break if n > 4000
         end
 
         ProductBaseItem.populate!
