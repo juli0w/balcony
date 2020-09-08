@@ -6,6 +6,8 @@ class Ink < ApplicationRecord
     belongs_to :sw_base
     belongs_to :sw_recipient
 
+    MARGIN = 2
+
     include SearchCop
     
     search_scope :search do
@@ -36,7 +38,7 @@ class Ink < ApplicationRecord
     end
 
     def price
-        price_dyes*1.5 + self.base_price
+        price_dyes* (MARGIN) + self.base_price
     end
 
     def base_price

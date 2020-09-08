@@ -16,6 +16,8 @@ class TintasController < ApplicationController
         
             @inks = @inks.first(30)
         end
+
+        # render text: @inks
     end
 
 private
