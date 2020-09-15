@@ -66,8 +66,8 @@
                         <tr>
                             <td><%= dye_ink.dye.name %></td>
                             <td><%= dye_ink.quantity %><%#= ((quantidade || 0).to_d) *946/1000 %></td>
-                            <td><%= number_to_currency dye_ink.dye.item.price %>/ml</td>
-                            <td><%= number_to_currency (dye_ink.quantity.to_d * dye_ink.dye.item.price) %></td>
+                            <td><%= number_to_currency dye_ink.dye.item.try(:price) %>/ml</td>
+                            <td><%= number_to_currency (dye_ink.quantity.to_d * dye_ink.dye.item.try(:price)) %></td>
                         </tr>
                         <% end %>
                         <tr>
