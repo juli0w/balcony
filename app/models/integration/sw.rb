@@ -11,7 +11,7 @@ class Integration::Sw < Integration
                     encoding: 'iso-8859-1:utf-8',
                     col_sep: ';',
                     row_sep: :auto) do |row|
-            if (n > 700000)     
+            if (n > 1000000)     
                 line = row.to_hash
                 
                 dye_name     = line["CORANTE"]
