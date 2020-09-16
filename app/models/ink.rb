@@ -16,7 +16,7 @@ class Ink < ApplicationRecord
     end
 
     def price_dyes
-        dye_inks.map {|di| di.item_price.to_d * di.quantity.to_d }.sum 
+        dye_inks.map {|di| di.item_price.to_f * di.quantity.to_f }.sum 
     end
 
     def product
