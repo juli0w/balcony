@@ -1,5 +1,5 @@
 class FormulasController < ApplicationController
-  before_action :authenticate_admin!, only: [:index, :import, :reset]
+  before_action :authenticate_caixa!, only: [:index, :import, :reset]
 
   def index
   end
