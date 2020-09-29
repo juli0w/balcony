@@ -117,7 +117,7 @@ private
 
       # update item values
       # item.name      = i.xpath("descricao").text.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '*')
-      item.name      = i.xpath("descricao").text
+      item.name      = i.xpath("descricao").text.gsub("✓", "***").gsub("✔", "***")
       item.family_id = family.try(:id)
       item.group_id  = group.try(:id)
       item.subgroup_id = subgroup.try(:id)
