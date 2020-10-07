@@ -14,7 +14,7 @@ class TintasController < ApplicationController
             @inks = @inks.
                 where(sw_product_id: params[:sw_product_id]) unless params[:sw_product_id].blank?
         
-            @inks = @inks.first(30)
+            @inks = @inks.select { |i| i.price > 0 }.first(30)
         end
 
         # render text: @inks

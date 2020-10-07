@@ -16,6 +16,7 @@ class Ink < ApplicationRecord
     end
 
     def price_dyes
+        return 0 if !base.present?
         dye_inks.map {|di| di.item_price.to_f * di.quantity.to_f }.sum 
     end
 
