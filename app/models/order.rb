@@ -154,7 +154,8 @@ class Order < ApplicationRecord
     unless order_item.blank?
       order_item.quantity += qty
     else
-      order_item = order_items.new(item_id: params[:item_id], quantity: qty)
+      price = Item.find(params[:item_id]).final_price
+      order_item = order_items.new(item_id: params[:item_id], price: price, quantity: qty)
     end
 
     order_item.save

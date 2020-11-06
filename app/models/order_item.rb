@@ -3,7 +3,7 @@ class OrderItem < ApplicationRecord
   belongs_to :item
 
   def unit_price
-    item.final_price || 0
+    self.price || 0 # item.final_price || 0
   end
 
   def total_price
