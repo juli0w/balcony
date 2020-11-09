@@ -176,6 +176,10 @@ class Order < ApplicationRecord
     return order_tinta
   end
 
+  def total
+    self.calculate_total
+  end
+
   def calculate_total
     @total_i = order_items.collect  { |oi| oi.valid? ? (oi.quantity * oi.unit_price) : 0 }.sum
     

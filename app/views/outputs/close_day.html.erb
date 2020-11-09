@@ -65,7 +65,7 @@
             <tr>
                 <td width="50%">Subtotal</td>
                 <td width="25%"></td>
-                <td width="25%"><strong><%= number_to_currency orders.sum(&:total) %></strong></td>
+                <td width="25%"><strong><%= number_to_currency orders.sum(&:calculate_total) %></strong></td>
             </tr>
 
             <tr>
