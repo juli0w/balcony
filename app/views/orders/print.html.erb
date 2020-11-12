@@ -152,15 +152,14 @@
             </tr>
           <% end %>
 
-          <% @order.order_tintas.each do |oi| %>
+          <% @order.order_inks.each do |oi| %>
             <tr>
               <td></td>
               <td>
-                <%= oi.tinta_cor.codigo %> (<%= oi.tinta_embalagem.descricao %>)
-                <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.descricao %></span>
-                <span style="font-size: .8em; display: block;"><%= oi.tinta_cor.tinta_acabamento.tinta_produto.descricao %></span>
+                <%= oi.name %>
+                <span style="font-size: .8em; display: block;">Marca: <%= oi.brand %></span>
               </td>
-              <td><%= number_to_currency oi.unit_price %></td>
+              <td><%= number_to_currency oi.price %></td>
               <td><%= oi.quantity %></td>
               <td><%= number_to_currency oi.total_price %></td>
             </tr>

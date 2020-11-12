@@ -123,7 +123,11 @@
                     <td><%= number_to_currency ink.price %></td>
                     <td>
                         <%= link_to "Fórmula", "#rf-#{ink.id}", class: "modal-trigger" %> |
-                        <%= link_to "Adicionar", order_tintas_path(ink_id: ink.id, quantity: 1), method: :post, remote: true %>
+                        <%= link_to "Adicionar",
+                                order_tintas_path(
+                                    ink_id: ink.id,
+                                    quantity: 1
+                                ), method: :post, remote: true %>
                     </td>
                 </tr>
                 <% end %>

@@ -14,15 +14,27 @@ class OrderTintasController < ApplicationController
 
   def update
     @order = current_cart
-    @order_tinta = current_cart.order_tintas.find(params[:id])
+    @order_tinta = @order.order_inks.find(params[:id])
     @order_tinta.update(order_tinta_params)
-
+    @order.save
     session[:order_id] = @order.id
 
     respond_to do |format|
       format.js { render 'warn' }
     end
   end
+
+  # def update
+  #   @order = current_cart
+  #   @order_tinta = current_cart.order_inks.find(params[:id])
+  #   @order_tinta.update(order_tinta_params)
+
+  #   session[:order_id] = @order.id
+
+  #   respond_to do |format|
+  #     format.js { render 'warn' }
+  #   end
+  # end
 
   def destroy
     @order = current_cart
@@ -34,10 +46,10 @@ class OrderTintasController < ApplicationController
 private
 
   def order_params
-    params.permit(:quantity, :tinta_id, :tinta_embalagem_id)
+    params.permit(:quantity, :ink_id)
   end
 
   def order_tinta_params
-    params.require(:order_tinta).permit(:quantity, :tinta_id, :tinta_embalagem_id)
+    params.require(:order_ink).permit(:quantity)
   end
 end

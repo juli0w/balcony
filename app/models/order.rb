@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   has_many :order_items,  dependent: :destroy
   has_many :order_tintas, dependent: :destroy
+  has_many :order_inks, dependent: :destroy
   belongs_to :user, optional: true
   belongs_to :client, optional: true
 
@@ -55,7 +56,7 @@ class Order < ApplicationRecord
   end
 
   def empty?
-    (order_items.count + order_tintas.count) <= 0
+    (order_items.count + order_inks.count) <= 0
   end
 
   def paid?
@@ -163,17 +164,29 @@ class Order < ApplicationRecord
   end
 
   def add_tinta params
-    order_tinta = order_tintas.where(tinta_cor_id: params[:tinta_id].to_i, can: params[:tinta_embalagem_id]).first
-    qty = (params[:quantity].to_d > 0) ? params[:quantity].to_d : 1
+    ink = Ink.find(params[:ink_id])
 
-    unless order_tinta.blank?
-      order_tinta.quantity += qty
-    else
-      order_tinta = order_tintas.new(can: params[:tinta_embalagem_id], tinta_cor_id: params[:tinta_id], quantity: qty)
+    order_ink = order_inks.where(
+      ink_id: ink.id,
+      recipient_id: ink.sw_recipient.id,
+      brand: "sw",
+      base_id: ink.base.try(:id),
+    ).first_or_initialize(
+      name: "#{ink.sw_product.name} - #{ink.name} #{ink.sw_recipient.name}",
+      price: ink.price
+    )
+
+    qty = params[:quantity].to_f > 0 ? params[:quantity].to_f : 1
+
+    if (order_ink.quantity.to_f > 0)
+      qty += order_ink.quantity.to_f
     end
 
-    order_tinta.save
-    return order_tinta
+    order_ink.quantity = qty
+
+    order_ink.save
+
+    return order_ink
   end
 
   def total
@@ -183,9 +196,9 @@ class Order < ApplicationRecord
   def calculate_total
     @total_i = order_items.collect  { |oi| oi.valid? ? (oi.quantity * oi.unit_price) : 0 }.sum
     
-    @total_t = order_tintas.collect do |oi|
+    @total_t = order_inks.collect do |oi|
       begin
-        oi.valid? ? (oi.quantity * oi.unit_price) : 0
+        oi.valid? ? (oi.total_price) : 0
       rescue => e
         0
       end
@@ -200,7 +213,7 @@ class Order < ApplicationRecord
 
   def calculate_qtd
     @total_i = order_items.collect  { |oi| oi.valid? ? (oi.quantity) : 0 }.sum
-    @total_t = order_tintas.collect { |oi| oi.valid? ? (oi.quantity) : 0 }.sum
+    @total_t = order_inks.collect { |oi| oi.valid? ? (oi.quantity) : 0 }.sum
     @total = @total_i + @total_t
   end
 
