@@ -6,7 +6,7 @@ class Integration::WandaMacro < Integration
   def read
     # Integration::WandaMacro.new.read
 
-    n=0
+    # n=0
 
     CSV.foreach(@file, headers: true,
                 encoding: 'iso-8859-1:utf-8',
@@ -32,8 +32,8 @@ class Integration::WandaMacro < Integration
                 }
               ).first_or_create
             end
-        n+=1
-        break if n > 40
+        # n+=1
+        # break if n > 40
     end
 
     #   ProductBaseItem.populate!
