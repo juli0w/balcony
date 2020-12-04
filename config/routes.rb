@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "Fórmulas", to: "formulas#formulas", as: "list_formulas"
 
   get "tintas/sw", to: "tintas#sw", as: "sw"
+  get "tintas/wanda", to: "tintas#wanda", as: "wanda"
 
   # get  "change_dye_item", to: "formulas#change_dye_item", as: "change_dye_item"
   post "change_dye_item/:id", to: "formulas#change_dye_item", as: "change_dye_item"

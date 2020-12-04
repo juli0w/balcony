@@ -1,6 +1,17 @@
 class TintasController < ApplicationController
     before_action :authenticate_user!
     before_action :set_client
+    before_action :set_cart_variables, only: [:wanda, :sw]
+
+    def wanda
+        if params[:color].blank?
+            @inks = []
+        else
+            @inks = Wanda::Ink.search(params[:color])
+
+            @inks = @inks.select { |i| i.price > 0 }.first(30)
+        end
+    end
 
     def sw
         if params[:color].blank?

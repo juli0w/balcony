@@ -1,0 +1,104 @@
+<div class="textilized col s12 m6 red darken-1 white-text" style="height: 100%; padding: 0;">
+  <span style="padding: 11px;" class="left">
+    <%= @client.name %>
+    <% if @client.cash.to_f > 0 %>
+      <span class="green white-text" style="margin-left: 10px; padding: 3px; font-size: 10px;">Saldo: <%= number_to_currency @client.cash %></span>
+    <% end %>
+    <br><%= @client.company %>
+  </span>
+</div>
+<div class="col s12 m6 red darken-1 white-text" style="padding: 0;">
+  <a class="btn-large right green" onclick="$('.search, .cart').slideToggle(); $('#search').focus();">
+    <i class="large material-icons">shopping_cart</i>
+  </a>
+
+  <a class="btn-large right orange modal-trigger" href="#promotions">
+    <i class="large material-icons">star</i>
+  </a>
+
+  <%= link_to "#client-infos", class: "modal-trigger btn-large right red darken-1" do %>
+    <i class="large material-icons">account_box</i>
+  <% end %>
+
+  <%= link_to clear_client_path(@client), class: "btn-large right red darken-1" do %>
+    <i class="large material-icons">refresh</i>
+  <% end %>
+</div>
+
+<%= render "item/promotions" %>
+
+<div class="col s12 no-space cart" style="display: none;">
+  <div class="cart-partial">
+    <%= render "cart/cart" %>
+  </div>
+
+  <%= form_tag finish_order_path, method: :post do |f| %>
+
+    <div class="row" style="margin-bottom: 0">
+      <div class="input-field col s12 m8 offset-m4 l3 offset-l9">
+        <%= select_tag(:seller, options_from_collection_for_select(@sellers, :username, :name, current_user.try(:username))) %>
+        <%= label_tag :seller, "Vendedor" %>
+      </div>
+    </div>
+
+    <div class="row" style="margin: 0">
+      <div class="input-field col s12 m8 offset-m4 l3 offset-l9">
+        <%= label_tag :obs, 'Observações' %>
+        <%= text_area_tag :obs, "", class: "materialize-textarea", style: "height: 40px" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <%= link_to clean_path(key: params[:key]), class: "btn grey darken-2" do %>
+          <%= material_icon.delete.css_class("left") %> Limpar
+        <% end %>
+
+        <% if current_user.caixa? %>
+          <%= link_to new_stock_transfer_path, class: "btn blue darken-3" do %>
+            <%= material_icon.send.css_class("left") %> Transferência
+          <% end %>
+        <% end %>
+
+        <%= button_tag(type: :submit, class: "btn right light-green") do %>
+          <%= material_icon.shopping_cart.css_class("left") %> Finalizar
+        <% end %>
+
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div id="client-infos" class="modal">
+    <div class="modal-content">
+        <h5 style="text-align: center;"><%= @client.name %></h5>
+        <table>
+            <tbody>
+                <tr>
+                    <td style="text-align: right; padding-right: 20px; width: 170px;">Razão social</td>
+                    <td><%= @client.company %> (<%= @client.section.try(:name) %>)</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding-right: 20px; width: 170px;">Email</td>
+                    <td><%= @client.email %></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding-right: 20px; width: 170px;">Telefone</td>
+                    <td><%= @client.phone %></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding-right: 20px; width: 170px;">Endereço</td>
+                    <td><%= @client.address %> <%= @client.district %> - <%= @client.city %>/<%= @client.uf %></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding-right: 20px; width: 170px;">CPF/CNPJ</td>
+                    <td><%= @client.cpf %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</a>
+        <%= link_to "Editar", [:edit, @client], class: "btn-flat" %>
+    </div>
+</div>

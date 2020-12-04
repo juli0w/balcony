@@ -1,0 +1,65 @@
+<%= render "home/tools" %>
+
+<div class="col s12 no-space search">
+    <div class="row" style="margin-top: 0px; margin-bottom: 0;">
+        <div class="card-panel" style="margin: 0;">
+            <div class="search-offers">
+                <h5>Wanda</h5>
+                <div class="divider" style="margin: 20px 0"></div>
+                <%= form_tag wanda_path, method: :get do %>
+                <fieldset style="border: none; margin: 0; padding: 0;">
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="input-field col s12 m8">
+                            <%= text_field_tag :color, params[:color], id: "search", class: "autocomplete" %>
+                            <%= label_tag :color, "Cor" %>
+                        </div>
+
+                        <div class="input-field col s12 m4">
+                            <%= select_tag :recipient, options_for_select(Wanda::Ink::RECIPIENTS, (params[:recipient] || 1)) %>
+                        </div>
+
+                    </div>
+
+                    <button class="btn" type="submit" name="action">
+                        Buscar
+                    </button>
+                </fieldset>
+                <% end %>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-panel" style="margin-top: -14px;">
+        <table class="bordered">
+            <thead>
+                <tr style="background-color: #efefef; border: 1px solid #dedede;">
+                    <th data-field="name"></th>
+                    <th data-field="name">Cor</th>
+                    <th data-field="name">Embalagem</th>
+                    <th data-field="name">Preço</th>
+                    <th data-field="actions"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% @inks.each do |ink| %>
+                <tr>
+                    <td><%= ink.code %></td>
+                    <td><%= ink.description %></td>
+                    <td><%= Wanda::Ink.recipient_name(params[:recipient]) %></td>
+                    <td><%= number_to_currency ink.price(params[:recipient]) %></td>
+                    <td>
+                        <%= link_to "Adicionar",
+                                order_tintas_path(
+                                    ink_id: ink.id,
+                                    quantity: 1,
+                                    recipient: params[:recipient],
+                                    brand: :wanda
+                                ), method: :post, remote: true %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>

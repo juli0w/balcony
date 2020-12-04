@@ -46,10 +46,10 @@ class OrderTintasController < ApplicationController
 private
 
   def order_params
-    params.permit(:quantity, :ink_id)
+    params.permit(:quantity, :ink_id, :brand, :recipient)
   end
 
   def order_tinta_params
-    params.require(:order_ink).permit(:quantity)
+    params.require(:order_ink).permit(:quantity, :brand, :recipient)
   end
 end

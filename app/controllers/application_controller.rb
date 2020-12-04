@@ -3,6 +3,28 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :current_cart
 
+  def set_cart_variables
+    if current_user.client?
+      client = Client.where(company: current_user.username).first_or_create(section: Section.last, name: current_user.username)
+      session[:client] = client.id
+    end
+
+    if session[:client].blank?
+      session[:client] = Client.where(company: current_user.username).first_or_create(section: Section.last, name: current_user.username).id
+      # redirect_to clients_path
+    end
+
+    @sellers = User.where("role >= 1")
+
+    # unless current_user.admin?
+    #   @sellers = @sellers.where(default_stock_id: current_user.default_stock_id)
+    # end
+
+    @items = Item.where(active: true).order(:name).search(params[:key].try(:upcase)).first(50)
+    @promotions = Item.where(active: true).where("virtual_price > 0")
+    @client = Client.find(session[:client])
+  end
+
   def reset_session
     session[:order_id] = nil
   end

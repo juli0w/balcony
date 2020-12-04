@@ -164,6 +164,40 @@ class Order < ApplicationRecord
   end
 
   def add_tinta params
+    if params[:brand] == "wanda"
+      return add_wanda params
+    elsif params[:brand] == "sw"
+      return add_sw params
+    end
+  end
+
+  def add_wanda params
+    ink = Wanda::Ink.find(params[:ink_id])
+    order_ink = order_inks.where(
+      ink_id: ink.id,
+      # recipient_id: ink.sw_recipient.id,
+      brand: "wanda",
+      recipient_id: params[:recipient]
+      # base_id: ink.base.try(:id),
+    ).first_or_initialize(
+      name: "Wanda #{ink.description} #{Wanda::Ink.recipient_name(params[:recipient])}",
+      price: ink.price(params[:recipient])
+    )
+
+    qty = params[:quantity].to_f > 0 ? params[:quantity].to_f : 1
+
+    if (order_ink.quantity.to_f > 0)
+      qty += order_ink.quantity.to_f
+    end
+
+    order_ink.quantity = qty
+
+    order_ink.save
+
+    return order_ink
+  end
+    
+  def add_sw params
     ink = Ink.find(params[:ink_id])
 
     order_ink = order_inks.where(
