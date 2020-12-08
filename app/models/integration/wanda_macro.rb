@@ -15,7 +15,7 @@ class Integration::WandaMacro < Integration
         printf "."
         if (n > 144460)
           #   line = row.to_hash
-            prinft n
+            printf n
           
             code = row[0]
             description = row[1]
