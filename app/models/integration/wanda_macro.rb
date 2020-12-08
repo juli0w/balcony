@@ -12,8 +12,10 @@ class Integration::WandaMacro < Integration
                 encoding: 'iso-8859-1:utf-8',
                 col_sep: ';',
                 row_sep: :auto) do |row|
-        if (n > 144000)
+        puts "."
+        if (n > 144460)
           #   line = row.to_hash
+            puts n
             
             code = row[0]
             description = row[1]
