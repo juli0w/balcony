@@ -13,7 +13,7 @@ class Integration::WandaMacro < Integration
                 col_sep: ';',
                 row_sep: :auto) do |row|
         printf "."
-        if (n > 144460)
+        if (n > 1000000)
           #   line = row.to_hash
             printf "#{n}"
           
