@@ -35,6 +35,10 @@
                 <tr style="background-color: #efefef; border: 1px solid #dedede;">
                     <th data-field="name"></th>
                     <th data-field="name">Cor</th>
+                    <th data-field="name">Versão</th>
+                    <th data-field="name">Alternativa</th>
+                    <th data-field="name">Ano</th>
+                    <th data-field="name"></th>
                     <th data-field="name">Embalagem</th>
                     <th data-field="name">Preço</th>
                     <th data-field="actions"></th>
@@ -46,6 +50,10 @@
                 <tr>
                     <td><%= ink.code %></td>
                     <td><%= ink.description %></td>
+                    <td><%= ink.version %></td>
+                    <td><%= ink.alternative %></td>
+                    <td><%= ink.start_year %></td>
+                    <td><%= ink.end_year %></td>
                     <td><%= Wanda::Ink.recipient_name(params[:recipient]) %></td>
                     <td><%= number_to_currency ink.price(params[:recipient]) %></td>
                     <td>

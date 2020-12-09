@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201118125444) do
+ActiveRecord::Schema.define(version: 20201209132627) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -511,6 +511,15 @@ ActiveRecord::Schema.define(version: 20201118125444) do
     t.string   "product"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "version"
+    t.integer  "alternative"
+    t.integer  "start_year"
+    t.integer  "end_year"
+    t.string   "date"
+    t.index ["alternative"], name: "index_wanda_inks_on_alternative"
+    t.index ["end_year"], name: "index_wanda_inks_on_end_year"
+    t.index ["start_year"], name: "index_wanda_inks_on_start_year"
+    t.index ["version"], name: "index_wanda_inks_on_version"
   end
 
 end
