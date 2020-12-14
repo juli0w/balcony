@@ -180,7 +180,7 @@ class Order < ApplicationRecord
       recipient_id: params[:recipient]
       # base_id: ink.base.try(:id),
     ).first_or_initialize(
-      name: "Wanda #{ink.description} #{Wanda::Ink.recipient_name(params[:recipient])}",
+      name: "WANDA #{ink.description.upcase} #{Wanda::Ink.recipient_name(params[:recipient])} #{ink.version}.#{ink.alternative} #{ink.start_year}-#{ink.end_year}",
       price: ink.price(params[:recipient])
     )
 
@@ -206,7 +206,7 @@ class Order < ApplicationRecord
       brand: "sw",
       base_id: ink.base.try(:id),
     ).first_or_initialize(
-      name: "#{ink.sw_product.name} - #{ink.name} #{ink.sw_recipient.name}",
+      name: "SW #{ink.sw_product.name} - #{ink.name} #{ink.sw_recipient.name}",
       price: ink.price
     )
 

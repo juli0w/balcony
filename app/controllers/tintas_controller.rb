@@ -7,7 +7,14 @@ class TintasController < ApplicationController
         if params[:color].blank?
             @inks = []
         else
-            @inks = Wanda::Ink.search(params[:color])
+            @inks = Wanda::Ink
+
+            @inks = @inks.where(version: params[:version]) unless params[:version].blank?
+            @inks = @inks.where(alternative: params[:alternative]) unless params[:alternative].blank?
+            @inks = @inks.where(start_year: params[:start_year]) unless params[:start_year].blank?
+            @inks = @inks.where(end_year: params[:end_year]) unless params[:end_year].blank?
+
+            @inks = @inks.search(params[:color])
 
             @inks = @inks.select { |i| i.price > 0 }.first(30)
         end

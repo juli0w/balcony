@@ -18,6 +18,24 @@
                             <%= select_tag :recipient, options_for_select(Wanda::Ink::RECIPIENTS, (params[:recipient] || 1)) %>
                         </div>
 
+                        <div class="input-field col s6 m3">
+                            <%= text_field_tag :version, params[:version] %>
+                            <%= label_tag :version, "Versão" %>
+                        </div>
+
+                        <div class="input-field col s6 m3">
+                            <%= text_field_tag :alternative, params[:alternative] %>
+                            <%= label_tag :alternative, "Alternativa" %>
+                        </div>
+
+                        <div class="input-field col s6 m3">
+                            <%= text_field_tag :start_year, params[:start_year] %>
+                            <%= label_tag :start_year, "Ano" %>
+                        </div>
+
+                        <div class="input-field col s6 m3">
+                            <%= text_field_tag :end_year, params[:end_year] %>
+                        </div>
                     </div>
 
                     <button class="btn" type="submit" name="action">
