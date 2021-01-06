@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
            :boleto,
            :setcash,
            :setboleto,
+           :gerar_boleto,
            :setcc,
            :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
   
@@ -79,6 +80,14 @@ class OrdersController < ApplicationController
     end
     
     @order.save
+  end
+
+  def gerar_boleto
+    @order.boleto_gerado = true
+
+    @order.save
+
+    redirect_to :back
   end
 
   def check_order

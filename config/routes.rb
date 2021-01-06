@@ -107,6 +107,7 @@ Rails.application.routes.draw do
       post :print
       get  :print
       post :boleto
+      post :gerar_boleto
     end
   end
   resources :clients do
