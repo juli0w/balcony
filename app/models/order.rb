@@ -74,8 +74,7 @@ class Order < ApplicationRecord
 
   def open!
     update(state: "open",
-           total: calculate_total,
-           submited_at: DateTime.now)
+           total: calculate_total)
   end
 
   def open?

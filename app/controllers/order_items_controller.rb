@@ -98,7 +98,8 @@ class OrderItemsController < ApplicationController
     @order.update(obs: params[:obs],
                   client_id: session[:client],
                   seller: params[:seller],
-                  created_at: Time.now)
+                  created_at: Time.now,
+                  submited_at: DateTime.now)
 
     if user_signed_in?
       @order.update(user: current_user.default_stock.user)

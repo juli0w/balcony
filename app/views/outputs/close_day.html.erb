@@ -30,7 +30,7 @@
       shippings = orders.select {|o| o.money? }.sum{|o| o.shipping.to_f }
       boletos = orders.select {|o| o.boleto? }
       total_boleto = boletos.sum(&:total_discounted)
-      @money = orders.sum(&:total_cash) - total_boleto
+      @money = orders.sum(&:total_cash)# - total_boleto
       caixa_inicial = CloseDay.where(stock_id: user.stock_id, day: @day).first.try(:initial) || 0
       caixa_final = CloseDay.where(stock_id: user.stock_id, day: @day).first.try(:final) || 0
     %>
