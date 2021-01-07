@@ -18,6 +18,7 @@ class Order < ApplicationRecord
   scope :opened_and_quote, -> { where("state = ? or state = ? or state = ?", "open", "quote", "pending") }
   scope :boletos, -> { where(boleto: true) }
   scope :not_empty, -> { where.not(state: "") }
+  scope :not_db, -> { where.not(user_id: 33) }
 
   include SearchCop
 

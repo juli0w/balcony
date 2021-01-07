@@ -144,7 +144,7 @@
         <%= order.colour_state %>
      white-text" style="margin-top: -30px; font-size: 10px; letter-spacing: 0.12em; font-weight: bold !important; text-transform: uppercase;"><%= order.get_state %></span>
 
-    <% if order.quote? %>
+    <% if order.pending? %>
         <% if order.boleto_gerado %>
             <span class="badge grey lighten-1 white-text" style="margin-top: -54px; font-size: 10px; letter-spacing: 0.12em; font-weight: bold !important; text-transform: uppercase;">
                 BOLETO GERADO
