@@ -94,6 +94,10 @@ class Order < ApplicationRecord
   end
 
   def pay! ob=nil
+    # if (pending?)
+    #   update...
+    # end
+    
     update(state: "paid", paid_at: DateTime.now)
 
     if user.try(:stock_id)

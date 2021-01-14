@@ -112,6 +112,7 @@ Rails.application.routes.draw do
   end
   resources :clients do
     member do
+      post :block
       get :select
       get :clear
     end

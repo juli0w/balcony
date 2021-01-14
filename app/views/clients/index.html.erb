@@ -40,12 +40,27 @@
 
           <tr>
             <td><%= client.id %></td>
-            <td><%= client.company %></td>
-            <td><%= client.name %></td>
+            <td style="<%= client.blocked ? 'color: red' : '' %>"><%= client.company %></td>
+            <td style="<%= client.blocked ? 'color: red' : '' %>">
+                <%= client.name %>
+                <% if client.blocked %>
+                    <span class="titled tooltipped"
+                          style="margin-left: 8px;
+                            border: 1px dashed red;
+                            color: #434343;
+                            font-size: 8px;
+                            cursor: pointer;
+                            padding: 2px 4px;"
+                          data-position="bottom" data-tooltip="Entrar em contato com financeiro"
+                    >RESTRIÇÃO DE PAGAMENTO</span>
+                <% end %>
+            </span>
+            </td>
             <td>
             <%= link_to "Fazer pedido", [:select, client] %>
             | <%= link_to "Editar", [:edit, client] %>
             <% if current_user.admin? %>
+              | <%= link_to (client.blocked ? "Desbloquear" : "Bloquear"), block_client_path(client), method: :post %>
               | <%= link_to "Remover", client, method: :delete, data: { confirm: "Tem certeza?" } %>
             <% end %>
             </td>

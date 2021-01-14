@@ -70,9 +70,25 @@
      <div class="row rowed">
          <div style="float: left;">
              <span class="titled">Cliente:<br></span>
-             <%= order.client.try(:company) || "Não informado" %>
+             <span
+                 style="<%= order.client.blocked ? 'color: red' : '' %>"
+             >
+                <%= order.client.try(:company) || "Não informado" %>
+                <% if order.client.blocked %>
+                    <span class="titled tooltipped"
+                          style="margin-left: 5px;
+                            border: 1px dashed red;
+                            color: #434343;
+                            cursor: pointer;
+                            padding: 2px 4px;"
+                          data-position="bottom" data-tooltip="Entrar em contato com financeiro"
+                    >RESTRIÇÃO DE PAGAMENTO</span>
+                <% end %>
+            </span>
              <% if order.client.cash.to_f > 0 %>
-             <span class="light-green white-text" style="margin-left: 10px; padding: 3px; font-size: 10px;">Saldo: <%= number_to_currency order.client.cash %></span>
+             <span
+                class="light-green white-text"
+                style="margin-left: 10px; padding: 3px; font-size: 10px;">Saldo: <%= number_to_currency order.client.cash %></span>
              <% end %>
          </div>
          <div style="float:right; width: 180px;">

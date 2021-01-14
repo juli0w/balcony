@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_filter :set_client, only: [:select, :show, :edit, :update, :destroy]
+  before_filter :set_client, only: [:block, :select, :show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :authenticate_vendedor!, except: [:clear, :profile, :update_profile]
 
@@ -67,6 +67,12 @@ class ClientsController < ApplicationController
   def select
     session[:client] = @client.id
     redirect_to root_path
+  end
+
+  def block
+    @client.update(blocked: !@client.blocked)
+
+    redirect_to :back
   end
 
   def clear

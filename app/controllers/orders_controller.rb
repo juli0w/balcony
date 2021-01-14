@@ -74,6 +74,7 @@ class OrdersController < ApplicationController
 
   def boleto
     @order.boleto = params[:value]
+    @order.boleto_value = @order.total
 
     if params[:value] == "true"
       @order.cc_value = 0
@@ -135,25 +136,25 @@ class OrdersController < ApplicationController
   def pay
     @order.pay!
 
-    redirect_to orders_path(type: params[:type]), notice: "Pagamento confirmado."
+    redirect_to orders_path(keyword: @order.id, type: params[:type]), notice: "Pagamento confirmado."
   end
 
   def pending
     @order.pending!
 
-    redirect_to orders_path(type: params[:type]), notice: "Pedido em carteira."
+    redirect_to orders_path(keyword: @order.id, type: params[:type]), notice: "Pedido em carteira."
   end
 
   def pay_with_cash
     @order.pay_with_cash!
 
-    redirect_to orders_path(type: params[:type]), notice: "Pagamento confirmado."
+    redirect_to orders_path(keyword: @order.id, type: params[:type]), notice: "Pagamento confirmado."
   end
 
   def quote
     @order.quote!
 
-    redirect_to orders_path(type: params[:type]), notice: "Orçamento confirmado."
+    redirect_to orders_path(keyword: @order.id, type: params[:type]), notice: "Orçamento confirmado."
   end
 
   def cancel
