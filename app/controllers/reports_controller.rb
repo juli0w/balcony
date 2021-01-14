@@ -39,6 +39,25 @@ class ReportsController < ApplicationController
       ]
     }
 
+    @months = []
+    (-11..0).each do |x|
+      @months << (date+x.months).strftime("%m/%Y")
+    end
+    @data_year = {
+      labels: @months,#.map(&:v),#{|v| l(v.to_date)},# @values.keys.map{|v| l(v.to_date)},
+      datasets: [
+        {
+            label: "Faturamento por mês",
+            backgroundColor: "rgba(160,255,160,0.2)",
+            borderColor: "rgba(120,255,120,0.6)",
+            data: @months.map {|d|
+                Order.paid.where("created_at >= ? and created_at <= ?",
+                    d.to_date.beginning_of_month,
+                    d.to_date.end_of_month).sum(&:total) }# @values.values.map{|o| o.sum(&:total) }
+        }
+      ]
+    }
+
     i = 1
 
     @orders_by_month.each do |user, orders|
