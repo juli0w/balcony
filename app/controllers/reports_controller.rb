@@ -39,6 +39,31 @@ class ReportsController < ApplicationController
       ]
     }
 
+    i = 1
+
+    @orders_by_month.each do |user, orders|
+      if user
+        color = get_color(i)
+        i += 1
+        @data[:datasets] << {
+            label: (user.try(:name) || user.try(:email)),
+            backgroundColor: "rgba(#{color},0.2)",
+            borderColor: "rgba(#{color},1)",
+            data: @days.map {|d| Order.paid.where("created_at >= ? and created_at <= ? and user_id = ?", d.beginning_of_day, d.end_of_day, user.try(:id)).sum(&:total) }# @values.values.map{|o| o.sum(&:total) }
+        }
+      end
+    end
+  end
+
+  def by_year
+    if params[:date].blank?
+      date = Time.zone.now
+    else
+      date = params[:date].to_date
+    end
+
+    @orders = Order.paid.where("created_at > ? and created_at < ?", (date -11.months).beginning_of_month, date.end_of_month)#.group_by(&:user)
+
     @months = []
     (-11..0).each do |x|
       @months << (date+x.months).strftime("%m/%Y")
@@ -60,15 +85,17 @@ class ReportsController < ApplicationController
 
     i = 1
 
-    @orders_by_month.each do |user, orders|
+    @orders_by_year = @orders.group_by(&:user)
+
+    @orders_by_year.each do |user, orders|
       if user
         color = get_color(i)
         i += 1
-        @data[:datasets] << {
+        @data_year[:datasets] << {
             label: (user.try(:name) || user.try(:email)),
             backgroundColor: "rgba(#{color},0.2)",
             borderColor: "rgba(#{color},1)",
-            data: @days.map {|d| Order.paid.where("created_at >= ? and created_at <= ? and user_id = ?", d.beginning_of_day, d.end_of_day, user.try(:id)).sum(&:total) }# @values.values.map{|o| o.sum(&:total) }
+            data: @months.map {|d| Order.paid.where("created_at >= ? and created_at <= ? and user_id = ?", d.to_date.beginning_of_month, d.to_date.end_of_month, user.try(:id)).sum(&:total) }# @values.values.map{|o| o.sum(&:total) }
         }
       end
     end

@@ -86,6 +86,7 @@
         <ul id="dropdown1" class="dropdown-content">
             <% if current_user.super? %>
                 <li><%= link_to 'Dashboard', dashboard_report_path %></li>
+                <li><%= link_to 'Anual', by_year_report_path %></li>
             <% end %>
             <li><%= link_to 'Vendas por dia', sales_by_day_report_path %></li>
             <li><%= link_to 'Vendas', sales_report_path %></li>

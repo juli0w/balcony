@@ -63,6 +63,7 @@ Rails.application.routes.draw do
 
   get "reports/abc", to: "reports#abc", as: "abc_report"
   get "reports/dashboard", to: "reports#dashboard", as: "dashboard_report"
+  get "reports/by_year", to: "reports#by_year", as: "by_year_report"
   get "reports/sales", to: "reports#sales", as: "sales_report"
   get "reports/sales_by_day", to: "reports#sales_by_day", as: "sales_by_day_report"
   get "reports/items", to: "reports#items", as: "items_report"
