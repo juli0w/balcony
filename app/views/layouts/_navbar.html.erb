@@ -44,10 +44,13 @@
                 Financeiro <i class="material-icons right">arrow_drop_down</i>
                 <% end %></li>
             <% end %>
-            <% if current_user.admin? %>
+            <% if current_user.caixa? %>
             <li><%= link_to "#", 'data-activates' => "dropdown2", class: "dropdown-button" do %>
                 Cadastros <i class="material-icons right">arrow_drop_down</i>
                 <% end %></li>
+            <% end %>
+
+            <% if current_user.admin? %>
             <li><%= link_to "#", 'data-activates' => "dropdown1", class: "dropdown-button" do %>
                 Relatórios <i class="material-icons right">arrow_drop_down</i>
                 <% end %></li>
@@ -77,10 +80,12 @@
         </ul>
 
         <ul id="dropdown2" class="dropdown-content">
-            <li><%= link_to 'Usuários', users_path %></li>
             <li><%= link_to 'Itens', items_path %></li>
-            <li><%= link_to 'Ramos', sections_path %></li>
-            <li><%= link_to 'Lojas', stocks_path %></li>
+            <% if current_user.admin? %>
+                <li><%= link_to 'Usuários', users_path %></li>
+                <li><%= link_to 'Ramos', sections_path %></li>
+                <li><%= link_to 'Lojas', stocks_path %></li>
+            <% end %>
         </ul>
 
         <ul id="dropdown1" class="dropdown-content">

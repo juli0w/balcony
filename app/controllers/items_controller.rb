@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_filter :set_item, only: [:edit, :update, :change_location]
   before_action :authenticate_user!
-  before_action :authenticate_admin!
+  before_action :authenticate_caixa!
 
   def index
     if params[:keyword].present?
@@ -49,11 +49,6 @@ class ItemsController < ApplicationController
     end
 
     render layout: nil
-  end
-
-  def become
-    sign_in(:item, Item.find(params[:id]))
-    redirect_to root_url
   end
 
   def edit
