@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
            :setcc,
            :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
   
-           before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :authenticate_admin!, only: [:edit]
   # before_action :authenticate_caixa!, only: [:setcc, :setcash, :boleto]
   # before_action :authenticate_vendedor!
@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
   def edit_obs
     @order.update(obs: params[:obs])
 
-    redirect_to "/orders##{@order.id}"
+    redirect_to "/orders##{@order.id}?type=#{params[:type]}"
   end
 
   def edit
