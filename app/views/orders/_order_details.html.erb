@@ -139,7 +139,7 @@
              <br></span>
 
              <div id="obs-edit-<%= order.id %>" style="display: none;">
-                <%= form_tag edit_obs_order_path(order) do %>
+                <%= form_tag edit_obs_order_path(order, type: params[:type]) do %>
                     <%= text_area_tag :obs, order.obs %>
                     <%= submit_tag "Salvar", class: "blue white-text", style: "border: none; font-size: 10px; padding: 4px 8px;" %>
                 <% end %>
