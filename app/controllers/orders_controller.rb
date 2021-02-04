@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
   def edit_obs
     @order.update(obs: params[:obs])
 
-    redirect_to "/orders?type=#{params[:type]}##{@order.id}"
+    redirect_to "/orders?type=#{params[:type]}&keyword=#{params[:keyword]}##{@order.id}"
   end
 
   def edit
