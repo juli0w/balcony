@@ -81,6 +81,15 @@
                     <i class="material-icons">attach_money</i>
                 <% end %>
                 
+                <%= link_to digital_order_path(order),
+                        style: "margin-right: 4px; padding: 4px; line-height: 0; margin-top: -7px;",
+                        class: "white-text #{order.digital ? 'green' : 'blue'} right",
+                        id: "digital-order-#{order.id}",
+                        remote: true,
+                        method: :post do %>
+                    <i class="material-icons">wifi</i>
+                <% end %>
+
                 <%= render "order_cc_form", order: order %>
                 <%= render "order_cash_form", order: order %>
             <%# end %>

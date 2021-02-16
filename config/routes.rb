@@ -106,6 +106,7 @@ Rails.application.routes.draw do
       post :pending
       post :pay_with_cash
       post :print
+      post :digital
       get  :print
       post :boleto
       post :gerar_boleto

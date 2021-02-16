@@ -90,6 +90,11 @@
                 class="light-green white-text"
                 style="margin-left: 10px; padding: 3px; font-size: 10px;">Saldo: <%= number_to_currency order.client.cash %></span>
              <% end %>
+            <% if order.digital %>
+             <span
+                class="light-green white-text"
+                style="padding: 3px; font-size: 10px;">Internet</span>
+            <% end %>
          </div>
          <div style="float:right; width: 180px;">
              <span class="titled">Telefone:<br></span>

@@ -59,18 +59,22 @@ class OutputsController < ApplicationController
     @despesas = @outputs.where(output_type: 1)
     @injecoes = @outputs.where(output_type: 2)
 
+    
     @orders = Order.
-      paid.
-      where(
-        "paid_at > ? and paid_at < ?",
-        @day.beginning_of_day,
-        @day.end_of_day).
-      group_by(&:user)
-  end
+    paid.
+    where(
+      "paid_at > ? and paid_at < ?",
+      @day.beginning_of_day,
+      @day.end_of_day)
 
-private
+    @total_internet = @orders.where(digital: true).sum(&:total_discounted)
 
-  def output_params
-    params.require(:output).permit(:description, :output_type, :value, :stock_id, :user_id)
+    @orders = @orders.group_by(&:user)
+    end
+    
+    private
+    
+    def output_params
+      params.require(:output).permit(:description, :output_type, :value, :stock_id, :user_id)
+    end
   end
-end

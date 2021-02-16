@@ -74,6 +74,14 @@
                 <td width="25%"><strong><%= number_to_currency orders.sum(&:total_discounted) %></strong></td>
             </tr>
 
+            <% if @total_internet > 0 %>
+            <tr>
+                <td width="50%">Total (Internet)</td>
+                <td width="25%"></td>
+                <td width="25%"><strong><%= number_to_currency @total_internet %></strong></td>
+            </tr>
+            <% end %>
+
             <tr class="green lighten-4">
                 <td width="50%">Caixa inicial</td>
                 <td width="25%"></td>

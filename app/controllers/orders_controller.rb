@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
            :setboleto,
            :gerar_boleto,
            :setcc,
+           :digital,
            :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
   
   before_action :authenticate_user!
@@ -70,6 +71,12 @@ class OrdersController < ApplicationController
     @order.update(printed: true)
     
     render layout: nil
+  end
+
+  def digital
+    @order.update(digital: !@order.digital)
+    @removeClass = @order.digital ? 'blue' : 'green'
+    @addClass = !@order.digital ? 'blue' : 'green'
   end
 
   def boleto

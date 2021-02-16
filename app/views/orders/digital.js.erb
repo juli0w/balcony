@@ -1,0 +1,3 @@
+$("#digital-order-<%= @order.id %>").removeClass("<%= escape_javascript(@removeClass) %>").addClass("<%= escape_javascript(@addClass) %>");
+var $toastContent = $('<span>Pedido atualizado</span>');
+Materialize.toast($toastContent, 5000);

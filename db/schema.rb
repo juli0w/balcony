@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210114123733) do
+ActiveRecord::Schema.define(version: 20210216113336) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -192,6 +192,7 @@ ActiveRecord::Schema.define(version: 20210114123733) do
     t.decimal  "cashed",        precision: 10, scale: 2
     t.boolean  "credito",                                default: false
     t.boolean  "boleto_gerado",                          default: false
+    t.boolean  "digital",                                default: false
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
