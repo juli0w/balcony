@@ -34,6 +34,15 @@
                     <div class="col s6 m3">
                       <%= date_field_tag :date, (params[:date]) %>
                     </div>
+                    <div class="col s12" style="padding-bottom: 20px;">
+                        <div class="switch">
+                          <label>
+                            Filtrar onlines
+                            <input type="checkbox" name="digital" <%= "checked" if params[:digital] %>>
+                            <span class="lever"></span>
+                          </label>
+                        </div>
+                    </div>
                   </div>
                   
                   <div class="col s12 m4">

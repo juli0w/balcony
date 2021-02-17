@@ -67,7 +67,7 @@ class OutputsController < ApplicationController
       @day.beginning_of_day,
       @day.end_of_day)
 
-    @total_internet = @orders.where(digital: true).sum(&:total_discounted)
+    # @total_internet = @orders.where(digital: true).sum(&:total_discounted)
 
     @orders = @orders.group_by(&:user)
     end

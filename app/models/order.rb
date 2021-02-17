@@ -10,6 +10,8 @@ class Order < ApplicationRecord
 
   # default_scope { where("orders.created_at > ?", 1.day.ago) }
 
+  scope :digital, -> { where(digital: true) }
+
   scope :opened, -> { where(state: "open") }
   scope :pending, -> { where(state: "pending") }
   scope :paid, -> { where(state: "paid") }

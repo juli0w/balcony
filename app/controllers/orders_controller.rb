@@ -29,6 +29,10 @@ class OrdersController < ApplicationController
       @orders = @orders.send(params[:type])
     end
 
+    if params[:digital].present?
+      @orders = @orders.digital
+    end
+
     if params[:date].present?
       date = params[:date].to_date
       @orders = @orders.where('created_at > ? and created_at < ?',
