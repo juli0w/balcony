@@ -18,38 +18,40 @@
     </div>
     <div class="">
       <% Stock.all.each do |stock| %>
-        <div id="st-<%= stock.id %>" class="card-panel">
-          <h5 class="left">Total: <%= stock.of_item @item.id %></h5>
-          <%= link_to "Nova movimentação", new_stock_change_path(item_id: @item.id), class: "btn right" %>
-          <div style="clear: both; display: flex; flex-diretion: column; float: right; max-width: 400px;">
-            <%= form_tag change_location_item_path(@item.id), style: "display: flex" do %>
-              <%= hidden_field_tag :stock_id, stock.id %>
-              <%= text_field_tag :location, stock.location_of(@item.id), placeholder: "Localização" %>
-              <%= submit_tag "Salvar", class: "btn" %>
-            <% end %>
-          </div>
-          <table class="striped bordered">
-            <thead>
-              <tr>
-                <th data-field="name">Tipo</th>
-                <th data-field="name">Alteração</th>
-                <th data-field="name">Observação</th>
-                <th data-field="name">Data</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% StockChange.where(stock_id: stock.id, item_id: @item.id).order("created_at desc").last(100).each do |stock_change| %>
-                <tr>
-                  <td><%= stock_change.state.gsub("in", "Entrada").gsub("out", "Saída") %></td>
-                  <td style='color: <%= stock_change.state == "in" ? "green" : "red" %>'><%= stock_change.state == "in" ? "+" : "-" %><%= stock_change.quantity.to_f %></td>
-                  <td><%= stock_change.observation %></td>
-                  <td><%= l stock_change.created_at %></td>
-                </tr>
+        <% if (current_user.admin?) || (current_user.stock == stock) %>
+          <div id="st-<%= stock.id %>" class="card-panel">
+            <h5 class="left">Total: <%= stock.of_item @item.id %></h5>
+            <%= link_to "Nova movimentação", new_stock_change_path(item_id: @item.id), class: "btn right" %>
+            <div style="clear: both; display: flex; flex-diretion: column; float: right; max-width: 400px;">
+              <%= form_tag change_location_item_path(@item.id), style: "display: flex" do %>
+                <%= hidden_field_tag :stock_id, stock.id %>
+                <%= text_field_tag :location, stock.location_of(@item.id), placeholder: "Localização" %>
+                <%= submit_tag "Salvar", class: "btn" %>
               <% end %>
-            </tbody>
-          </table>
-        </div>
+            </div>
+            <table class="striped bordered">
+              <thead>
+                <tr>
+                  <th data-field="name">Tipo</th>
+                  <th data-field="name">Alteração</th>
+                  <th data-field="name">Observação</th>
+                  <th data-field="name">Data</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% StockChange.where(stock_id: stock.id, item_id: @item.id).order("created_at desc").last(100).each do |stock_change| %>
+                  <tr>
+                    <td><%= stock_change.state.gsub("in", "Entrada").gsub("out", "Saída") %></td>
+                    <td style='color: <%= stock_change.state == "in" ? "green" : "red" %>'><%= stock_change.state == "in" ? "+" : "-" %><%= stock_change.quantity.to_f %></td>
+                    <td><%= stock_change.observation %></td>
+                    <td><%= l stock_change.created_at %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
       <% end %>
       <div id="img-edit" class="card-panel">
         <%= render "form" %>
