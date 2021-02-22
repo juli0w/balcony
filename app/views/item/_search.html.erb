@@ -21,7 +21,7 @@
 
           <%= link_to "Por valor", "", 'data-target' => "byv_#{item.id}", class: "modal-trigger grey white-text", style: "vertical-align: top; padding: 3px; font-size: 9px;" %>
 
-          <% if current_user.admin? %>
+          <% if current_user.caixa? %>
             <%= link_to "Editar", edit_item_path(item), class: "grey white-text", target: "_blank", style: "vertical-align: top; padding: 3px; font-size: 9px;" %>
           <% end %>
         </span>
