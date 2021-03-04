@@ -9,7 +9,26 @@ class StockChangesController < ApplicationController
 
   def new
     @item = Item.find(params[:item_id])
-    @stock_change = StockChange.new(item_id: @item.id)
+
+    if params[:zerar]
+      @stock_id = params[:stock_id]
+      @stock = Stock.find(@stock_id)
+      quantity = @stock.of_item(@item.id)
+
+      in_out = quantity < 0 ? "in" : "out"
+
+      @stock_change = StockChange.create({
+        quantity: quantity.abs,
+        item_id: @item.id,
+        stock_id: @stock_id,
+        state: in_out,
+        observation: "AUTO: Reset"
+      }).push!
+
+      redirect_to [:edit, @item], notice: "Alteração feita com sucesso"
+    else
+      @stock_change = StockChange.new(item_id: @item.id)
+    end
   end
 
   def create

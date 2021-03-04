@@ -22,6 +22,7 @@
           <div id="st-<%= stock.id %>" class="card-panel">
             <h5 class="left">Total: <%= stock.of_item @item.id %></h5>
             <%= link_to "Nova movimentação", new_stock_change_path(item_id: @item.id), class: "btn right" %>
+            <%= link_to "Zerar", new_stock_change_path(item_id: @item.id, zerar: true, stock_id: stock.id), confirm: "Deseja mesmo zerar esse item?", style: "margin-right: 5px", class: "btn grey lighten-1 right" %>
             <div style="clear: both; display: flex; flex-diretion: column; float: right; max-width: 400px;">
               <%= form_tag change_location_item_path(@item.id), style: "display: flex" do %>
                 <%= hidden_field_tag :stock_id, stock.id %>
