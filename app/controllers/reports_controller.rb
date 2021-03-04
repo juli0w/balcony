@@ -9,23 +9,29 @@ class ReportsController < ApplicationController
       date = params[:date].to_date
     end
 
-    @days = ((date-30.days).to_date..date.to_date).to_a
+    if params[:from].blank?
+      from = date-1.month
+    else
+      from = params[:from].to_date
+    end
+
+    @days = (from.to_date..date.to_date).to_a
     # @values = Order.paid.where("created_at >= ? and created_at <= ?", date-30.days, date).
     # group_by(&:created_at)
 
     @orders = Order.paid.where("created_at > ? and created_at < ?", date.beginning_of_day, date.end_of_day).group_by(&:user)
     @orders_total = Order.paid.where("created_at > ? and created_at < ?",date.beginning_of_day, date.end_of_day).sum(&:total)
-    @orders_last_month = Order.paid.where("created_at >= ? and created_at <= ?", (date - 1.month).beginning_of_day, (date - 1.month).end_of_day).sum{|o| o.total || 0 }
+    @orders_last_month = Order.paid.where("created_at >= ? and created_at <= ?", (from - 1.month).beginning_of_day, (date - 1.month).end_of_day).sum{|o| o.total || 0 }
 
-    @orders_by_month = Order.paid.where("created_at > ? and created_at < ?", date.at_beginning_of_month, date.at_end_of_month).group_by(&:user)
-    @orders_by_month_total = Order.paid.where("created_at >= ? and created_at <= ?", date.at_beginning_of_month, date.at_end_of_month).sum(&:total)
-    @orders_by_last_month = Order.paid.where("created_at >= ? and created_at <= ?", (date - 1.month).at_beginning_of_month, (date - 1.month).at_end_of_month).sum{|o| o.total || 0 }
+    @orders_by_month = Order.paid.where("created_at > ? and created_at < ?", from.beginning_of_day, date.end_of_day).group_by(&:user)
+    @orders_by_month_total = Order.paid.where("created_at >= ? and created_at <= ?", from.beginning_of_day, date.end_of_day).sum(&:total)
+    @orders_by_last_month = Order.paid.where("created_at >= ? and created_at <= ?", (from - 1.month).beginning_of_day, (date - 1.month).end_of_day).sum{|o| o.total || 0 }
 
     @orders_seller_by_today = Order.paid.not_db.where("created_at > ? and created_at < ?", date.beginning_of_day, date.end_of_day).group_by(&:seller)
-    @orders_seller_by_month = Order.paid.not_db.where("created_at >= ? and created_at <= ?", date.at_beginning_of_month, date.at_end_of_month).group_by(&:seller)
+    @orders_seller_by_month = Order.paid.not_db.where("created_at >= ? and created_at <= ?", from.beginning_of_day, date.end_of_day).group_by(&:seller)
 
     @orders_client_by_today = Order.paid.where("created_at > ? and created_at < ?", date.beginning_of_day, date.end_of_day).order("total desc").first(20).group_by(&:client)
-    @orders_client_by_month = Order.paid.where("created_at >= ? and created_at <= ?", date.at_beginning_of_month, date.at_end_of_month).order("total desc").first(20).group_by(&:client)
+    @orders_client_by_month = Order.paid.where("created_at >= ? and created_at <= ?", from.beginning_of_day, date.end_of_day).order("total desc").first(20).group_by(&:client)
 
     @data = {
       labels: @days.map{|v| l(v.to_date)},# @values.keys.map{|v| l(v.to_date)},
