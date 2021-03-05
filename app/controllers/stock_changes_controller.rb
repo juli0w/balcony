@@ -15,10 +15,10 @@ class StockChangesController < ApplicationController
       @stock = Stock.find(@stock_id)
       quantity = @stock.of_item(@item.id)
 
-      in_out = quantity < 0 ? "in" : "out"
+      in_out = quantity.to_d < 0 ? "in" : "out"
 
       @stock_change = StockChange.create({
-        quantity: quantity.abs,
+        quantity: quantity.to_d.abs,
         item_id: @item.id,
         stock_id: @stock_id,
         state: in_out,
