@@ -4,7 +4,7 @@ class Stock < ApplicationRecord
   has_many :stock_locations
 
   def of_item item_id
-    StockItem.where(stock_id: self.id, item_id: item_id).sum{|s| s.quantity.to_d }
+    StockItem.where(stock_id: self.id, item_id: item_id).sum{|s| (s.quantity || 0) }
   end
 
   def location_of item_id
