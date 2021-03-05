@@ -41,7 +41,7 @@
               </thead>
 
               <tbody>
-                <% StockChange.where(stock_id: stock.id, item_id: @item.id).order("created_at desc").last(100).each do |stock_change| %>
+                <% StockChange.where(stock_id: stock.id, item_id: @item.id).order("created_at desc").first(100).each do |stock_change| %>
                   <tr>
                     <td><%= stock_change.state.gsub("in", "Entrada").gsub("out", "Saída") %></td>
                     <td style='color: <%= stock_change.state == "in" ? "green" : "red" %>'><%= stock_change.state == "in" ? "+" : "-" %><%= stock_change.quantity.to_f %></td>
