@@ -115,8 +115,10 @@ private
       group    = Group.where(code: i.xpath("grupo").text).first
       subgroup = Subgroup.where(code: i.xpath("subgrupo").text).first
 
-      barcode = i.xpath("codigosdebarra/codigobarra").first.xpath("codigo").text
-
+      barcodes = i.xpath("codigosdebarra/codigobarra").try(:first)
+      if barcodes
+        item.barcode = barcodes.xpath("codigo").text
+      end
       # update item values
       # item.name      = i.xpath("descricao").text.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '*')
       item.name      = i.xpath("descricao").text.gsub("✓", "***").gsub("✔", "***")
@@ -125,7 +127,7 @@ private
       item.subgroup_id = subgroup.try(:id)
       item.price  = i.xpath("precovenda").text
       item.active = (i.xpath("ativo").text == "true")
-      item.barcode = barcode
+      # item.barcode = barcode
 
       item.save
     end
