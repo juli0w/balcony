@@ -115,6 +115,8 @@ private
       group    = Group.where(code: i.xpath("grupo").text).first
       subgroup = Subgroup.where(code: i.xpath("subgrupo").text).first
 
+      barcode = i.xpath("codigosdebarra/codigobarra").first.xpath("codigo").text
+
       # update item values
       # item.name      = i.xpath("descricao").text.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '*')
       item.name      = i.xpath("descricao").text.gsub("✓", "***").gsub("✔", "***")
@@ -123,12 +125,14 @@ private
       item.subgroup_id = subgroup.try(:id)
       item.price  = i.xpath("precovenda").text
       item.active = (i.xpath("ativo").text == "true")
+      item.barcode = barcode
 
       item.save
     end
   end
 
   def self.import_family file
+    return unless file
     xml = Nokogiri::XML(File.open(file.tempfile))
     xml.xpath("familias/familia").each do |item|
       Family.first_or_create(code: item['id'].to_i,
@@ -137,6 +141,7 @@ private
   end
 
   def self.import_group file
+    return unless file
     xml = Nokogiri::XML(File.open(file.tempfile))
     xml.xpath("grupos/grupo").each do |item|
       Group.where(code: item['id'].to_i).
@@ -145,6 +150,7 @@ private
   end
 
   def self.import_subgroup file
+    return unless file
     xml = Nokogiri::XML(File.open(file.tempfile))
     xml.xpath("subgrupos/subgrupo").each do |item|
       Subgroup.where(code: item['id'].to_i).
