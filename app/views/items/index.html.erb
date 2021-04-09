@@ -20,11 +20,14 @@
               <%#= link_to "Sem imagem", items_path(noimage: 'noimage'), class: "btn right" %>
 
               <div class="right">
+                <%= link_to "Entrada de nota", nfe_items_path, style: "margin-right: 20px;", class: "left btn large blue" %>
+
                 <%= select_tag :stock_id,
                       options_from_collection_for_select(Stock.all, :id, :name, params[:stock_id]),
                       include_blank: false,
                       prompt: "Modo inventário",
-                      id: "modoInventario" %>
+                      id: "modoInventario",
+                      class: "right" %>
               </div>
           </fieldset>
         <% end %>

@@ -150,14 +150,18 @@ class ReportsController < ApplicationController
 
   def items
     if params[:item].present?
-      @date = Date.today
+      @date = params[:start].to_date || Date.today
+
+      beginning = @date.beginning_of_month
+      ending = Date.today.end_of_month
+
       @orders = OrderItem.joins(:item).where("
         items.name LIKE ? and
         order_items.created_at > ? and
         order_items.created_at < ?",
           "%#{params[:item]}%",
-        @date.beginning_of_month,
-        @date.end_of_month).collect(&:order).uniq
+        beginning,
+        ending).collect(&:order).uniq
     end
   end
 

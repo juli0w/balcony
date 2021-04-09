@@ -25,6 +25,17 @@ class ItemsController < ApplicationController
     @items = @items.page(params[:page]).order(:name)
   end
 
+  def nfe
+  end
+
+  def import_nfe
+    @nfe = params[:nfe]
+
+    Nfe.import!(@nfe)
+
+    redirect_to items_path, notice: "Nota importada!"
+  end
+
   def change_location
     sl = StockLocation.where(item_id: @item.id, stock_id: params[:stock_id]).first_or_create
     sl.update(location: params[:location])

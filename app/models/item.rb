@@ -14,6 +14,7 @@ class Item < ApplicationRecord
   search_scope :search do
     attributes :name
     attributes :code
+    attributes :barcode
     attributes :family => ["family.name"]
     attributes :group => ["group.name"]
     attributes :subgroup => ["subgroup.name"]

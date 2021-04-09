@@ -89,6 +89,8 @@ Rails.application.routes.draw do
     end
     collection do
       get :print
+      get :nfe
+      post :import_nfe
     end
   end
   
