@@ -150,7 +150,7 @@ class ReportsController < ApplicationController
 
   def items
     if params[:item].present?
-      @date = params[:start].to_date || Date.today
+      @date = params[:start].try(:to_date) || Date.today
 
       beginning = @date.beginning_of_month
       ending = Date.today.end_of_month
