@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_filter :set_item, only: [:edit, :update, :change_location]
   before_action :authenticate_user!
-  before_action :authenticate_caixa!
+  before_action :authenticate_vendedor!
 
   def index
     if params[:keyword].present?
