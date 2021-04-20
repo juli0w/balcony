@@ -1,4 +1,9 @@
 <div class="container">
+<% flash.each do |name, msg| %>
+  <div class="card-panel">
+    <%= msg %>
+  </div>
+<% end %>
   <div class="row">
     <div class="col s12">
       <div class="card-panel">
@@ -8,6 +13,13 @@
           <div class="input-field col s12">
             Nota XML<br />
             <%= file_field_tag :nfe, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s3">
+            <%= select_tag :stock_id, options_from_collection_for_select(Stock.all, :id, :name) %>
+            <%= label_tag :stock_id, "Loja" %>
           </div>
         </div>
 

@@ -30,10 +30,18 @@ class ItemsController < ApplicationController
 
   def import_nfe
     @nfe = params[:nfe]
+    @stock_id = params[:stock_id]
 
-    Nfe.import!(@nfe)
+    result = Nfe.import!(@nfe, @stock_id)
 
-    redirect_to items_path, notice: "Nota importada!"
+    if result.count > 0
+      notice = "Alguns itens não foram importados:<br>#{result.join('<br>')}".html_safe
+      redirect_to :back, notice: notice
+    else
+      notice = "Importação concluída com sucesso"
+      redirect_to items_path, notice: notice
+    end
+    
   end
 
   def change_location
