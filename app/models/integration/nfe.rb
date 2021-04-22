@@ -27,13 +27,13 @@ class Nfe
                 if @i.blank?
                     x << "#{item} (EAN #{barcode})"
                 else
-                    @stock_change = StockChange.first_or_create({
+                    @stock_change = StockChange.where({
                         quantity: quantity.to_d.abs,
                         item_id: @i.id,
                         stock_id: stock_id,
                         state: "in",
                         observation: "AUTO: Importação NFE - #{nf}"
-                    }).push!
+                    }).first_or_create.push!
                 end
             end
         end
