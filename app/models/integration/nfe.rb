@@ -25,7 +25,7 @@ class Nfe
                 @i = Item.where(barcode: barcode).first
 
                 if @i.blank?
-                    x << item
+                    x << "#{item} (EAN #{barcode})"
                 else
 
                     @stock_change = StockChange.first_or_create({
