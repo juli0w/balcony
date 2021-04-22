@@ -13,7 +13,7 @@ class Nfe
         xml = Nokogiri::XML(File.open(nfe.tempfile))
         x=[]
 
-        empresa = xml.css("xFant").text
+        # empresa = xml.css("xFant").text
         nf = xml.css("nNF").text
 
         xml.css("det").each do |node|
@@ -27,13 +27,12 @@ class Nfe
                 if @i.blank?
                     x << "#{item} (EAN #{barcode})"
                 else
-
                     @stock_change = StockChange.first_or_create({
                         quantity: quantity.to_d.abs,
                         item_id: @i.id,
                         stock_id: stock_id,
                         state: "in",
-                        observation: "AUTO: Importação NFE - #{empresa} - #{nf}"
+                        observation: "AUTO: Importação NFE - #{nf}"
                     }).push!
                 end
             end
