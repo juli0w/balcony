@@ -20,11 +20,14 @@
               <%#= link_to "Sem imagem", items_path(noimage: 'noimage'), class: "btn right" %>
 
               <div class="right">
+                <%= link_to "Entrada de nota", nfe_items_path, style: "margin-right: 20px;", class: "left btn large blue" %>
+
                 <%= select_tag :stock_id,
                       options_from_collection_for_select(Stock.all, :id, :name, params[:stock_id]),
                       include_blank: false,
                       prompt: "Modo inventário",
-                      id: "modoInventario" %>
+                      id: "modoInventario",
+                      class: "right" %>
               </div>
           </fieldset>
         <% end %>
@@ -38,6 +41,7 @@
             <th data-field="img"></th>
             <th data-field="id"></th>
             <th data-field="name">Nome</th>
+            <th data-field="barcode"></th>
             <th data-field="name">Estoque</th>
             <th data-field="actions"></th>
           </tr>
@@ -50,6 +54,7 @@
               <td><%= image_tag item.image, class: "circle materialboxed", style: "width: 60px; height: 60px; border-radius: 0% !important;" %></td>
               <td><%= item.code %></td>
               <td><%= item.name %></td>
+              <td><%= item.barcode %></td>
               <% unless params[:stock_id].blank? %>
                 <td>
                   <p style="line-height: 12px; margin: 0; padding-bottom:8px;"><%= "#{@stock.name}: #{@stock.of_item(item.id)}" %>

@@ -14,9 +14,13 @@ class Item < ApplicationRecord
   search_scope :search do
     attributes :name
     attributes :code
+    attributes :barcode
     attributes :family => ["family.name"]
     attributes :group => ["group.name"]
     attributes :subgroup => ["subgroup.name"]
+
+    options :barcode, left_wildcard: false
+    options :barcode, right_wildcard: false
   end
 
   def final_price

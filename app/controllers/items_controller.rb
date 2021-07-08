@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_filter :set_item, only: [:edit, :update, :change_location]
   before_action :authenticate_user!
-  before_action :authenticate_caixa!
+  before_action :authenticate_vendedor!
 
   def index
     if params[:keyword].present?
@@ -23,6 +23,25 @@ class ItemsController < ApplicationController
     end
 
     @items = @items.page(params[:page]).order(:name)
+  end
+
+  def nfe
+  end
+
+  def import_nfe
+    @nfe = params[:nfe]
+    @stock_id = params[:stock_id]
+
+    result = Nfe.import!(@nfe, @stock_id)
+
+    if result.count > 0
+      notice = "Alguns itens não foram importados:<br>#{result.join('<br>')}".html_safe
+      redirect_to :back, notice: notice
+    else
+      notice = "Importação concluída com sucesso"
+      redirect_to items_path, notice: notice
+    end
+    
   end
 
   def change_location

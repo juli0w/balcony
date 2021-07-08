@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210707110355) do
+ActiveRecord::Schema.define(version: 20210408130356) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20210707110355) do
     t.datetime "updated_at",                                            null: false
     t.string   "image"
     t.decimal  "virtual_price", precision: 10, scale: 2
+    t.string   "barcode"
     t.index ["code"], name: "index_items_on_code", unique: true
     t.index ["family_id"], name: "index_items_on_family_id"
     t.index ["group_id"], name: "index_items_on_group_id"

@@ -1,0 +1,35 @@
+<div class="container">
+<% flash.each do |name, msg| %>
+  <div class="card-panel">
+    <%= msg %>
+  </div>
+<% end %>
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel">
+        <h5>Entrada de NF-e</h5>
+        <%= form_tag import_nfe_items_path, multipart: true do %>
+        <div class="row">
+          <div class="input-field col s12">
+            Nota XML<br />
+            <%= file_field_tag :nfe, class: "round full-width-input" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s3">
+            <%= select_tag :stock_id, options_from_collection_for_select(Stock.all, :id, :name, params[:stock_id]) %>
+            <%= label_tag :stock_id, "Loja" %>
+          </div>
+        </div>
+
+        <div class="section">
+          <%= button_tag type: "submit", name: "action", class: "btn" do %>
+            <i class="material-icons right">send</i>Enviar
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
