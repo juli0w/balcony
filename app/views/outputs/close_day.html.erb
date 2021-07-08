@@ -28,8 +28,10 @@
       injecoes = @injecoes.where(stock_id: user.stock_id)
       descontos = orders.select {|o| o.money? }.sum{|o| o.get_discount.to_f }
       shippings = orders.select {|o| o.money? }.sum{|o| o.shipping.to_f }
+      pix = orders.select {|o| o.pix?}
       boletos = orders.select {|o| o.boleto? }
       total_boleto = boletos.sum(&:total_discounted)
+      total_pix   = orders.sum(&:c_total_pix)# -
       @money = orders.sum(&:total_cash)# - total_boleto
       caixa_inicial = CloseDay.where(stock_id: user.stock_id, day: @day).first.try(:initial) || 0
       caixa_final = CloseDay.where(stock_id: user.stock_id, day: @day).first.try(:final) || 0
@@ -87,6 +89,14 @@
                 <td width="50%">Caixa inicial</td>
                 <td width="25%"></td>
                 <td width="25%"><%= number_to_currency caixa_inicial %></td>
+            </tr>
+
+            <tr style="cursor: pointer;" class="highlightHover">
+                <td width="50%">Pix</td>
+                <td width="25%"></td>
+                <td width="45%">
+                  <%= number_to_currency total_pix %>
+                </td>
             </tr>
 
             <tr style="cursor: pointer;" class="highlightHover" onclick="$('#boletos-'+<%= user.id %>).slideToggle(200);">

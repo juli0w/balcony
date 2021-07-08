@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
            :setboleto,
            :gerar_boleto,
            :setcc,
+           :setpix,
            :digital,
            :check_order, :destroy, :print, :pay, :pay_with_cash, :cancel, :open, :quote]
   
@@ -114,6 +115,21 @@ class OrdersController < ApplicationController
     credito = wparams[:credito]
 
     @order.update(cc_value: ccvalue, boleto_value: 0, credito: credito)
+
+    flash[:success] = "Pedido alterado"
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+  def setpix
+    wparams = params.require(:order).permit(:total_pix)
+
+    total_pix = wparams[:total_pix]
+
+    @order.update(total_pix: total_pix)
 
     flash[:success] = "Pedido alterado"
 

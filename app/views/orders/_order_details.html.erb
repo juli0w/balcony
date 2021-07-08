@@ -30,6 +30,13 @@
                  <%= number_to_currency(order.total_cash) %>
              </div>
 
+             <% if order.total_pix.to_f > 0 %>
+             <div style="width: 140px; float: left">
+                 <span class="titled">Pix:<br></span>
+                 <%= number_to_currency(order.total_pix) %>
+             </div>
+             <% end %>
+
              <% if order.boleto? %>
              <div style="width: 140px; float: left">
                  <span class="titled">Forma de pagamento:<br></span>

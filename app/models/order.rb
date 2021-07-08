@@ -19,6 +19,7 @@ class Order < ApplicationRecord
   scope :canceled, -> { where(state: "canceled") }
   scope :opened_and_quote, -> { where("state = ? or state = ? or state = ?", "open", "quote", "pending") }
   scope :boletos, -> { where(boleto: true) }
+  scope :pix, -> { where(pix: true) }
   scope :not_empty, -> { where.not(state: "") }
   scope :not_db, -> { where.not(user_id: 33) }
 
@@ -72,6 +73,10 @@ class Order < ApplicationRecord
 
   def boleto?
     self.boleto
+  end
+
+  def pix?
+    self.pix
   end
 
   def open!
@@ -261,7 +266,11 @@ class Order < ApplicationRecord
     calculate_total + shipping.to_f - discount.to_f
   end
 
+  def c_total_pix
+    total_pix.to_f
+  end
+
   def total_cash
-    total_discounted - cc_value.to_f - boleto_value.to_f - cashed.to_f
+    total_discounted - cc_value.to_f - boleto_value.to_f - cashed.to_f - total_pix.to_f
   end
 end

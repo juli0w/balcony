@@ -6,6 +6,22 @@
     <div style="
         display: flex;
         align-items: center;
+        margin-top: 12px;">
+        <img src="imagens/pix.png" width="25px" />
+        <h5 style="font-size: 16px; margin-left: 12px;">Valor no pix:</h5>
+    </div>
+    <%= form_for [:setpix, order], method: :put, remote: true do |f| %>
+        R$ <%= f.number_field :total_pix, step: 0.01,
+                style: "width: 60px;" %>
+
+        <button class="btn waves-effect waves-light light-green" type="submit" name="action">
+            <i class="material-icons left">save</i> Salvar
+        </button>
+    <% end %>
+    
+    <div style="
+        display: flex;
+        align-items: center;
         margin: 20px 0;">
 
         <div class='switch'>

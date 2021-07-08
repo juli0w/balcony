@@ -97,6 +97,7 @@ Rails.application.routes.draw do
     member do
       post :edit_obs
       put :setcc
+      put :setpix      
       put :setboleto
       put :setcash
       post :pay
