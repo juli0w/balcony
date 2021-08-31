@@ -5,7 +5,8 @@ class Output < ApplicationRecord
   TYPES = {
     "Envelope" => 0,
     "Despesa" => 1,
-    "Injeção" => 2
+    "Injeção" => 2,
+    "Vale" => 3
   }
 
   def value
