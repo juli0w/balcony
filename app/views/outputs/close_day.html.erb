@@ -26,6 +26,7 @@
       envelopes = @envelopes.where(stock_id: user.stock_id)
       despesas = @despesas.where(stock_id: user.stock_id)
       injecoes = @injecoes.where(stock_id: user.stock_id)
+      vales = @vales.where(stock_id: user.stock_id)
       descontos = orders.select {|o| o.money? }.sum{|o| o.get_discount.to_f }
       shippings = orders.select {|o| o.money? }.sum{|o| o.shipping.to_f }
       pix = orders.select {|o| o.pix?}
@@ -187,6 +188,18 @@
                 </td>
             </tr>
 
+            <tr class="green lighten-4 highlightHover" style="cursor: pointer;" onclick="$('#vales-'+<%= user.id %>).slideToggle(200);">
+                <td width="50%">Vales</td>
+                <td width="25%"><%= vales.count %></td>
+                <td width="25%"><%= number_to_currency (vales.sum(&:value)) %></td>
+            </tr>
+
+            <tr id="vales-<%= user.id %>" style="display: none;">
+                <td colspan='4'>
+                    <%= render "outputs", { user: user, outputs: vales } %>
+                </td>
+            </tr>
+
             <tr class="yellow lighten-3">
                 <td width="50%">Caixa final</td>
                 <td width="25%"></td>
@@ -196,7 +209,7 @@
             <tr class="blue-grey lighten-4">
                 <td width="50%">Diferença</td>
                 <td width="25%"></td>
-                <td width="25%"><%= number_to_currency (caixa_inicial + @money - despesas.sum(&:value) - envelopes.sum(&:value) + injecoes.sum(&:value) - caixa_final) %></td>
+                <td width="25%"><%= number_to_currency (caixa_inicial + @money - despesas.sum(&:value) - envelopes.sum(&:value) - vales.sum(&:value) + injecoes.sum(&:value) - caixa_final) %></td>
             </tr>
 
 

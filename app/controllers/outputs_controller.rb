@@ -55,10 +55,10 @@ class OutputsController < ApplicationController
       @day.beginning_of_day,
       @day.end_of_day)
     
-    @envelopes = @outputs.where("output_type != 1 and output_type != 2 or output_type = 0")
+    @envelopes = @outputs.where("output_type != 1 and output_type != 2 and output_type != 3 or output_type = 0")
     @despesas = @outputs.where(output_type: 1)
     @injecoes = @outputs.where(output_type: 2)
-
+    @vales = @outputs.where(output_type: 3)
     
     @orders = Order.
     paid.
